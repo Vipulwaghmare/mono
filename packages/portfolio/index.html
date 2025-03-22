@@ -4,7 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="index.css" />
-    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:wght@100..900&family=Raleway:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Vipul Waghmare Portfolio</title>
   </head>
   <body>
     <div class="portfolio_container">
@@ -172,22 +178,78 @@
                 </a>
               </div>
             </div>
-            <form>
+            <form id="contact-form" onsubmit="sendContactForm(event)">
               <div class="user_data">
-                <input type="text" placeholder="Your Name" />
-                <input type="email" placeholder="Your Email" />
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Your Name"
+                />
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Your Email"
+                />
               </div>
-              <input type="text" placeholder="Subject" />
-              <textarea placeholder="Write your message here..."></textarea>
-              <p class="success"></p>
-              <p class="error"></p>
-              <button class="primary_button">
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                placeholder="Subject"
+              />
+              <textarea
+                id="message"
+                name="message"
+                placeholder="Write your message here..."
+              ></textarea>
+              <p data-msg="form-success"></p>
+              <p data-msg="form-error"></p>
+              <button class="primary_button" type="submit">
                 Send Message
                 <div>
                   <SendIcon />
                 </div>
               </button>
             </form>
+
+            <script>
+              async function sendContactForm(e) {
+                e.preventDefault();
+                const form = document.getElementById("contact-form");
+                const formData = new FormData(form);
+                const data = {};
+                formData.forEach((value, key) => {
+                  data[key] = value;
+                });
+                const jsonData = JSON.stringify(data);
+                try {
+                  const response = await fetch(
+                    "https://api.vipulwaghmare.com/contact-me/",
+                    {
+                      method: "POST",
+                      body: jsonData,
+                    },
+                  );
+                  if (response.ok) {
+                    console.log("aa");
+                    document.querySelector(
+                      "[data-msg=form-success]",
+                    ).innerText = "Message sent successfully!";
+                  } else {
+                    console.log("bb");
+                    document.querySelector(
+                      "[data-msg=form-success]",
+                    ).innerText = "Error sending message!";
+                  }
+                } catch (e) {
+                  console.log("cc");
+                  document.querySelector("[data-msg=form-success]").innerText =
+                    "Error sending message!";
+                }
+              }
+            </script>
           </div>
         </section>
       </main>

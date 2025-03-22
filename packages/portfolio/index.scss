@@ -16,9 +16,13 @@ div#root,
 .full-height {
   height: 100%;
 }
+body {
+  font-family: "Montserrat", sans-serif;
+}
 a {
   color: #0060b6;
   text-decoration: none;
+  font-family: "Inter", sans-serif;
   &:hover {
     color: #00a0c6;
     text-decoration: none;

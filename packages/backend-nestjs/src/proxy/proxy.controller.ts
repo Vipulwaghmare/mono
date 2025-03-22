@@ -1,19 +1,19 @@
 import { All, Controller, Next, Req, Res } from '@nestjs/common';
-import { fixRequestBody, legacyCreateProxyMiddleware } from 'http-proxy-middleware';
+import { fixRequestBody, createProxyMiddleware } from 'http-proxy-middleware';
 
-const proxy = legacyCreateProxyMiddleware({
-  target: 'http://127.0.0.1:8000',
-  changeOrigin: false, // Ensures correct Host header
-  pathRewrite: (path, req) => path.replace(/^\/proxy/, ''), // Removes "/proxy" from path
+const proxy = createProxyMiddleware({
+  target: 'https://9ec4a2d6.personal-portfolio-62x.pages.dev/',
+  changeOrigin: true, // Ensures correct Host header
+  pathRewrite: (path, req) => path.replace(/^\/portfolio/, ''), // Removes "/portfolio" from path
   on: {
     proxyReq: fixRequestBody,
-  },
-  onError: (err, req, res) => {
-    console.error('Proxy error:', err);
+    error: (err, req, res) => {
+      console.error(err);
+    }
   },
 })
 
-@Controller('proxy')
+@Controller('portfolio')
 export class ProxyController {
 
   constructor() {
@@ -22,8 +22,6 @@ export class ProxyController {
 
   @All('*')
   get(@Req() req, @Res() res, @Next() next) {
-    console.log('wow')
-
     proxy(req, res, next)
   }
 }
