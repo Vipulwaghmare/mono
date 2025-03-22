@@ -1,0 +1,16 @@
+{
+  "name": "api-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "openapi-generator-cli generate -g typescript-axios -i ./swagger.json -o ./src -t ./src/template"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@openapitools/openapi-generator-cli": "^2.17.0",
+    "typescript": "^5.8.2"
+  }
+}
