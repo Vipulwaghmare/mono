@@ -17,18 +17,49 @@ import {
 } from "@/components/ui/card";
 import { Play, Pause, RefreshCw } from "lucide-react";
 
+const useIsSorting = (initialValue = false) => {
+  const sortingRef = useRef<boolean>(initialValue);
+  const [isSorting, _setIsSorting] = useState<boolean>(initialValue);
+
+  const setIsSorting = (value: boolean) => {
+    sortingRef.current = value;
+    _setIsSorting(value);
+  };
+
+  return {
+    isSorting,
+    setIsSorting,
+    sortingRef,
+  };
+};
+
+const useSortingSpeed = (initialValue: number = 50) => {
+  const sortingSpeedRef = useRef<number>(initialValue);
+  const [sortingSpeed, _setSortingSpeed] = useState<number>(initialValue);
+
+  const setSortingSpeed = (value: number) => {
+    sortingSpeedRef.current = value;
+    _setSortingSpeed(value);
+  };
+
+  return {
+    sortingSpeed,
+    setSortingSpeed,
+    sortingSpeedRef,
+  };
+};
+
 export default function SortingVisualizer() {
   const [array, setArray] = useState<number[]>([]);
   const [arraySize, setArraySize] = useState<number>(50);
-  const [sortingSpeed, setSortingSpeed] = useState<number>(50);
   const [algorithm, setAlgorithm] = useState<string>("bubble");
-  const [isSorting, setIsSorting] = useState<boolean>(false);
   const [isSorted, setIsSorted] = useState<boolean>(false);
   const [currentIndices, setCurrentIndices] = useState<number[]>([-1, -1]);
   const [comparisonCount, setComparisonCount] = useState<number>(0);
   const [swapCount, setSwapCount] = useState<number>(0);
+  const { isSorting, setIsSorting, sortingRef } = useIsSorting();
+  const { sortingSpeedRef, sortingSpeed, setSortingSpeed } = useSortingSpeed();
 
-  const sortingRef = useRef<boolean>(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Generate a new random array
@@ -67,7 +98,7 @@ export default function SortingVisualizer() {
 
   // Calculate delay based on sorting speed
   const getDelay = () => {
-    return 500 - sortingSpeed * 4.9; // 500ms at speed 1, 10ms at speed 100
+    return 500 - sortingSpeedRef.current * 4.9; // 500ms at speed 1, 10ms at speed 100
   };
 
   // Bubble Sort Algorithm
