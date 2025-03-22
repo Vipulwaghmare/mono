@@ -1,50 +1,24 @@
-# React + TypeScript + Vite
+# Sorting Algorithm Visualizer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a sorting algorithm visualizer project. It is a web application that allows users to visualize the process of sorting algorithms. The application is built using React and TypeScript.
 
-Currently, two official plugins are available:
+The application allows users to select a sorting algorithm from a list, and then visualize the process of sorting a list of numbers. The user can also adjust the speed of the visualization and the size of the list.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The application is responsive and can be used on a variety of devices, including desktops, laptops, tablets, and smartphones.
 
-## Expanding the ESLint configuration
+The application is built using the following technologies:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- React: A JavaScript library for building user interfaces.
+- TypeScript: A typed superset of JavaScript that compiles to plain JavaScript.
+- Tailwind CSS: A utility-first CSS framework for rapidly building custom user interfaces.
+- Shadcn: A React UI library for components.
 
-- Configure the top-level `parserOptions` property like this:
+The application is built using the following sorting algorithms:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- Bubble Sort
+- Insertion Sort
+- Selection Sort
+- Merge Sort
+- Quick Sort
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+The application is designed to be easy to use and understand. The user can select a sorting algorithm and then visualize the process of sorting a list of numbers. The user can also adjust the speed of the visualization and the size of the list.
