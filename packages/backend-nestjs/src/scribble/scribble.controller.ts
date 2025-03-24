@@ -3,7 +3,7 @@ import { ApiOkResponse, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { v4 as uuidv4 } from 'uuid';
 import { createRoomApiResOptions, CreateRoomDto } from './dtos/create-room.dto';
 import { joinRoomApiResOptions, JoinRoomDto } from './dtos/join-room.dto';
-import { validationApiResOptions } from 'src/dto/validation-error.dto';
+import { validationApiResOptions } from '../dto/validation-error.dto';
 
 @Controller('scribble')
 export class ScribbleController {
