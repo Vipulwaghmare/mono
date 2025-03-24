@@ -273,7 +273,7 @@ export default function DrawingCanvas({
     if (!ctx) return;
 
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    const data = imageData.data;
+    // const data = imageData.data;
     const width = canvas.width;
     const height = canvas.height;
 

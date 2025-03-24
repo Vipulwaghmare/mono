@@ -124,7 +124,7 @@ export default function Room() {
         text.toLowerCase() === gameState.currentWord.toLowerCase() &&
         !isDrawing
       ) {
-        newMessage.isCorrect = true;
+        // newMessage.isCorrect = true;
 
         // Update player scores
         setPlayers((prev) =>
