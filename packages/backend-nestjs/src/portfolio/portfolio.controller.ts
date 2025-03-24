@@ -14,7 +14,7 @@ const proxy = createProxyMiddleware({
 })
 
 @Controller('portfolio')
-export class ProxyController {
+export class PortfolioController {
 
   constructor() {
 

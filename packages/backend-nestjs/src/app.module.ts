@@ -9,7 +9,8 @@ import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
 import { CryptoService } from './services/crypto.service';
 import { EmailService } from './services/email.service';
-import { ProxyController } from './proxy/proxy.controller';
+import { PortfolioController } from './portfolio/portfolio.controller';
+import { ScribbleController } from './scribble/scribble.controller';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { ProxyController } from './proxy/proxy.controller';
     UsersModule,
     AuthModule,
   ],
-  controllers: [AppController, AuthController, ProxyController],
+  controllers: [AppController, AuthController, PortfolioController, ScribbleController],
   providers: [AppService, CryptoService, EmailService],
 })
 export class AppModule { }
