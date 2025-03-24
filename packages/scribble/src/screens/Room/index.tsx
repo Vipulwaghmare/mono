@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import DrawingCanvas from "@/components/DrawingCanvas";
 import ChatSection from "@/components/ChatSection";

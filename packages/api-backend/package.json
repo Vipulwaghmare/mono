@@ -1,8 +1,13 @@
 {
-  "name": "api-backend",
+  "name": "@vipulwaghmare/apis",
+  "private": "true",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "files": [
+    "src"
+  ],
   "scripts": {
     "start": "openapi-generator-cli generate -g typescript-axios -i ./swagger.json -o ./src -t ./src/template"
   },

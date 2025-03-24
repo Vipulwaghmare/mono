@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import helmet from 'helmet';
-import * as fs from 'fs';
+// import * as fs from 'fs';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,6 +12,12 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe()
   );
+  app.enableCors({
+    origin: [
+      'http://localhost:5173',
+      'https://vipulwaghmare.com'
+    ],
+  })
   // Swagger Setup
   // Doesn't work on vercel
   const config = new DocumentBuilder()

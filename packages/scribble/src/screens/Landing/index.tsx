@@ -9,14 +9,36 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PencilLine, Users } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { CreateRoomDto, JoinRoomDto } from "@vipulwaghmare/apis";
+import api from "@/apis/instance";
 
 export default function Landing() {
+  const { mutate: mutateCreate } = useMutation<any, Error, CreateRoomDto>({
+    mutationFn: (body) => {
+      return api.scribbleControllerCreateRoom(body);
+    },
+  });
+
+  const { mutate: mutateJoin } = useMutation<any, Error, JoinRoomDto>({
+    mutationFn: (body) => {
+      return api.scribbleControllerJoinRoom(body);
+    },
+  });
+
   const onCreate = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
+    mutateCreate({
+      username: "vipul",
+    });
   };
 
   const onJoin = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
+    mutateJoin({
+      roomId: "550e8400-e29b-41d4-a716-446655440000",
+      username: "vipul",
+    });
   };
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-4 bg-gray-50">

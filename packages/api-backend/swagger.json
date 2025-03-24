@@ -1,153 +1,512 @@
 {
-  "openapi": "3.0.1",
-  "info": {
-    "title": "API Backend",
-    "description": "Basic API with get, post, put, delete examples",
-    "version": "1.0.0"
-  },
+  "openapi": "3.0.0",
   "paths": {
-    "/users": {
+    "/": {
       "get": {
-        "summary": "Get all users",
+        "operationId": "AppController_getHello",
+        "parameters": [],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              }
-            }
+            "description": ""
           }
-        }
-      },
+        },
+        "tags": ["App"]
+      }
+    },
+    "/auth/register": {
       "post": {
-        "summary": "Create a new user",
+        "operationId": "AuthController_register",
+        "parameters": [],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User Created Successfully"
+          },
+          "400": {
+            "description": "Validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Register User",
+        "tags": ["Auth"]
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "operationId": "AuthController_login",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Auth"]
+      }
+    },
+    "/auth/forgot-password": {
+      "post": {
+        "operationId": "AuthController_forgotPassword",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Auth"]
+      }
+    },
+    "/auth/reset-password": {
+      "post": {
+        "operationId": "AuthController_resetPassword",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated user password"
+          },
+          "400": {
+            "description": "Validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Auth"]
+      }
+    },
+    "/auth/update-password": {
+      "post": {
+        "operationId": "AuthController_updatePassword",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully updated user password"
+          },
+          "400": {
+            "description": "Validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Auth"]
+      }
+    },
+    "/portfolio/*": {
+      "get": {
+        "operationId": "PortfolioController_get_get",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Portfolio"]
+      },
+      "post": {
+        "operationId": "PortfolioController_get_post",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Portfolio"]
+      },
+      "put": {
+        "operationId": "PortfolioController_get_put",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Portfolio"]
+      },
+      "delete": {
+        "operationId": "PortfolioController_get_delete",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Portfolio"]
+      },
+      "patch": {
+        "operationId": "PortfolioController_get_patch",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Portfolio"]
+      },
+      "options": {
+        "operationId": "PortfolioController_get_options",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Portfolio"]
+      },
+      "head": {
+        "operationId": "PortfolioController_get_head",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Portfolio"]
+      }
+    },
+    "/scribble/create-room": {
+      "post": {
+        "operationId": "ScribbleController_createRoom",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRoomDto"
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": "Created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
+            "description": ""
           }
-        }
+        },
+        "summary": "Create a new room",
+        "tags": ["Scribble"]
       }
     },
-    "/users/{id}": {
-      "get": {
-        "summary": "Get a user by ID",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "summary": "Update a user",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
+    "/scribble/join-room": {
+      "post": {
+        "operationId": "ScribbleController_joinRoom",
+        "parameters": [],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/JoinRoomDto"
               }
             }
           }
         },
         "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Join a room",
+        "tags": ["Scribble"]
+      }
+    },
+    "/api/v1/message": {
+      "get": {
+        "operationId": "MessagesController_listMessages",
+        "parameters": [],
+        "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
+            "description": ""
+          }
+        },
+        "tags": ["Messages"]
+      },
+      "post": {
+        "operationId": "MessagesController_createMessage",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMessageDto"
               }
             }
           }
-        }
-      },
-      "delete": {
-        "summary": "Delete a user",
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": ["Messages"]
+      }
+    },
+    "/api/v1/message/{id}": {
+      "get": {
+        "operationId": "MessagesController_getMessage",
         "parameters": [
           {
             "name": "id",
-            "in": "path",
             "required": true,
+            "in": "path",
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           }
         ],
         "responses": {
-          "204": {
-            "description": "No Content"
+          "200": {
+            "description": ""
           }
-        }
+        },
+        "tags": ["Messages"]
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "operationId": "UsersController_getUser",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Users"]
       }
     }
   },
+  "info": {
+    "title": "Vipul Waghmare APIs",
+    "description": "All the APIs created",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
   "components": {
     "schemas": {
-      "User": {
+      "CreateUserDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer"
-          },
           "name": {
-            "type": "string"
+            "type": "string",
+            "example": "John Doe"
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "example": "john.doe@email.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "password@1234"
           }
         },
-        "required": ["id", "name", "email"]
+        "required": ["name", "email", "password"]
+      },
+      "ValidationError": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string",
+            "example": "field_name",
+            "description": "Field that caused the error"
+          },
+          "message": {
+            "type": "string",
+            "example": "Field is required",
+            "description": "Error message"
+          }
+        },
+        "required": ["field", "message"]
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "example": 400,
+            "description": "HTTP status code"
+          },
+          "error": {
+            "type": "string",
+            "example": "Bad Request",
+            "description": "Error type"
+          },
+          "details": {
+            "description": "List of validation errors",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        },
+        "required": ["statusCode", "error", "details"]
+      },
+      "LoginUserDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "john.doe@email.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "password@1234"
+          }
+        },
+        "required": ["email", "password"]
+      },
+      "ForgotPasswordDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "john.doe@email.com"
+          }
+        },
+        "required": ["email"]
+      },
+      "ResetPasswordDto": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "token-received-in-mail"
+          },
+          "password": {
+            "type": "string",
+            "example": "new.password@1234"
+          }
+        },
+        "required": ["token", "password"]
+      },
+      "UpdatePasswordDto": {
+        "type": "object",
+        "properties": {
+          "newPassword": {
+            "type": "string",
+            "example": "new.password@1234"
+          },
+          "password": {
+            "type": "string",
+            "example": "password@1234"
+          }
+        },
+        "required": ["newPassword", "password"]
+      },
+      "CreateRoomDto": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "John Doe"
+          }
+        },
+        "required": ["username"]
+      },
+      "JoinRoomDto": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "roomId": {
+            "type": "string",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          }
+        },
+        "required": ["username", "roomId"]
+      },
+      "CreateMessageDto": {
+        "type": "object",
+        "properties": {}
       }
     }
   }
