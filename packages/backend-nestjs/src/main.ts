@@ -3,7 +3,15 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import helmet from 'helmet';
+import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 // import * as fs from 'fs';
+
+const corsOrigin: CorsOptions['origin'] = [
+  /\.vipulwaghmare\.com$/,
+]
+if (process.env.NODE_ENV === 'development') {
+  corsOrigin.push('http://localhost:5173')
+}
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -13,10 +21,7 @@ async function bootstrap() {
     new ValidationPipe()
   );
   app.enableCors({
-    origin: [
-      'http://localhost:5173',
-      'https://vipulwaghmare.com'
-    ],
+    origin: corsOrigin,
   })
   // Swagger Setup
   // Doesn't work on vercel
