@@ -36,7 +36,7 @@ async function bootstrap() {
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   // Generate swagger file
-  if (isDevelopment) {
+  if (false) {
     fs.writeFileSync('./swagger.json', JSON.stringify(documentFactory(), null, 2));
     SwaggerModule.setup('api-docs', app, documentFactory);
   } else {
