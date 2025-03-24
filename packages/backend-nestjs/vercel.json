@@ -9,7 +9,7 @@
   "routes": [
     {
       "src": "/api-docs/(.*)",
-      "dest": "/api-docs/$1",
+      "dest": "src/main.ts",
       "headers": {
         "Cache-Control": "public, max-age=0, must-revalidate",
         "Content-Type": "application/javascript; charset=utf-8"
