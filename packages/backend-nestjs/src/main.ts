@@ -21,7 +21,7 @@ async function bootstrap() {
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   // Generate swagger file
-  fs.writeFileSync('./swagger.json', JSON.stringify(documentFactory(), null, 2));
+  // fs.writeFileSync('./swagger.json', JSON.stringify(documentFactory(), null, 2));
   SwaggerModule.setup('api-docs', app, documentFactory);
 
   await app.listen(process.env.PORT ?? 8080);
