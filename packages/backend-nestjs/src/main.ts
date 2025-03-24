@@ -4,12 +4,16 @@ import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import helmet from 'helmet';
 import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
-// import * as fs from 'fs';
+import * as swaggerUi from 'swagger-ui-express';
+import * as fs from 'fs';
+import * as path from 'path';
+
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 const corsOrigin: CorsOptions['origin'] = [
   /\.vipulwaghmare\.com$/,
 ]
-if (process.env.NODE_ENV === 'development') {
+if (isDevelopment) {
   corsOrigin.push('http://localhost:5173')
 }
 
@@ -32,8 +36,17 @@ async function bootstrap() {
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   // Generate swagger file
-  // fs.writeFileSync('./swagger.json', JSON.stringify(documentFactory(), null, 2));
-  SwaggerModule.setup('api-docs', app, documentFactory);
+  if (isDevelopment) {
+    fs.writeFileSync('./swagger.json', JSON.stringify(documentFactory(), null, 2));
+    SwaggerModule.setup('api-docs', app, documentFactory);
+  } else {
+    // ONLY HANDLING THIS WAY DUE TO VERCE SWAGGER ISSUE WITH STATIC FILE
+    const swaggerDocumentPath = path.join(__dirname, '..', 'swagger.json');
+    const swaggerDocument = JSON.parse(fs.readFileSync(swaggerDocumentPath, 'utf8'));
+
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+  }
 
   await app.listen(process.env.PORT ?? 8080);
 }
