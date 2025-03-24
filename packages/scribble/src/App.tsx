@@ -13,7 +13,8 @@ export default function App() {
         <QueryClientProvider client={queryClient}>
           <Routes>
             <Route path="/" element={<Landing />} />
-            <Route path="/room" element={<Room />} />
+            <Route path="/room/:roomId" element={<Room />} />
+            <Route path="/:id" element={<Landing />} />
           </Routes>
         </QueryClientProvider>
       </BrowserRouter>

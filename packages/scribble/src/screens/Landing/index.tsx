@@ -10,34 +10,61 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PencilLine, Users } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
-import { CreateRoomDto, JoinRoomDto } from "@vipulwaghmare/apis";
+import {
+  CreateRoomDto,
+  JoinRoomDto,
+  CreateRoomResponseDto,
+  JoinRoomResponseDto,
+} from "@vipulwaghmare/apis";
 import api from "@/apis/instance";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import { AxiosResponse } from "axios";
 
 export default function Landing() {
-  const { mutate: mutateCreate } = useMutation<any, Error, CreateRoomDto>({
+  const params = useParams();
+  const navigate = useNavigate();
+  const _roomId = params.id as string;
+  const [username, setUsername] = useState("");
+  const [roomId, setRoomId] = useState(_roomId || "");
+
+  const onSuccess = (roomId: string) => {
+    navigate(`/room/${roomId}`);
+  };
+  const { mutate: mutateCreate } = useMutation<
+    AxiosResponse<CreateRoomResponseDto, any>,
+    Error,
+    CreateRoomDto
+  >({
     mutationFn: (body) => {
       return api.scribbleControllerCreateRoom(body);
     },
+    onSuccess: (data) => onSuccess(data.data.roomId),
   });
 
-  const { mutate: mutateJoin } = useMutation<any, Error, JoinRoomDto>({
+  const { mutate: mutateJoin } = useMutation<
+    AxiosResponse<JoinRoomResponseDto, any>,
+    Error,
+    JoinRoomDto
+  >({
     mutationFn: (body) => {
       return api.scribbleControllerJoinRoom(body);
     },
+    onSuccess: (data) => onSuccess(data.data.roomId),
   });
 
   const onCreate = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutateCreate({
-      username: "vipul",
+      username,
     });
   };
 
   const onJoin = async (e: React.MouseEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutateJoin({
-      roomId: "550e8400-e29b-41d4-a716-446655440000",
-      username: "vipul",
+      roomId,
+      username,
     });
   };
   return (
@@ -72,12 +99,16 @@ export default function Landing() {
                       name="roomCode"
                       placeholder="Enter room code"
                       className="w-full"
+                      onChange={(e) => setRoomId(e.target.value)}
+                      value={roomId}
                     />
                     <Input
                       type="text"
                       name="playerName"
                       placeholder="Your nickname"
                       className="w-full"
+                      onChange={(e) => setUsername(e.target.value)}
+                      value={username}
                     />
                   </div>
                   <Button type="submit" className="w-full">
@@ -105,6 +136,8 @@ export default function Landing() {
                       name="playerName"
                       placeholder="Your nickname"
                       className="w-full"
+                      onChange={(e) => setUsername(e.target.value)}
+                      value={username}
                     />
                   </div>
                   <Button type="submit" className="w-full">

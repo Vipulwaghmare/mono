@@ -39,6 +39,19 @@ export interface CreateRoomDto {
 /**
  * 
  * @export
+ * @interface CreateRoomResponseDto
+ */
+export interface CreateRoomResponseDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateRoomResponseDto
+     */
+    'roomId': string;
+}
+/**
+ * 
+ * @export
  * @interface CreateUserDto
  */
 export interface CreateUserDto {
@@ -115,6 +128,19 @@ export interface JoinRoomDto {
      * 
      * @type {string}
      * @memberof JoinRoomDto
+     */
+    'roomId': string;
+}
+/**
+ * 
+ * @export
+ * @interface JoinRoomResponseDto
+ */
+export interface JoinRoomResponseDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof JoinRoomResponseDto
      */
     'roomId': string;
 }
@@ -1439,7 +1465,7 @@ export const ScribbleApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async scribbleControllerCreateRoom(createRoomDto: CreateRoomDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async scribbleControllerCreateRoom(createRoomDto: CreateRoomDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateRoomResponseDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.scribbleControllerCreateRoom(createRoomDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ScribbleApi.scribbleControllerCreateRoom']?.[localVarOperationServerIndex]?.url;
@@ -1452,7 +1478,7 @@ export const ScribbleApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async scribbleControllerJoinRoom(joinRoomDto: JoinRoomDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async scribbleControllerJoinRoom(joinRoomDto: JoinRoomDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<JoinRoomResponseDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.scribbleControllerJoinRoom(joinRoomDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['ScribbleApi.scribbleControllerJoinRoom']?.[localVarOperationServerIndex]?.url;
@@ -1475,7 +1501,7 @@ export const ScribbleApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        scribbleControllerCreateRoom(createRoomDto: CreateRoomDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        scribbleControllerCreateRoom(createRoomDto: CreateRoomDto, options?: RawAxiosRequestConfig): AxiosPromise<CreateRoomResponseDto> {
             return localVarFp.scribbleControllerCreateRoom(createRoomDto, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1485,7 +1511,7 @@ export const ScribbleApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        scribbleControllerJoinRoom(joinRoomDto: JoinRoomDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        scribbleControllerJoinRoom(joinRoomDto: JoinRoomDto, options?: RawAxiosRequestConfig): AxiosPromise<JoinRoomResponseDto> {
             return localVarFp.scribbleControllerJoinRoom(joinRoomDto, options).then((request) => request(axios, basePath));
         },
     };
