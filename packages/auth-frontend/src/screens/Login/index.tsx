@@ -12,37 +12,49 @@ import {
 } from "../../components/ui/card";
 import { Alert, AlertDescription } from "../../components/ui/alert";
 import { useNavigate } from "react-router";
+import api from "@/apis/instance";
+import { LoginUserDto } from "@vipulwaghmare/apis";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosResponse } from "axios";
 
-export default function LoginPage() {
+export default function LoginPage({
+  onSuccessRedirect,
+}: {
+  onSuccessRedirect: string;
+}) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const { mutate: mutateLogin, isPending: loading } = useMutation<
+    AxiosResponse<any, any>,
+    Error,
+    LoginUserDto
+  >({
+    mutationFn: (body) => {
+      return api.authControllerLogin(body);
+    },
+    onSuccess: (data) => {
+      // Store some user info in localStorage for demo purposes
+      localStorage.setItem("user", JSON.stringify({ data }));
+      navigate(onSuccessRedirect);
+    },
+    onError: () => {
+      setError("Failed to login. Please try again.");
+    },
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError("");
-
-    // In a real app, you would validate and authenticate with a backend
-    try {
-      // Simulate authentication
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // For demo purposes, just check if email and password are not empty
-      if (email && password) {
-        // Store some user info in localStorage for demo purposes
-        localStorage.setItem("user", JSON.stringify({ email }));
-        navigate("/dashboard");
-      } else {
-        setError("Please enter both email and password");
-      }
-    } catch (err) {
-      setError("Failed to login. Please try again.");
-    } finally {
-      setLoading(false);
+    if (!email || !password) {
+      setError("Please enter both email and password");
+      return;
     }
+    mutateLogin({
+      email,
+      password,
+    });
   };
 
   return (

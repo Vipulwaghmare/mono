@@ -12,46 +12,57 @@ import {
 } from "../../components/ui/card";
 import { Alert, AlertDescription } from "../../components/ui/alert";
 import { useNavigate } from "react-router";
+import api from "@/apis/instance";
+import { CreateUserDto } from "@vipulwaghmare/apis";
+import { AxiosResponse } from "axios";
+import { useMutation } from "@tanstack/react-query";
 
-export default function SignupPage() {
+export default function SignupPage({
+  onSuccessRedirect = "/login",
+}: {
+  onSuccessRedirect?: string;
+}) {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const { mutate: mutateRegister, isPending: loading } = useMutation<
+    AxiosResponse<any, any>,
+    Error,
+    CreateUserDto
+  >({
+    mutationFn: (body) => {
+      return api.authControllerRegister(body);
+    },
+    onSuccess: (data) => {
+      // Store some user info in localStorage for demo purposes
+      localStorage.setItem("user", JSON.stringify({ data }));
+      navigate(onSuccessRedirect);
+    },
+    onError: () => {
+      setError("Failed to Register. Please try again.");
+    },
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError("");
-
-    // Basic validation
+    if (!name || !email || !password || !confirmPassword) {
+      setError("Please fill in all fields");
+      return;
+    }
     if (password !== confirmPassword) {
       setError("Passwords do not match");
-      setLoading(false);
       return;
     }
 
-    // In a real app, you would register with a backend
-    try {
-      // Simulate registration
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // For demo purposes, just check if all fields are filled
-      if (name && email && password) {
-        // Store some user info in localStorage for demo purposes
-        localStorage.setItem("user", JSON.stringify({ name, email }));
-        navigate("/dashboard");
-      } else {
-        setError("Please fill in all fields");
-      }
-    } catch (err) {
-      setError("Failed to sign up. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+    mutateRegister({
+      email,
+      name,
+      password,
+    });
   };
 
   return (

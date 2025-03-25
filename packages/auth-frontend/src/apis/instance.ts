@@ -1,4 +1,4 @@
-import { ScribbleApi, Configuration } from "@vipulwaghmare/apis";
+import { AuthApi, Configuration } from "@vipulwaghmare/apis";
 import axios from 'axios';
 
 const axiosInstance = axios.create({
@@ -6,7 +6,6 @@ const axiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-
 });
 
 // Initialize the Configuration
@@ -14,6 +13,6 @@ const config = new Configuration({
   basePath: import.meta.env.VITE_BASE_URL, // optional if already defined in swagger.json
 });
 
-const api = new ScribbleApi(config, '/scribble/', axiosInstance); // Create an API instance
+const api = new AuthApi(config, undefined, axiosInstance); // Create an API instance
 
 export default api;

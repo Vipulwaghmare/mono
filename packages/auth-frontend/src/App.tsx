@@ -13,8 +13,11 @@ export default function App() {
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
           <Routes>
-            <Route path="/" element={<LoginPage />} />
-            <Route path="/login" element={<LoginPage />} />
+            <Route path="/" element={<LoginPage onSuccessRedirect="/" />} />
+            <Route
+              path="/login"
+              element={<LoginPage onSuccessRedirect="/" />}
+            />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           </Routes>

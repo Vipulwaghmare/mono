@@ -10,9 +10,12 @@ import { CryptoService } from '../services/crypto.service';
 import { EmailService } from '../services/email.service';
 import { ApiBadRequestResponse, ApiOkResponse, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { validationApiResOptions } from '../dto/validation-error.dto';
+import { Logger } from '@nestjs/common';
 
 @Controller('auth')
 export class AuthController {
+  private readonly logger = new Logger(AuthController.name);
+
   constructor(
     private readonly userService: UsersService,
     private readonly cryptoService: CryptoService,
@@ -24,22 +27,13 @@ export class AuthController {
   @ApiOperation({ summary: 'Register User' })
   @ApiOkResponse({
     description: 'User Created Successfully',
-    // type: CreateUserDto
-    // content: {
-    //   'application/json': {
-    //     example: {
-    //       message: 'User Created Successfully'
-    //     }
-    //   },
-    // }
   })
   @ApiResponse(validationApiResOptions)
   @ApiBadRequestResponse({
-    description: 'Bad Request', // TODO: Fix this
-    // type: CreateUserDto
-    // isArray: true,
+    description: 'Bad Request',
   })
   async register(@Body() body: CreateUserDto) {
+    this.logger.log('Registering user');
     const hashPassword = await this.cryptoService.hashPassword(body.password);
     const resp = await this.userService.create({
       ...body,
@@ -47,25 +41,29 @@ export class AuthController {
       password: hashPassword,
     });
     if ('error' in resp) {
+      this.logger.error('Error creating user', resp.error);
       throw new BadRequestException(resp.error);
     }
     return {
       message: "User Created Successfully",
-    }
+    };
   }
 
   @Post('/login')
   @ApiResponse(validationApiResOptions)
   async login(@Body() body: LoginUserDto) {
+    this.logger.log('User login attempt');
     const email = body.email.trim().toLowerCase();
     const user = await this.userService.findByEmail(email, { email: 1, password: 1 });
     if (!user) {
+      this.logger.warn('Invalid email');
       throw new BadRequestException('Invalid email');
     }
     const isMatched = await this.cryptoService.validatePassword(body.password, user.password);
     if (!isMatched) {
+      this.logger.warn('Invalid password');
       throw new BadRequestException('Invalid password');
-    };
+    }
     const jwtPayload = {
       userEmail: email,
       userId: user._id,
@@ -83,11 +81,13 @@ export class AuthController {
   @Post('/forgot-password')
   @ApiResponse(validationApiResOptions)
   async forgotPassword(@Body() body: ForgotPasswordDto, @Headers() headers) {
+    this.logger.log('Forgot password request');
     const email = body.email.trim().toLowerCase();
     const user = await this.userService.findByEmail(email);
 
     if (!user) {
-      throw new BadRequestException('No user with this Email')
+      this.logger.warn('No user with this email');
+      throw new BadRequestException('No user with this Email');
     }
 
     const response = await this.cryptoService.getResetToken(user._id);
@@ -99,11 +99,11 @@ export class AuthController {
       to: email,
       subject: 'Password Reset Link',
       text: message,
-    })
+    });
     await this.userService.update(user._id, { passwordResetData: response });
 
     return {
-      message: 'Successfully send password reset email to your email',
+      message: 'Successfully sent password reset email to your email',
     };
   }
 
@@ -113,19 +113,24 @@ export class AuthController {
     description: 'Successfully updated user password',
   })
   async resetPassword(@Body() body: ResetPasswordDto) {
+    this.logger.log('Reset password request');
     const decodedData = await this.cryptoService.verifyResetToken(body.token);
     if (!decodedData) {
+      this.logger.warn('Expired reset link');
       throw new BadRequestException('Your password reset link is expired. Please try again.');
     }
     const userId = decodedData.userId;
     const user = await this.userService.findById(userId);
     if (user?.passwordResetData?.token !== body.token) {
+      this.logger.warn('Expired reset link');
       throw new BadRequestException('Your password reset link is expired. Please try again.');
     }
     if (!user?.passwordResetData?.expiryTime) {
+      this.logger.warn('Expired reset link');
       throw new BadRequestException('Your password reset link is expired. Please try again.');
     }
     if (user.passwordResetData.expiryTime <= new Date()) {
+      this.logger.warn('Expired reset link');
       throw new BadRequestException('Your password reset link is expired. Please try again.');
     }
     const hashPassword = await this.cryptoService.hashPassword(body.password);
@@ -140,24 +145,25 @@ export class AuthController {
   @ApiOkResponse({
     description: 'Successfully updated user password',
   })
-
   async updatePassword(@Body() body: UpdatePasswordDto) {
+    this.logger.log('Update password request');
     const userId = body.jwtPayload.userId;
     const user = await this.userService.findById(userId, { email: 1, password: 1 });
     if (!user) {
+      this.logger.warn('Invalid email');
       throw new BadRequestException('Invalid email');
     }
     const isMatched = await this.cryptoService.validatePassword(body.password, user.password);
     if (!isMatched) {
-      // TODO: Send email to user that password update attempt was made
+      this.logger.warn('Invalid password attempt');
       throw new BadRequestException('Invalid password');
     }
     const hashPassword = await this.cryptoService.hashPassword(body.newPassword);
 
     await this.userService.update(userId, { password: hashPassword });
-    // TODO: Send email to user that password update was successful
     return {
       message: 'Successfully updated user password',
     };
   }
 }
+

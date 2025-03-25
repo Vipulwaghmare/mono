@@ -11,33 +11,41 @@ import {
   CardTitle,
 } from "../../components/ui/card";
 import { Alert, AlertDescription } from "../../components/ui/alert";
+import api from "@/apis/instance";
+import { ForgotPasswordDto } from "@vipulwaghmare/apis";
+import { AxiosResponse } from "axios";
+import { useMutation } from "@tanstack/react-query";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const { mutate: mutateForgot, isPending: loading } = useMutation<
+    AxiosResponse<any, any>,
+    Error,
+    ForgotPasswordDto
+  >({
+    mutationFn: (body) => {
+      return api.authControllerForgotPassword(body);
+    },
+    onSuccess: () => {
+      setSubmitted(true);
+    },
+    onError: () => {
+      setError("Failed to send reset email. Please try again.");
+    },
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError("");
-
-    // In a real app, you would send a password reset email
-    try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      if (email) {
-        setSubmitted(true);
-      } else {
-        setError("Please enter your email address");
-      }
-    } catch (err) {
-      setError("Failed to send reset email. Please try again.");
-    } finally {
-      setLoading(false);
+    if (!email) {
+      setError("Please enter your email");
+      return;
     }
+    mutateForgot({
+      email,
+    });
   };
 
   return (
