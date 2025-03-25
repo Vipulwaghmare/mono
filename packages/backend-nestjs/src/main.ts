@@ -35,7 +35,7 @@ async function bootstrap() {
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   // Generate swagger file
-  if (isDevelopment) {
+  if (false) {
     fs.writeFileSync('./swagger.json', JSON.stringify(documentFactory(), null, 2));
     SwaggerModule.setup('api-docs', app, documentFactory);
   } else {
@@ -43,6 +43,20 @@ async function bootstrap() {
     const swaggerDocumentPath = path.join(__dirname, '..', 'swagger.json');
     const swaggerDocument = JSON.parse(fs.readFileSync(swaggerDocumentPath, 'utf8'));
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+    SwaggerModule.setup("docs", app, swaggerDocument, {
+      customSiteTitle: "Api Docs",
+      customfavIcon: "https://avatars.githubusercontent.com/u/6936373?s=200&v=4",
+      customJs: [
+        "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js",
+        "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.js",
+      ],
+      customCssUrl: [
+        "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css",
+        "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.css",
+        "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css",
+      ],
+    });
   }
   app.use(helmet());
 
