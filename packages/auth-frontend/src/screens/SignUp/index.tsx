@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Button } from "../../components/ui/button";
+import { Input } from "../../components/ui/input";
+import { Label } from "../../components/ui/label";
 import {
   Card,
   CardContent,
@@ -9,8 +9,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+} from "../../components/ui/card";
+import { Alert, AlertDescription } from "../../components/ui/alert";
 import { useNavigate } from "react-router";
 
 export default function SignupPage() {
@@ -87,7 +87,7 @@ export default function SignupPage() {
               <Input
                 id="email"
                 type="email"
-                placeholder="name@example.com"
+                placeholder="name../..example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
