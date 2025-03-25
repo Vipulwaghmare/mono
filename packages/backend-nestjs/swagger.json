@@ -182,7 +182,7 @@
     },
     "/portfolio/*": {
       "get": {
-        "operationId": "PortfolioController_get_get",
+        "operationId": "PortfolioController_get",
         "parameters": [],
         "responses": {
           "200": {
@@ -194,82 +194,10 @@
         ]
       },
       "post": {
-        "operationId": "PortfolioController_get_post",
+        "operationId": "PortfolioController_post",
         "parameters": [],
         "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": [
-          "Portfolio"
-        ]
-      },
-      "put": {
-        "operationId": "PortfolioController_get_put",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": [
-          "Portfolio"
-        ]
-      },
-      "delete": {
-        "operationId": "PortfolioController_get_delete",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": [
-          "Portfolio"
-        ]
-      },
-      "patch": {
-        "operationId": "PortfolioController_get_patch",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": [
-          "Portfolio"
-        ]
-      },
-      "options": {
-        "operationId": "PortfolioController_get_options",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": [
-          "Portfolio"
-        ]
-      },
-      "head": {
-        "operationId": "PortfolioController_get_head",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": [
-          "Portfolio"
-        ]
-      },
-      "search": {
-        "operationId": "PortfolioController_get_search",
-        "parameters": [],
-        "responses": {
-          "200": {
+          "201": {
             "description": ""
           }
         },

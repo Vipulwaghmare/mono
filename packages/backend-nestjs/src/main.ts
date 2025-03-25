@@ -43,9 +43,7 @@ async function bootstrap() {
     // ONLY HANDLING THIS WAY DUE TO VERCE SWAGGER ISSUE WITH STATIC FILE
     const swaggerDocumentPath = path.join(__dirname, '..', 'swagger.json');
     const swaggerDocument = JSON.parse(fs.readFileSync(swaggerDocumentPath, 'utf8'));
-
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
   }
 
   await app.listen(process.env.PORT ?? 8080);
