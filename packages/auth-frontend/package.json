@@ -1,11 +1,17 @@
 {
   "name": "@vipulwaghmare/auth-frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "files": [
+    "build"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:plugin": "rimraf build && tsc -p ./tsconfig.plugin.json --outDir build",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "echo \"Error: no test specified\" && exit 1"
