@@ -35,16 +35,15 @@ async function bootstrap() {
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   // Generate swagger file
-  if (false) {
+  if (isDevelopment) {
     fs.writeFileSync('./swagger.json', JSON.stringify(documentFactory(), null, 2));
     SwaggerModule.setup('api-docs', app, documentFactory);
   } else {
     // ONLY HANDLING THIS WAY DUE TO VERCE SWAGGER ISSUE WITH STATIC FILE
     const swaggerDocumentPath = path.join(__dirname, '..', 'swagger.json');
     const swaggerDocument = JSON.parse(fs.readFileSync(swaggerDocumentPath, 'utf8'));
-    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-    SwaggerModule.setup("docs", app, swaggerDocument, {
+    SwaggerModule.setup("api-docs", app, swaggerDocument, {
       customSiteTitle: "Api Docs",
       customfavIcon: "https://avatars.githubusercontent.com/u/6936373?s=200&v=4",
       customJs: [
