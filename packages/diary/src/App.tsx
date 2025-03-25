@@ -6,6 +6,7 @@ import {
   LoginPage,
   SignupPage,
 } from "@vipulwaghmare/auth-frontend";
+import DashboardPage from "./screens/Dashboard";
 
 const queryClient = new QueryClient();
 
@@ -15,7 +16,7 @@ export default function App() {
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
           <Routes>
-            <Route path="/" element={<LoginPage />} />
+            <Route path="/" element={<DashboardPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
