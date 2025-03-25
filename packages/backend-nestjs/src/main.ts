@@ -19,7 +19,6 @@ if (isDevelopment) {
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.use(helmet());
   // Validation setup
   app.useGlobalPipes(
     new ValidationPipe()
@@ -45,6 +44,7 @@ async function bootstrap() {
     const swaggerDocument = JSON.parse(fs.readFileSync(swaggerDocumentPath, 'utf8'));
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   }
+  app.use(helmet());
 
   await app.listen(process.env.PORT ?? 8080);
 }

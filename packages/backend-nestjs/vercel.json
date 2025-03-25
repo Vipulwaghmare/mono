@@ -9,7 +9,7 @@
   "routes": [
     {
       "src": "/api/swagger-ui.css",
-      "dest": "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css"
+      "dest": "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css"
     },
     {
       "src": "/api/swagger-ui-bundle.js",
