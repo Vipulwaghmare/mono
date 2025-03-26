@@ -52,7 +52,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/dashboard/test",
+    path: "/dashboard/memento-mori",
     element: (
       <PrivateRoute>
         <MementoMoriPage />

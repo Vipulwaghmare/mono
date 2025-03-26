@@ -42,12 +42,11 @@ type TEntry = {
   }[];
   notes: string;
 };
-
 // Sample data for demonstration
 const sampleWorkouts: TEntry[] = [
   {
     id: 1,
-    date: "2023-06-15",
+    date: new Date().toISOString().split("T")[0],
     type: "Strength Training",
     duration: 60,
     exercises: [
@@ -59,7 +58,7 @@ const sampleWorkouts: TEntry[] = [
   },
   {
     id: 2,
-    date: "2023-06-12",
+    date: new Date().toISOString().split("T")[0],
     type: "Cardio",
     duration: 45,
     exercises: [
@@ -70,7 +69,7 @@ const sampleWorkouts: TEntry[] = [
   },
   {
     id: 3,
-    date: "2023-06-08",
+    date: new Date().toISOString().split("T")[0],
     type: "Strength Training",
     duration: 75,
     exercises: [

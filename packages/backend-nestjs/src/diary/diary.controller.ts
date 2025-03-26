@@ -1,6 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { getEventsApiResOptions } from './dtos/get-events.dto';
+import { getAllDiaryApiResOptions } from './dtos/get-all-data.dto';
 
 @Controller('diary')
 export class DiaryController {
@@ -37,7 +38,7 @@ export class DiaryController {
   }
 
   @Get('/all-data')
-  @ApiOkResponse(getEventsApiResOptions)
+  @ApiOkResponse(getAllDiaryApiResOptions)
   getAllData() {
     const personal = [
       {
@@ -85,9 +86,64 @@ export class DiaryController {
         date: "2023-06-08",
       },
     ];
+
+    const gym = [
+      {
+        id: 1,
+        date: new Date(),
+        type: "Strength Training",
+        duration: 60,
+        exercises: [
+          { name: "Bench Press", sets: 3, reps: 10, weight: 80 },
+          { name: "Squats", sets: 4, reps: 8, weight: 100 },
+          { name: "Deadlift", sets: 3, reps: 6, weight: 120 },
+        ],
+        notes: "Great workout today. Increased weight on bench press.",
+      },
+      {
+        id: 2,
+        date: new Date(),
+        type: "Cardio",
+        duration: 45,
+        exercises: [
+          { name: "Treadmill", sets: 1, reps: 1, weight: 0, duration: 30 },
+          { name: "Cycling", sets: 1, reps: 1, weight: 0, duration: 15 },
+        ],
+        notes: "Focused on cardio today. Felt good.",
+      },
+      {
+        id: 3,
+        date: new Date(),
+        type: "Strength Training",
+        duration: 75,
+        exercises: [
+          { name: "Pull-ups", sets: 3, reps: 8, weight: 0 },
+          { name: "Barbell Rows", sets: 3, reps: 10, weight: 60 },
+          { name: "Shoulder Press", sets: 3, reps: 10, weight: 40 },
+          { name: "Bicep Curls", sets: 3, reps: 12, weight: 15 },
+        ],
+        notes: "Back and biceps day. Increased reps on pull-ups.",
+      },
+    ];
+
+    const health = {
+      weight: 11,
+      height: 12,
+      diet: [
+        {
+          name: 'Biryani',
+          calories: 600,
+
+        }
+      ],
+      notes: 'Had a cheat meal for dinner. Otherwise, stuck to my meal plan.',
+      date: new Date(),
+    }
     return {
       personal: personal.map((event) => ({ ...event, date: new Date() })),
       work: work.map((event) => ({ ...event, date: new Date() })),
+      gym,
+      health
     };
   }
 }

@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import {
-  BookOpen,
-  Briefcase,
-  Heart,
-  Dumbbell,
+  // BookOpen,
+  // Briefcase,
+  // Heart,
+  // Dumbbell,
   ChevronLeft,
   ChevronRight,
   X,
@@ -147,7 +147,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Selected Day's Events */}
-          {data && data.events.length > 0 && (
+          {/* {data && data.events.length > 0 && (
             <div className="mb-6">
               <h2 className="text-lg font-semibold mb-3">Events on this day</h2>
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -165,8 +165,8 @@ export default function DashboardPage() {
                 ))}
               </div>
             </div>
-          )}
-
+          )} */}
+          {/* 
           <div className="grid gap-4 md:grid-cols-4 mb-8">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -224,7 +224,7 @@ export default function DashboardPage() {
                 </p>
               </CardContent>
             </Card>
-          </div>
+          </div> */}
 
           <Tabs defaultValue="personal" className="space-y-4">
             <TabsList>

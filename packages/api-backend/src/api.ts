@@ -115,6 +115,56 @@ export interface ForgotPasswordDto {
 /**
  * 
  * @export
+ * @interface GetAllDiaryDataResponseDto
+ */
+export interface GetAllDiaryDataResponseDto {
+    /**
+     * 
+     * @type {Array<GetPersonalNotesResponseDto>}
+     * @memberof GetAllDiaryDataResponseDto
+     */
+    'personal': Array<GetPersonalNotesResponseDto>;
+    /**
+     * 
+     * @type {Array<GetWorkNotesResponseDto>}
+     * @memberof GetAllDiaryDataResponseDto
+     */
+    'work': Array<GetWorkNotesResponseDto>;
+    /**
+     * 
+     * @type {Array<GetGymProgressResponseDto>}
+     * @memberof GetAllDiaryDataResponseDto
+     */
+    'gym': Array<GetGymProgressResponseDto>;
+    /**
+     * 
+     * @type {Array<GetHealthLogResponseDto>}
+     * @memberof GetAllDiaryDataResponseDto
+     */
+    'health': Array<GetHealthLogResponseDto>;
+}
+/**
+ * 
+ * @export
+ * @interface GetDietEntryDto
+ */
+export interface GetDietEntryDto {
+    /**
+     * The name of the food item
+     * @type {string}
+     * @memberof GetDietEntryDto
+     */
+    'name': string;
+    /**
+     * The calories contained in the food item
+     * @type {number}
+     * @memberof GetDietEntryDto
+     */
+    'calories': number;
+}
+/**
+ * 
+ * @export
  * @interface GetEventsResponse
  */
 export interface GetEventsResponse {
@@ -159,6 +209,185 @@ export interface GetEventsResponseDto {
      * A brief description of the event
      * @type {string}
      * @memberof GetEventsResponseDto
+     */
+    'description': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetGymProgressResponseDto
+ */
+export interface GetGymProgressResponseDto {
+    /**
+     * The ID of the workout
+     * @type {number}
+     * @memberof GetGymProgressResponseDto
+     */
+    'id': number;
+    /**
+     * The date of the workout
+     * @type {string}
+     * @memberof GetGymProgressResponseDto
+     */
+    'date': string;
+    /**
+     * The type of workout
+     * @type {string}
+     * @memberof GetGymProgressResponseDto
+     */
+    'type': string;
+    /**
+     * The duration of the workout in minutes
+     * @type {number}
+     * @memberof GetGymProgressResponseDto
+     */
+    'duration': number;
+    /**
+     * 
+     * @type {Array<GetGymProgressResponseExerciseDto>}
+     * @memberof GetGymProgressResponseDto
+     */
+    'exercises': Array<GetGymProgressResponseExerciseDto>;
+    /**
+     * A brief description of the workout
+     * @type {string}
+     * @memberof GetGymProgressResponseDto
+     */
+    'notes': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetGymProgressResponseExerciseDto
+ */
+export interface GetGymProgressResponseExerciseDto {
+    /**
+     * The name of the exercise
+     * @type {string}
+     * @memberof GetGymProgressResponseExerciseDto
+     */
+    'name': string;
+    /**
+     * The number of sets
+     * @type {number}
+     * @memberof GetGymProgressResponseExerciseDto
+     */
+    'sets': number;
+    /**
+     * The number of reps
+     * @type {number}
+     * @memberof GetGymProgressResponseExerciseDto
+     */
+    'reps': number;
+    /**
+     * The weight in kg
+     * @type {number}
+     * @memberof GetGymProgressResponseExerciseDto
+     */
+    'weight'?: number;
+    /**
+     * The duration in minutes
+     * @type {number}
+     * @memberof GetGymProgressResponseExerciseDto
+     */
+    'duration'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface GetHealthLogResponseDto
+ */
+export interface GetHealthLogResponseDto {
+    /**
+     * The weight of the person in kg
+     * @type {number}
+     * @memberof GetHealthLogResponseDto
+     */
+    'weight': number;
+    /**
+     * The height of the person in cm
+     * @type {number}
+     * @memberof GetHealthLogResponseDto
+     */
+    'height': number;
+    /**
+     * 
+     * @type {Array<GetDietEntryDto>}
+     * @memberof GetHealthLogResponseDto
+     */
+    'diet': Array<GetDietEntryDto>;
+    /**
+     * Notes about the diet and health
+     * @type {string}
+     * @memberof GetHealthLogResponseDto
+     */
+    'notes': string;
+    /**
+     * The date of the health log entry
+     * @type {string}
+     * @memberof GetHealthLogResponseDto
+     */
+    'date': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetPersonalNotesResponseDto
+ */
+export interface GetPersonalNotesResponseDto {
+    /**
+     * The ID of the event
+     * @type {number}
+     * @memberof GetPersonalNotesResponseDto
+     */
+    'id': number;
+    /**
+     * The title of the event
+     * @type {string}
+     * @memberof GetPersonalNotesResponseDto
+     */
+    'title': string;
+    /**
+     * The date of the event
+     * @type {string}
+     * @memberof GetPersonalNotesResponseDto
+     */
+    'date': string;
+    /**
+     * A brief description of the event
+     * @type {string}
+     * @memberof GetPersonalNotesResponseDto
+     */
+    'description': string;
+}
+/**
+ * 
+ * @export
+ * @interface GetWorkNotesResponseDto
+ */
+export interface GetWorkNotesResponseDto {
+    /**
+     * The ID of the event
+     * @type {number}
+     * @memberof GetWorkNotesResponseDto
+     */
+    'id': number;
+    /**
+     * The title of the event
+     * @type {string}
+     * @memberof GetWorkNotesResponseDto
+     */
+    'title': string;
+    /**
+     * The date of the event
+     * @type {string}
+     * @memberof GetWorkNotesResponseDto
+     */
+    'date': string;
+    /**
+     * A brief description of the event
+     * @type {string}
+     * @memberof GetWorkNotesResponseDto
      */
     'description': string;
 }
@@ -757,6 +986,35 @@ export const DiaryApiAxiosParamCreator = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        diaryControllerGetAllData: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/diary/all-data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         diaryControllerGetTodaysEvents: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/diary/events`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -796,6 +1054,17 @@ export const DiaryApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        async diaryControllerGetAllData(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAllDiaryDataResponseDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.diaryControllerGetAllData(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DiaryApi.diaryControllerGetAllData']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         async diaryControllerGetTodaysEvents(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetEventsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.diaryControllerGetTodaysEvents(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
@@ -817,6 +1086,14 @@ export const DiaryApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        diaryControllerGetAllData(options?: RawAxiosRequestConfig): AxiosPromise<GetAllDiaryDataResponseDto> {
+            return localVarFp.diaryControllerGetAllData(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         diaryControllerGetTodaysEvents(options?: RawAxiosRequestConfig): AxiosPromise<GetEventsResponse> {
             return localVarFp.diaryControllerGetTodaysEvents(options).then((request) => request(axios, basePath));
         },
@@ -830,6 +1107,16 @@ export const DiaryApiFactory = function (configuration?: Configuration, basePath
  * @extends {BaseAPI}
  */
 export class DiaryApi extends BaseAPI {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DiaryApi
+     */
+    public diaryControllerGetAllData(options?: RawAxiosRequestConfig) {
+        return DiaryApiFp(this.configuration).diaryControllerGetAllData(options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @param {*} [options] Override http request option.

@@ -403,7 +403,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetEventsResponse"
+                  "$ref": "#/components/schemas/GetAllDiaryDataResponseDto"
                 }
               }
             }
@@ -662,6 +662,240 @@
         },
         "required": [
           "events"
+        ]
+      },
+      "GetPersonalNotesResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1,
+            "description": "The ID of the event"
+          },
+          "title": {
+            "type": "string",
+            "example": "Weekend Trip to the Mountains",
+            "description": "The title of the event"
+          },
+          "date": {
+            "type": "string",
+            "example": "2025-03-26",
+            "description": "The date of the event"
+          },
+          "description": {
+            "type": "string",
+            "example": "Had an amazing time hiking in the mountains this weekend",
+            "description": "A brief description of the event"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "date",
+          "description"
+        ]
+      },
+      "GetWorkNotesResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1,
+            "description": "The ID of the event"
+          },
+          "title": {
+            "type": "string",
+            "example": "Client Meeting",
+            "description": "The title of the event"
+          },
+          "date": {
+            "type": "string",
+            "example": "2025-03-26",
+            "description": "The date of the event"
+          },
+          "description": {
+            "type": "string",
+            "example": "Had a productive meeting with the client.",
+            "description": "A brief description of the event"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "date",
+          "description"
+        ]
+      },
+      "GetGymProgressResponseExerciseDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Bench Press",
+            "description": "The name of the exercise"
+          },
+          "sets": {
+            "type": "number",
+            "example": 3,
+            "description": "The number of sets"
+          },
+          "reps": {
+            "type": "number",
+            "example": 10,
+            "description": "The number of reps"
+          },
+          "weight": {
+            "type": "number",
+            "example": 80,
+            "description": "The weight in kg"
+          },
+          "duration": {
+            "type": "number",
+            "example": 30,
+            "description": "The duration in minutes"
+          }
+        },
+        "required": [
+          "name",
+          "sets",
+          "reps"
+        ]
+      },
+      "GetGymProgressResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1,
+            "description": "The ID of the workout"
+          },
+          "date": {
+            "type": "string",
+            "example": "2023-06-15",
+            "description": "The date of the workout"
+          },
+          "type": {
+            "type": "string",
+            "example": "Strength Training",
+            "description": "The type of workout"
+          },
+          "duration": {
+            "type": "number",
+            "example": 60,
+            "description": "The duration of the workout in minutes"
+          },
+          "exercises": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GetGymProgressResponseExerciseDto"
+            }
+          },
+          "notes": {
+            "type": "string",
+            "example": "Great workout today. Increased weight on bench press.",
+            "description": "A brief description of the workout"
+          }
+        },
+        "required": [
+          "id",
+          "date",
+          "type",
+          "duration",
+          "exercises",
+          "notes"
+        ]
+      },
+      "GetDietEntryDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Biryani",
+            "description": "The name of the food item"
+          },
+          "calories": {
+            "type": "number",
+            "example": 600,
+            "description": "The calories contained in the food item"
+          }
+        },
+        "required": [
+          "name",
+          "calories"
+        ]
+      },
+      "GetHealthLogResponseDto": {
+        "type": "object",
+        "properties": {
+          "weight": {
+            "type": "number",
+            "example": 11,
+            "description": "The weight of the person in kg"
+          },
+          "height": {
+            "type": "number",
+            "example": 12,
+            "description": "The height of the person in cm"
+          },
+          "diet": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GetDietEntryDto"
+            }
+          },
+          "notes": {
+            "type": "string",
+            "example": "Had a cheat meal for dinner. Otherwise, stuck to my meal plan.",
+            "description": "Notes about the diet and health"
+          },
+          "date": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2023-06-15",
+            "description": "The date of the health log entry"
+          }
+        },
+        "required": [
+          "weight",
+          "height",
+          "diet",
+          "notes",
+          "date"
+        ]
+      },
+      "GetAllDiaryDataResponseDto": {
+        "type": "object",
+        "properties": {
+          "personal": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GetPersonalNotesResponseDto"
+            }
+          },
+          "work": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GetWorkNotesResponseDto"
+            }
+          },
+          "gym": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GetGymProgressResponseDto"
+            }
+          },
+          "health": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GetHealthLogResponseDto"
+            }
+          }
+        },
+        "required": [
+          "personal",
+          "work",
+          "gym",
+          "health"
         ]
       }
     }

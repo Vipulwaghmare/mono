@@ -57,9 +57,16 @@ export default function DashboardHeader() {
           >
             Calendar
           </a>
+          <a
+            href="/dashboard/memento-mori"
+            className="text-sm font-medium text-muted-foreground hover:text-foreground"
+          >
+            Memento Mori
+          </a>
         </div>
 
         <div className="ml-auto flex items-center gap-4">
+          <ThemeToggle />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-8 w-8 rounded-full">
@@ -99,7 +106,6 @@ export default function DashboardHeader() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <ThemeToggle />
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="md:hidden">
@@ -132,6 +138,13 @@ export default function DashboardHeader() {
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Calendar
+                </a>{" "}
+                <a
+                  href="/dashboard/memento-mori"
+                  className="text-sm font-medium text-muted-foreground"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Memento Mori
                 </a>
               </div>
             </SheetContent>
