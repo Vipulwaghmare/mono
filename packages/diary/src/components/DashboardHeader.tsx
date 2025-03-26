@@ -13,6 +13,7 @@ import { Menu, User, Settings, LogOut } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useNavigate } from "react-router";
 import { useGetUser } from "@/hooks/user";
+import ThemeToggle from "./ThemeToggle";
 
 const getInitials = (name: string) => {
   if (!name) return "U";
@@ -98,7 +99,7 @@ export default function DashboardHeader() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-
+          <ThemeToggle />
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="md:hidden">

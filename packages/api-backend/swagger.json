@@ -170,7 +170,7 @@
     },
     "/portfolio/*": {
       "get": {
-        "operationId": "PortfolioController_get_get",
+        "operationId": "PortfolioController_get",
         "parameters": [],
         "responses": {
           "200": {
@@ -180,60 +180,10 @@
         "tags": ["Portfolio"]
       },
       "post": {
-        "operationId": "PortfolioController_get_post",
+        "operationId": "PortfolioController_post",
         "parameters": [],
         "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": ["Portfolio"]
-      },
-      "put": {
-        "operationId": "PortfolioController_get_put",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": ["Portfolio"]
-      },
-      "delete": {
-        "operationId": "PortfolioController_get_delete",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": ["Portfolio"]
-      },
-      "patch": {
-        "operationId": "PortfolioController_get_patch",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": ["Portfolio"]
-      },
-      "options": {
-        "operationId": "PortfolioController_get_options",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": ["Portfolio"]
-      },
-      "head": {
-        "operationId": "PortfolioController_get_head",
-        "parameters": [],
-        "responses": {
-          "200": {
+          "201": {
             "description": ""
           }
         },
@@ -393,12 +343,31 @@
         },
         "tags": ["Users"]
       }
+    },
+    "/diary/events": {
+      "get": {
+        "operationId": "DiaryController_getTodaysEvents",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Room created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetEventsResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Diary"]
+      }
     }
   },
   "info": {
     "title": "Vipul Waghmare APIs",
     "description": "All the APIs created",
-    "version": "1.0",
+    "version": "0.0.1",
     "contact": {}
   },
   "tags": [],
@@ -561,6 +530,49 @@
       "CreateMessageDto": {
         "type": "object",
         "properties": {}
+      },
+      "GetEventsResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1,
+            "description": "The ID of the event"
+          },
+          "title": {
+            "type": "string",
+            "example": "Doctor's Appointment",
+            "description": "The title of the event"
+          },
+          "date": {
+            "type": "string",
+            "example": "2025-03-26",
+            "description": "The date of the event"
+          },
+          "type": {
+            "type": "string",
+            "example": "appointment",
+            "description": "The type of event"
+          },
+          "description": {
+            "type": "string",
+            "example": "Annual checkup at City Hospital",
+            "description": "A brief description of the event"
+          }
+        },
+        "required": ["id", "title", "date", "type", "description"]
+      },
+      "GetEventsResponse": {
+        "type": "object",
+        "properties": {
+          "events": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GetEventsResponseDto"
+            }
+          }
+        },
+        "required": ["events"]
       }
     }
   }

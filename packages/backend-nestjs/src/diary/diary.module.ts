@@ -13,7 +13,7 @@ import { CryptoService } from 'src/services/crypto.service';
 })
 export class DiaryModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes(DiaryController);
+    // consumer.apply(AuthMiddleware).forRoutes(DiaryController);
   }
 }
 

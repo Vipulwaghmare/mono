@@ -372,13 +372,41 @@
         ]
       }
     },
-    "/diary": {
+    "/diary/events": {
       "get": {
-        "operationId": "DiaryController_get",
+        "operationId": "DiaryController_getTodaysEvents",
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Room created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetEventsResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Diary"
+        ]
+      }
+    },
+    "/diary/all-data": {
+      "get": {
+        "operationId": "DiaryController_getAllData",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Room created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetEventsResponse"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -584,6 +612,57 @@
       "CreateMessageDto": {
         "type": "object",
         "properties": {}
+      },
+      "GetEventsResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1,
+            "description": "The ID of the event"
+          },
+          "title": {
+            "type": "string",
+            "example": "Doctor's Appointment",
+            "description": "The title of the event"
+          },
+          "date": {
+            "type": "string",
+            "example": "2025-03-26",
+            "description": "The date of the event"
+          },
+          "type": {
+            "type": "string",
+            "example": "appointment",
+            "description": "The type of event"
+          },
+          "description": {
+            "type": "string",
+            "example": "Annual checkup at City Hospital",
+            "description": "A brief description of the event"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "date",
+          "type",
+          "description"
+        ]
+      },
+      "GetEventsResponse": {
+        "type": "object",
+        "properties": {
+          "events": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GetEventsResponseDto"
+            }
+          }
+        },
+        "required": [
+          "events"
+        ]
       }
     }
   }

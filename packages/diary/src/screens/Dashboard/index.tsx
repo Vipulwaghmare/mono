@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -20,57 +21,41 @@ import WorkEntryList from "@/components/WorkEntryList";
 import HealthTracker from "@/components/HealthTracker";
 import GymProgress from "@/components/GymProgress";
 import { Input } from "@/components/ui/input";
-import { useNavigate } from "react-router";
-
-// Sample events data
-const sampleEvents = [
-  {
-    id: 1,
-    title: "Doctor's Appointment",
-    date: "2023-06-20",
-    type: "appointment",
-    description: "Annual checkup at City Hospital",
-  },
-  {
-    id: 2,
-    title: "Mom's Birthday",
-    date: "2023-06-25",
-    type: "birthday",
-    description: "Don't forget to buy a gift!",
-  },
-  {
-    id: 3,
-    title: "Team Meeting",
-    date: "2023-06-18",
-    type: "meeting",
-    description: "Quarterly review with the department",
-  },
-];
+import { useQuery } from "@tanstack/react-query";
+import api from "@/apis/instance";
+import { GetEventsResponse } from "@vipulwaghmare/apis";
 
 export default function DashboardPage() {
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split("T")[0],
   );
-  const [events, setEvents] = useState(sampleEvents);
+  const { data } = useQuery<any, any, GetEventsResponse>({
+    queryKey: ["events"],
+    queryFn: async () => {
+      const res = await api.diaryControllerGetTodaysEvents();
+      return res.data;
+    },
+  });
+  // const [events, setEvents] = useState(sampleEvents);
   const [showEvents, setShowEvents] = useState(true);
 
   // Get today's events
-  const todayEvents = events.filter(
-    (event) => event.date === new Date().toISOString().split("T")[0],
-  );
+  // const todayEvents = events.filter(
+  //   (event) => event.date === new Date().toISOString().split("T")[0],
+  // );
 
   // Get selected day's events
-  const selectedDayEvents = events.filter(
-    (event) => event.date === selectedDate,
-  );
+  // const selectedDayEvents = events.filter(
+  //   (event) => event.date === selectedDate,
+  // );
 
-  useEffect(() => {
-    const savedEvents = localStorage.getItem("events");
-    if (savedEvents) {
-      setEvents(JSON.parse(savedEvents));
-    }
-  }, []);
+  // useEffect(() => {
+  //   const savedEvents = localStorage.getItem("events");
+  //   if (savedEvents) {
+  //     setEvents(JSON.parse(savedEvents));
+  //   }
+  // }, []);
 
   // Format date for display
   const formatDate = (dateString: string) => {
@@ -100,7 +85,7 @@ export default function DashboardPage() {
   const dismissEventAlert = () => {
     setShowEvents(false);
   };
-
+  console.log({ data });
   return (
     <div className="flex min-h-screen flex-col">
       <DashboardHeader />
@@ -115,13 +100,13 @@ export default function DashboardPage() {
           </div>
 
           {/* Today's Events Alert */}
-          {showEvents && todayEvents.length > 0 && (
+          {data && showEvents && data.events.length > 0 && (
             <Alert className="mb-6">
               <Bell className="h-4 w-4" />
               <AlertTitle>Events Today</AlertTitle>
               <AlertDescription>
                 <div className="mt-2 space-y-2">
-                  {todayEvents.map((event) => (
+                  {data.events.map((event) => (
                     <div key={event.id} className="text-sm">
                       <span className="font-medium">{event.title}</span> -{" "}
                       {event.description}
@@ -162,11 +147,11 @@ export default function DashboardPage() {
           </div>
 
           {/* Selected Day's Events */}
-          {selectedDayEvents.length > 0 && (
+          {data && data.events.length > 0 && (
             <div className="mb-6">
               <h2 className="text-lg font-semibold mb-3">Events on this day</h2>
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {selectedDayEvents.map((event) => (
+                {data.events.map((event) => (
                   <Card key={event.id}>
                     <CardHeader className="pb-2">
                       <CardTitle className="text-md">{event.title}</CardTitle>

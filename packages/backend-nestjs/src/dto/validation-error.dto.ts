@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiResponseOptions } from '@nestjs/swagger';
 
 export class ValidationError {
   @ApiProperty({ example: 'field_name', description: 'Field that caused the error' })
@@ -19,7 +19,7 @@ export class ErrorResponse {
   details: ValidationError[];
 }
 
-export const validationApiResOptions = {
+export const validationApiResOptions: ApiResponseOptions = {
   status: 400,
   description: 'Validation error.',
   type: ErrorResponse,
