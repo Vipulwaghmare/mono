@@ -1,6 +1,4 @@
-"use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -24,8 +22,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { PlusCircle, Edit, Trash } from "lucide-react";
 
+type TEntry = {
+  id: number;
+  title: string;
+  content: string;
+  date: string;
+};
 // Sample data for demonstration
-const sampleEntries = [
+
+const sampleEntries: TEntry[] = [
   {
     id: 1,
     title: "Weekend Trip to the Mountains",
@@ -49,12 +54,28 @@ const sampleEntries = [
   },
 ];
 
-export default function PersonalEntryList() {
+export default function PersonalEntryList({
+  selectedDate,
+}: {
+  selectedDate: string;
+}) {
   const [entries, setEntries] = useState(sampleEntries);
   const [newEntry, setNewEntry] = useState({ title: "", content: "" });
-  const [editingEntry, setEditingEntry] = useState(null);
+  const [editingEntry, setEditingEntry] = useState<TEntry | null>(null);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+
+  const [filteredEntries, setFilteredEntries] = useState<TEntry[]>([]);
+
+  useEffect(() => {
+    if (selectedDate) {
+      setFilteredEntries(
+        entries.filter((entry) => entry.date === selectedDate),
+      );
+    } else {
+      setFilteredEntries(entries);
+    }
+  }, [entries, selectedDate]);
 
   const handleAddEntry = () => {
     if (newEntry.title.trim() === "" || newEntry.content.trim() === "") return;
@@ -89,13 +110,16 @@ export default function PersonalEntryList() {
     setIsEditDialogOpen(false);
   };
 
-  const handleDeleteEntry = (id) => {
+  const handleDeleteEntry = (id: number) => {
     setEntries(entries.filter((entry) => entry.id !== id));
   };
 
-  const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    return new Date(dateString).toLocaleDateString(undefined, options);
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
   };
 
   return (
@@ -154,7 +178,7 @@ export default function PersonalEntryList() {
         </Dialog>
       </div>
 
-      {entries.length === 0 ? (
+      {filteredEntries.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center">
           <h3 className="mb-2 text-lg font-semibold">No entries yet</h3>
           <p className="mb-4 text-sm text-muted-foreground">
@@ -167,7 +191,7 @@ export default function PersonalEntryList() {
         </div>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {entries.map((entry) => (
+          {filteredEntries.map((entry) => (
             <Card key={entry.id}>
               <CardHeader>
                 <div className="flex justify-between items-start">
@@ -196,6 +220,7 @@ export default function PersonalEntryList() {
                               id="edit-title"
                               value={editingEntry?.title || ""}
                               onChange={(e) =>
+                                editingEntry &&
                                 setEditingEntry({
                                   ...editingEntry,
                                   title: e.target.value,
@@ -209,6 +234,7 @@ export default function PersonalEntryList() {
                               id="edit-content"
                               value={editingEntry?.content || ""}
                               onChange={(e) =>
+                                editingEntry &&
                                 setEditingEntry({
                                   ...editingEntry,
                                   content: e.target.value,

@@ -175,7 +175,7 @@ export default function MementoMoriPage() {
           key={i}
           className={`
             w-full aspect-square rounded-sm border
-            ${i < data.lived ? "bg-primary/20 border-primary/50" : "bg-muted/20 border-muted"}
+            ${i < data.lived ? "bg-primary/30 border-primary/70" : "bg-muted/10 border-muted/50"}
           `}
           title={`${viewMode.slice(0, -1)} ${i + 1}`}
         />,
@@ -324,7 +324,7 @@ export default function MementoMoriPage() {
                     </div>
                     <div className="flex items-center justify-between mt-4 text-sm text-muted-foreground">
                       <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-sm bg-primary/20 border border-primary/50" />
+                        <div className="w-3 h-3 rounded-sm bg-primary/30 border border-primary/70" />
                         <span>
                           Lived: {data.lived} {viewMode}
                         </span>

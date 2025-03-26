@@ -2,54 +2,185 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { PlusCircle, BookOpen, Briefcase, Heart, Dumbbell } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import {
+  BookOpen,
+  Briefcase,
+  Heart,
+  Dumbbell,
+  ChevronLeft,
+  ChevronRight,
+  X,
+  Calendar,
+  Bell,
+} from "lucide-react";
 import DashboardHeader from "@/components/DashboardHeader";
 import PersonalEntryList from "@/components/PersonalEntryList";
 import WorkEntryList from "@/components/WorkEntryList";
 import HealthTracker from "@/components/HealthTracker";
 import GymProgress from "@/components/GymProgress";
+import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router";
+
+// Sample events data
+const sampleEvents = [
+  {
+    id: 1,
+    title: "Doctor's Appointment",
+    date: "2023-06-20",
+    type: "appointment",
+    description: "Annual checkup at City Hospital",
+  },
+  {
+    id: 2,
+    title: "Mom's Birthday",
+    date: "2023-06-25",
+    type: "birthday",
+    description: "Don't forget to buy a gift!",
+  },
+  {
+    id: 3,
+    title: "Team Meeting",
+    date: "2023-06-18",
+    type: "meeting",
+    description: "Quarterly review with the department",
+  },
+];
 
 export default function DashboardPage() {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [selectedDate, setSelectedDate] = useState(
+    new Date().toISOString().split("T")[0],
+  );
+  const [events, setEvents] = useState(sampleEvents);
+  const [showEvents, setShowEvents] = useState(true);
+
+  // Get today's events
+  const todayEvents = events.filter(
+    (event) => event.date === new Date().toISOString().split("T")[0],
+  );
+
+  // Get selected day's events
+  const selectedDayEvents = events.filter(
+    (event) => event.date === selectedDate,
+  );
 
   useEffect(() => {
-    // Check if user is logged in
-    const userData = localStorage.getItem("user");
-    if (userData) {
-      setUser(JSON.parse(userData));
-    } else {
-      // navigate("/login");
+    const savedEvents = localStorage.getItem("events");
+    if (savedEvents) {
+      setEvents(JSON.parse(savedEvents));
     }
-    setLoading(false);
-  }, [navigate]);
+  }, []);
 
-  if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        Loading...
-      </div>
-    );
-  }
+  // Format date for display
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString(undefined, {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
 
-  // if (!user) {
-  //   return null; // Will redirect to login
-  // }
+  // Navigate to previous day
+  const goToPreviousDay = () => {
+    const date = new Date(selectedDate);
+    date.setDate(date.getDate() - 1);
+    setSelectedDate(date.toISOString().split("T")[0]);
+  };
+
+  // Navigate to next day
+  const goToNextDay = () => {
+    const date = new Date(selectedDate);
+    date.setDate(date.getDate() + 1);
+    setSelectedDate(date.toISOString().split("T")[0]);
+  };
+
+  // Dismiss event alert
+  const dismissEventAlert = () => {
+    setShowEvents(false);
+  };
 
   return (
     <div className="flex min-h-screen flex-col">
-      <DashboardHeader user={user} />
+      <DashboardHeader />
       <main className="flex-1 p-4 md:p-6">
         <div className="mx-auto max-w-7xl">
           <div className="flex items-center justify-between mb-6">
             <h1 className="text-3xl font-bold">My Diary</h1>
-            <Button>
-              <PlusCircle className="mr-2 h-4 w-4" />
-              New Entry
+            <Button onClick={() => navigate("/dashboard/calendar")}>
+              <Calendar className="mr-2 h-4 w-4" />
+              View Calendar
             </Button>
           </div>
+
+          {/* Today's Events Alert */}
+          {showEvents && todayEvents.length > 0 && (
+            <Alert className="mb-6">
+              <Bell className="h-4 w-4" />
+              <AlertTitle>Events Today</AlertTitle>
+              <AlertDescription>
+                <div className="mt-2 space-y-2">
+                  {todayEvents.map((event) => (
+                    <div key={event.id} className="text-sm">
+                      <span className="font-medium">{event.title}</span> -{" "}
+                      {event.description}
+                    </div>
+                  ))}
+                </div>
+              </AlertDescription>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute right-2 top-2"
+                onClick={dismissEventAlert}
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </Alert>
+          )}
+
+          {/* Date Selection */}
+          <div className="flex items-center justify-between mb-6">
+            <Button variant="outline" size="icon" onClick={goToPreviousDay}>
+              <ChevronLeft className="h-4 w-4" />
+            </Button>
+            <div className="flex items-center gap-2">
+              <Input
+                type="date"
+                value={selectedDate}
+                onChange={(e) => setSelectedDate(e.target.value)}
+                className="w-auto"
+              />
+              <span className="text-lg font-medium">
+                {formatDate(selectedDate)}
+              </span>
+            </div>
+            <Button variant="outline" size="icon" onClick={goToNextDay}>
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          </div>
+
+          {/* Selected Day's Events */}
+          {selectedDayEvents.length > 0 && (
+            <div className="mb-6">
+              <h2 className="text-lg font-semibold mb-3">Events on this day</h2>
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {selectedDayEvents.map((event) => (
+                  <Card key={event.id}>
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-md">{event.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground">
+                        {event.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className="grid gap-4 md:grid-cols-4 mb-8">
             <Card>
@@ -118,16 +249,16 @@ export default function DashboardPage() {
               <TabsTrigger value="gym">Gym Progress</TabsTrigger>
             </TabsList>
             <TabsContent value="personal" className="space-y-4">
-              <PersonalEntryList />
+              <PersonalEntryList selectedDate={selectedDate} />
             </TabsContent>
             <TabsContent value="work" className="space-y-4">
               <WorkEntryList />
             </TabsContent>
             <TabsContent value="health" className="space-y-4">
-              <HealthTracker />
+              <HealthTracker selectedDate={selectedDate} />
             </TabsContent>
             <TabsContent value="gym" className="space-y-4">
-              <GymProgress />
+              <GymProgress selectedDate={selectedDate} />
             </TabsContent>
           </Tabs>
         </div>

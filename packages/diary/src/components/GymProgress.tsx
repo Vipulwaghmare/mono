@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -28,8 +28,23 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+type TEntry = {
+  id: number;
+  date: string;
+  type: string;
+  duration: number;
+  exercises: {
+    name: string;
+    sets: number;
+    reps: number;
+    weight?: number;
+    duration?: number;
+  }[];
+  notes: string;
+};
+
 // Sample data for demonstration
-const sampleWorkouts = [
+const sampleWorkouts: TEntry[] = [
   {
     id: 1,
     date: "2023-06-15",
@@ -68,7 +83,12 @@ const sampleWorkouts = [
   },
 ];
 
-export default function GymProgress() {
+// Update the component definition to accept selectedDate prop
+export default function GymProgress({
+  selectedDate,
+}: {
+  selectedDate: string;
+}) {
   const [workouts, setWorkouts] = useState(sampleWorkouts);
   const [newWorkout, setNewWorkout] = useState({
     type: "",
@@ -76,9 +96,23 @@ export default function GymProgress() {
     exercises: [{ name: "", sets: "", reps: "", weight: "" }],
     notes: "",
   });
-  const [editingWorkout, setEditingWorkout] = useState(null);
+  const [editingWorkout, setEditingWorkout] = useState<TEntry | null>(null);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+
+  // Inside the component, add this after the useState declarations:
+  const [filteredWorkouts, setFilteredWorkouts] = useState<TEntry[]>([]);
+
+  // Add this useEffect to filter workouts by selected date
+  useEffect(() => {
+    if (selectedDate) {
+      setFilteredWorkouts(
+        workouts.filter((workout) => workout.date === selectedDate),
+      );
+    } else {
+      setFilteredWorkouts(workouts);
+    }
+  }, [workouts, selectedDate]);
 
   const handleAddExercise = () => {
     setNewWorkout({
@@ -90,19 +124,19 @@ export default function GymProgress() {
     });
   };
 
-  const handleRemoveExercise = (index) => {
+  const handleRemoveExercise = (index: number) => {
     const exercises = [...newWorkout.exercises];
     exercises.splice(index, 1);
     setNewWorkout({ ...newWorkout, exercises });
   };
 
-  const handleExerciseChange = (index, field, value) => {
+  const handleExerciseChange = (index: number, field, value) => {
     const exercises = [...newWorkout.exercises];
     exercises[index] = { ...exercises[index], [field]: value };
     setNewWorkout({ ...newWorkout, exercises });
   };
 
-  const handleEditExerciseChange = (index, field, value) => {
+  const handleEditExerciseChange = (index: number, field, value) => {
     if (!editingWorkout) return;
     const exercises = [...editingWorkout.exercises];
     exercises[index] = { ...exercises[index], [field]: value };
@@ -120,7 +154,7 @@ export default function GymProgress() {
     });
   };
 
-  const handleRemoveEditExercise = (index) => {
+  const handleRemoveEditExercise = (index: number) => {
     if (!editingWorkout) return;
     const exercises = [...editingWorkout.exercises];
     exercises.splice(index, 1);
@@ -382,7 +416,7 @@ export default function GymProgress() {
         </Dialog>
       </div>
 
-      {workouts.length === 0 ? (
+      {filteredWorkouts.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center">
           <h3 className="mb-2 text-lg font-semibold">No workouts yet</h3>
           <p className="mb-4 text-sm text-muted-foreground">
@@ -395,7 +429,7 @@ export default function GymProgress() {
         </div>
       ) : (
         <div className="space-y-4">
-          {workouts.map((workout) => (
+          {filteredWorkouts.map((workout) => (
             <Card key={workout.id}>
               <CardHeader>
                 <div className="flex justify-between items-start">

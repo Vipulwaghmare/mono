@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,8 +22,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { PlusCircle, Edit, Trash } from "lucide-react";
 
+type TEntry = {
+  id: number;
+  title: string;
+  content: string;
+  date: string;
+};
+
 // Sample data for demonstration
-const sampleEntries = [
+const sampleEntries: TEntry[] = [
   {
     id: 1,
     title: "Project Milestone Achieved",
@@ -52,7 +57,7 @@ const sampleEntries = [
 export default function WorkEntryList() {
   const [entries, setEntries] = useState(sampleEntries);
   const [newEntry, setNewEntry] = useState({ title: "", content: "" });
-  const [editingEntry, setEditingEntry] = useState(null);
+  const [editingEntry, setEditingEntry] = useState<TEntry | null>(null);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
@@ -89,13 +94,16 @@ export default function WorkEntryList() {
     setIsEditDialogOpen(false);
   };
 
-  const handleDeleteEntry = (id) => {
+  const handleDeleteEntry = (id: number) => {
     setEntries(entries.filter((entry) => entry.id !== id));
   };
 
-  const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    return new Date(dateString).toLocaleDateString(undefined, options);
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
   };
 
   return (
@@ -196,6 +204,7 @@ export default function WorkEntryList() {
                               id="edit-title"
                               value={editingEntry?.title || ""}
                               onChange={(e) =>
+                                editingEntry &&
                                 setEditingEntry({
                                   ...editingEntry,
                                   title: e.target.value,
@@ -209,6 +218,7 @@ export default function WorkEntryList() {
                               id="edit-content"
                               value={editingEntry?.content || ""}
                               onChange={(e) =>
+                                editingEntry &&
                                 setEditingEntry({
                                   ...editingEntry,
                                   content: e.target.value,

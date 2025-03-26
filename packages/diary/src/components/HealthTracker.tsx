@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -52,7 +52,11 @@ const sampleEntries = [
   },
 ];
 
-export default function HealthTracker() {
+export default function HealthTracker({
+  selectedDate,
+}: {
+  selectedDate: string;
+}) {
   const [entries, setEntries] = useState(sampleEntries);
   const [newEntry, setNewEntry] = useState({
     weight: "",
@@ -64,6 +68,17 @@ export default function HealthTracker() {
   const [editingEntry, setEditingEntry] = useState(null);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [filteredEntries, setFilteredEntries] = useState([]);
+
+  useEffect(() => {
+    if (selectedDate) {
+      setFilteredEntries(
+        entries.filter((entry) => entry.date === selectedDate),
+      );
+    } else {
+      setFilteredEntries(entries);
+    }
+  }, [entries, selectedDate]);
 
   const handleAddEntry = () => {
     if (!newEntry.weight || !newEntry.height) return;
@@ -121,9 +136,9 @@ export default function HealthTracker() {
   };
 
   const getWeightTrend = (index) => {
-    if (index >= entries.length - 1) return null;
-    const currentWeight = entries[index].weight;
-    const previousWeight = entries[index + 1].weight;
+    if (index >= filteredEntries.length - 1) return null;
+    const currentWeight = filteredEntries[index].weight;
+    const previousWeight = filteredEntries[index + 1].weight;
 
     if (currentWeight < previousWeight) {
       return <TrendingDown className="h-4 w-4 text-green-500" />;
@@ -227,7 +242,7 @@ export default function HealthTracker() {
         </Dialog>
       </div>
 
-      {entries.length === 0 ? (
+      {filteredEntries.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center">
           <h3 className="mb-2 text-lg font-semibold">No entries yet</h3>
           <p className="mb-4 text-sm text-muted-foreground">
@@ -240,7 +255,7 @@ export default function HealthTracker() {
         </div>
       ) : (
         <div className="space-y-4">
-          {entries.map((entry, index) => (
+          {filteredEntries.map((entry, index) => (
             <Card key={entry.id}>
               <CardHeader>
                 <div className="flex justify-between items-start">
