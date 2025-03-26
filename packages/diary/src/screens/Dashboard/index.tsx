@@ -237,7 +237,7 @@ export default function DashboardPage() {
               <PersonalEntryList selectedDate={selectedDate} />
             </TabsContent>
             <TabsContent value="work" className="space-y-4">
-              <WorkEntryList />
+              <WorkEntryList selectedDate={selectedDate} />
             </TabsContent>
             <TabsContent value="health" className="space-y-4">
               <HealthTracker selectedDate={selectedDate} />

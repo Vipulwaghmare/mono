@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -21,74 +21,42 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { PlusCircle, Edit, Trash } from "lucide-react";
-
-type TEntry = {
-  id: number;
-  title: string;
-  content: string;
-  date: string;
-};
-// Sample data for demonstration
-
-const sampleEntries: TEntry[] = [
-  {
-    id: 1,
-    title: "Weekend Trip to the Mountains",
-    content:
-      "Had an amazing time hiking in the mountains this weekend. The views were breathtaking and the weather was perfect.",
-    date: "2023-06-15",
-  },
-  {
-    id: 2,
-    title: "Family Dinner",
-    content:
-      "Had dinner with my parents and siblings. It was great catching up with everyone after so long.",
-    date: "2023-06-10",
-  },
-  {
-    id: 3,
-    title: "New Book",
-    content:
-      "Started reading a new book today. It's a mystery novel that's been on my reading list for months.",
-    date: "2023-06-05",
-  },
-];
+import { GetPersonalNotesResponseDto } from "@vipulwaghmare/apis";
+import useGetAllData from "@/hooks/useGetAllData";
 
 export default function PersonalEntryList({
   selectedDate,
 }: {
   selectedDate: string;
 }) {
-  const [entries, setEntries] = useState(sampleEntries);
-  const [newEntry, setNewEntry] = useState({ title: "", content: "" });
-  const [editingEntry, setEditingEntry] = useState<TEntry | null>(null);
+  const { data } = useGetAllData(selectedDate);
+  const entries = data?.personal ?? [];
+  const [newEntry, setNewEntry] = useState<{
+    title: string;
+    description: string;
+  }>({
+    // TODO: Fix with backend type
+    title: "",
+    description: "",
+  });
+  const [editingEntry, setEditingEntry] =
+    useState<GetPersonalNotesResponseDto | null>(null);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
-  const [filteredEntries, setFilteredEntries] = useState<TEntry[]>([]);
-
-  useEffect(() => {
-    if (selectedDate) {
-      setFilteredEntries(
-        entries.filter((entry) => entry.date === selectedDate),
-      );
-    } else {
-      setFilteredEntries(entries);
-    }
-  }, [entries, selectedDate]);
-
   const handleAddEntry = () => {
-    if (newEntry.title.trim() === "" || newEntry.content.trim() === "") return;
+    if (newEntry.title.trim() === "" || newEntry.description.trim() === "")
+      return;
 
     const entry = {
       id: Date.now(),
       title: newEntry.title,
-      content: newEntry.content,
+      description: newEntry.description,
       date: new Date().toISOString().split("T")[0],
     };
-
-    setEntries([entry, ...entries]);
-    setNewEntry({ title: "", content: "" });
+    // TODO: MAKE API CALL
+    console.log(entry);
+    setNewEntry({ title: "", description: "" });
     setIsAddDialogOpen(false);
   };
 
@@ -96,22 +64,19 @@ export default function PersonalEntryList({
     if (
       !editingEntry ||
       editingEntry.title.trim() === "" ||
-      editingEntry.content.trim() === ""
+      editingEntry.description.trim() === ""
     )
       return;
-
-    setEntries(
-      entries.map((entry) =>
-        entry.id === editingEntry.id ? editingEntry : entry,
-      ),
-    );
+    // TODO: Update API CALL
 
     setEditingEntry(null);
     setIsEditDialogOpen(false);
   };
 
   const handleDeleteEntry = (id: number) => {
-    setEntries(entries.filter((entry) => entry.id !== id));
+    console.log("deleting", id);
+    // setEntries(entries.filter((entry) => entry.id !== id));
+    // TODO: Delete API CALL
   };
 
   const formatDate = (dateString: string) => {
@@ -153,12 +118,12 @@ export default function PersonalEntryList({
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="content">Content</Label>
+                <Label htmlFor="description">Description</Label>
                 <Textarea
-                  id="content"
-                  value={newEntry.content}
+                  id="description"
+                  value={newEntry.description}
                   onChange={(e) =>
-                    setNewEntry({ ...newEntry, content: e.target.value })
+                    setNewEntry({ ...newEntry, description: e.target.value })
                   }
                   placeholder="Write your thoughts here..."
                   className="min-h-[200px]"
@@ -178,7 +143,7 @@ export default function PersonalEntryList({
         </Dialog>
       </div>
 
-      {filteredEntries.length === 0 ? (
+      {entries.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center">
           <h3 className="mb-2 text-lg font-semibold">No entries yet</h3>
           <p className="mb-4 text-sm text-muted-foreground">
@@ -191,7 +156,7 @@ export default function PersonalEntryList({
         </div>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {filteredEntries.map((entry) => (
+          {entries.map((entry) => (
             <Card key={entry.id}>
               <CardHeader>
                 <div className="flex justify-between items-start">
@@ -229,15 +194,17 @@ export default function PersonalEntryList({
                             />
                           </div>
                           <div className="grid gap-2">
-                            <Label htmlFor="edit-content">Content</Label>
+                            <Label htmlFor="edit-description">
+                              Description
+                            </Label>
                             <Textarea
-                              id="edit-content"
-                              value={editingEntry?.content || ""}
+                              id="edit-description"
+                              value={editingEntry?.description || ""}
                               onChange={(e) =>
                                 editingEntry &&
                                 setEditingEntry({
                                   ...editingEntry,
-                                  content: e.target.value,
+                                  description: e.target.value,
                                 })
                               }
                               className="min-h-[200px]"
@@ -269,7 +236,7 @@ export default function PersonalEntryList({
                 <CardDescription>{formatDate(entry.date)}</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="line-clamp-4">{entry.content}</p>
+                <p className="line-clamp-4">{entry.description}</p>
               </CardContent>
               <CardFooter>
                 <Button variant="outline" size="sm" className="w-full">

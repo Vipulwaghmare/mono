@@ -21,58 +21,36 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { PlusCircle, Edit, Trash } from "lucide-react";
+import useGetAllData from "@/hooks/useGetAllData";
+import { GetWorkNotesResponseDto } from "@vipulwaghmare/apis";
 
-type TEntry = {
-  id: number;
-  title: string;
-  content: string;
-  date: string;
-};
-
-// Sample data for demonstration
-const sampleEntries: TEntry[] = [
-  {
-    id: 1,
-    title: "Project Milestone Achieved",
-    content:
-      "Successfully completed the first phase of the project ahead of schedule. The team worked really well together.",
-    date: "2023-06-14",
-  },
-  {
-    id: 2,
-    title: "Client Meeting",
-    content:
-      "Had a productive meeting with the client. They were pleased with our progress and provided valuable feedback.",
-    date: "2023-06-12",
-  },
-  {
-    id: 3,
-    title: "New Skills Learned",
-    content:
-      "Spent the day learning a new framework that will help streamline our development process.",
-    date: "2023-06-08",
-  },
-];
-
-export default function WorkEntryList() {
-  const [entries, setEntries] = useState(sampleEntries);
-  const [newEntry, setNewEntry] = useState({ title: "", content: "" });
-  const [editingEntry, setEditingEntry] = useState<TEntry | null>(null);
+export default function WorkEntryList({
+  selectedDate,
+}: {
+  selectedDate: string;
+}) {
+  const { data } = useGetAllData(selectedDate);
+  const entries = data?.work ?? [];
+  const [newEntry, setNewEntry] = useState({ title: "", description: "" });
+  const [editingEntry, setEditingEntry] =
+    useState<GetWorkNotesResponseDto | null>(null);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
   const handleAddEntry = () => {
-    if (newEntry.title.trim() === "" || newEntry.content.trim() === "") return;
+    if (newEntry.title.trim() === "" || newEntry.description.trim() === "")
+      return;
 
     const entry = {
       id: Date.now(),
       title: newEntry.title,
-      content: newEntry.content,
+      content: newEntry.description,
       date: new Date().toISOString().split("T")[0],
     };
 
-    setEntries([entry, ...entries]);
-    setNewEntry({ title: "", content: "" });
+    // TODO: MAKE API CALL
+    console.log(entry);
+    setNewEntry({ title: "", description: "" });
     setIsAddDialogOpen(false);
   };
 
@@ -80,22 +58,19 @@ export default function WorkEntryList() {
     if (
       !editingEntry ||
       editingEntry.title.trim() === "" ||
-      editingEntry.content.trim() === ""
+      editingEntry.description.trim() === ""
     )
       return;
 
-    setEntries(
-      entries.map((entry) =>
-        entry.id === editingEntry.id ? editingEntry : entry,
-      ),
-    );
+    // TODO: MAKE API CALL
 
     setEditingEntry(null);
     setIsEditDialogOpen(false);
   };
 
   const handleDeleteEntry = (id: number) => {
-    setEntries(entries.filter((entry) => entry.id !== id));
+    // setEntries(entries.filter((entry) => entry.id !== id));
+    console.log("deleing", id);
   };
 
   const formatDate = (dateString: string) => {
@@ -140,9 +115,9 @@ export default function WorkEntryList() {
                 <Label htmlFor="content">Content</Label>
                 <Textarea
                   id="content"
-                  value={newEntry.content}
+                  value={newEntry.description}
                   onChange={(e) =>
-                    setNewEntry({ ...newEntry, content: e.target.value })
+                    setNewEntry({ ...newEntry, description: e.target.value })
                   }
                   placeholder="Write about your work day..."
                   className="min-h-[200px]"
@@ -216,12 +191,12 @@ export default function WorkEntryList() {
                             <Label htmlFor="edit-content">Content</Label>
                             <Textarea
                               id="edit-content"
-                              value={editingEntry?.content || ""}
+                              value={editingEntry?.description || ""}
                               onChange={(e) =>
                                 editingEntry &&
                                 setEditingEntry({
                                   ...editingEntry,
-                                  content: e.target.value,
+                                  description: e.target.value,
                                 })
                               }
                               className="min-h-[200px]"
@@ -253,7 +228,7 @@ export default function WorkEntryList() {
                 <CardDescription>{formatDate(entry.date)}</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="line-clamp-4">{entry.content}</p>
+                <p className="line-clamp-4">{entry.description}</p>
               </CardContent>
               <CardFooter>
                 <Button variant="outline" size="sm" className="w-full">

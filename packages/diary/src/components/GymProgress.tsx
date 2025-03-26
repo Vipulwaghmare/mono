@@ -27,60 +27,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-type TEntry = {
-  id: number;
-  date: string;
-  type: string;
-  duration: number;
-  exercises: {
-    name: string;
-    sets: number;
-    reps: number;
-    weight?: number;
-    duration?: number;
-  }[];
-  notes: string;
-};
-// Sample data for demonstration
-const sampleWorkouts: TEntry[] = [
-  {
-    id: 1,
-    date: new Date().toISOString().split("T")[0],
-    type: "Strength Training",
-    duration: 60,
-    exercises: [
-      { name: "Bench Press", sets: 3, reps: 10, weight: 80 },
-      { name: "Squats", sets: 4, reps: 8, weight: 100 },
-      { name: "Deadlift", sets: 3, reps: 6, weight: 120 },
-    ],
-    notes: "Great workout today. Increased weight on bench press.",
-  },
-  {
-    id: 2,
-    date: new Date().toISOString().split("T")[0],
-    type: "Cardio",
-    duration: 45,
-    exercises: [
-      { name: "Treadmill", sets: 1, reps: 1, weight: 0, duration: 30 },
-      { name: "Cycling", sets: 1, reps: 1, weight: 0, duration: 15 },
-    ],
-    notes: "Focused on cardio today. Felt good.",
-  },
-  {
-    id: 3,
-    date: new Date().toISOString().split("T")[0],
-    type: "Strength Training",
-    duration: 75,
-    exercises: [
-      { name: "Pull-ups", sets: 3, reps: 8, weight: 0 },
-      { name: "Barbell Rows", sets: 3, reps: 10, weight: 60 },
-      { name: "Shoulder Press", sets: 3, reps: 10, weight: 40 },
-      { name: "Bicep Curls", sets: 3, reps: 12, weight: 15 },
-    ],
-    notes: "Back and biceps day. Increased reps on pull-ups.",
-  },
-];
+import useGetAllData from "@/hooks/useGetAllData";
+import { GetGymProgressResponseDto } from "@vipulwaghmare/apis";
 
 // Update the component definition to accept selectedDate prop
 export default function GymProgress({
@@ -88,10 +36,11 @@ export default function GymProgress({
 }: {
   selectedDate: string;
 }) {
-  const [workouts, setWorkouts] = useState(sampleWorkouts);
-  const [newWorkout, setNewWorkout] = useState({
+  const { data } = useGetAllData(selectedDate);
+  const workouts = data?.gym ?? [];
+  const [newWorkout, setNewWorkout] = useState<GetGymProgressResponseDto>({
     type: "",
-    duration: "",
+    duration: 0,
     exercises: [{ name: "", sets: "", reps: "", weight: "" }],
     notes: "",
   });
