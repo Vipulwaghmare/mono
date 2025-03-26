@@ -371,12 +371,26 @@
           "Users"
         ]
       }
+    },
+    "/diary": {
+      "get": {
+        "operationId": "DiaryController_get",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Diary"
+        ]
+      }
     }
   },
   "info": {
     "title": "Vipul Waghmare APIs",
     "description": "All the APIs created",
-    "version": "1.0",
+    "version": "0.0.1",
     "contact": {}
   },
   "tags": [],

@@ -7,7 +7,7 @@ export class AuthMiddleware implements NestMiddleware {
   constructor(private cryptoService: CryptoService) { }
 
   async use(req: Request, res: Response, next: NextFunction) {
-    const token = req.headers['authorization'];
+    const token = req.headers['authorization'] || req.headers['Authorization'] || req.cookies['accessToken'];
 
     if (!token || typeof token !== 'string') {
       return res.status(401).json({ message: 'Unauthorized' });

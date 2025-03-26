@@ -11,6 +11,7 @@ import { CryptoService } from './services/crypto.service';
 import { EmailService } from './services/email.service';
 import { PortfolioController } from './portfolio/portfolio.controller';
 import { ScribbleController } from './scribble/scribble.controller';
+import { DiaryModule } from './diary/diary.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ScribbleController } from './scribble/scribble.controller';
     MessagesModule,
     UsersModule,
     AuthModule,
+    DiaryModule,
   ],
   controllers: [AppController, AuthController, PortfolioController, ScribbleController],
   providers: [AppService, CryptoService, EmailService],

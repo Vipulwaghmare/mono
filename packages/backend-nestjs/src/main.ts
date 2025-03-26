@@ -4,7 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import helmet from 'helmet';
 import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
-import * as swaggerUi from 'swagger-ui-express';
+import * as cookieParser from 'cookie-parser';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -23,15 +23,17 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe()
   );
+  app.use(cookieParser());
   app.enableCors({
     origin: corsOrigin,
+    credentials: true,
   })
   // Swagger Setup
   // Doesn't work on vercel
   const config = new DocumentBuilder()
     .setTitle('Vipul Waghmare APIs')
     .setDescription('All the APIs created')
-    .setVersion('1.0')
+    .setVersion(process.env.npm_package_version)
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   // Generate swagger file

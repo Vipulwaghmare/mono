@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Post, Headers } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Post, Headers, Res } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { UsersService } from '../users/users.service';
 import { CreateUserDto } from './dtos/create-user.dto';
@@ -51,7 +51,7 @@ export class AuthController {
 
   @Post('/login')
   @ApiResponse(validationApiResOptions)
-  async login(@Body() body: LoginUserDto) {
+  async login(@Body() body: LoginUserDto, @Res({ passthrough: true }) response) {
     this.logger.log('User login attempt');
     const email = body.email.trim().toLowerCase();
     const user = await this.userService.findByEmail(email, { email: 1, password: 1 });
@@ -69,11 +69,17 @@ export class AuthController {
       userId: user._id,
     };
     const accessToken = await this.cryptoService.getAccessToken(jwtPayload);
-    const refreshToken = await this.cryptoService.getRefreshToken(jwtPayload);
+    // const refreshToken = await this.cryptoService.getRefreshToken(jwtPayload);
+    response.cookie('accessToken', accessToken, {
+      httpOnly: true,  // Prevents JavaScript access
+      secure: process.env.NODE_ENV !== 'development', // HTTPS only in production
+      sameSite: 'strict', // Protects against CSRF
+      maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    });
     return {
       success: `User is logged in with email: ${email}`,
       accessToken,
-      refreshToken,
+      // refreshToken,
       userId: user._id,
     };
   }
