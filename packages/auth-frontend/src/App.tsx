@@ -20,6 +20,10 @@ export default function App() {
             />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route
+              path="/reset-password/:token"
+              element={<ForgotPasswordPage />}
+            />
           </Routes>
         </QueryClientProvider>
       </BrowserRouter>

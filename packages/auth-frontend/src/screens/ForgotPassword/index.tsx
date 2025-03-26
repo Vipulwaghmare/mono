@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from "../../components/ui/card";
 import { Alert, AlertDescription } from "../../components/ui/alert";
-import api from "@/apis/instance";
+import api from "../../apis/instance";
 import { ForgotPasswordDto } from "@vipulwaghmare/apis";
 import { AxiosResponse } from "axios";
 import { useMutation } from "@tanstack/react-query";

@@ -12,7 +12,7 @@ import {
 } from "../../components/ui/card";
 import { Alert, AlertDescription } from "../../components/ui/alert";
 import { useNavigate } from "react-router";
-import api from "@/apis/instance";
+import api from "../../apis/instance";
 import { CreateUserDto } from "@vipulwaghmare/apis";
 import { AxiosResponse } from "axios";
 import { useMutation } from "@tanstack/react-query";
