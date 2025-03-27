@@ -5,7 +5,9 @@
     "packages/*"
   ],
   "devDependencies": {
-    "lerna": "^7.4.2"
+    "lerna": "^7.4.2",
+    "nx": "16.10.0",
+    "nx-cloud": "latest"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
