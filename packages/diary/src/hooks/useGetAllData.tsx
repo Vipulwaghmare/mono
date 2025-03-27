@@ -4,7 +4,7 @@ import { GetAllDiaryDataResponseDto } from "@vipulwaghmare/apis";
 
 const useGetAllData = (date: string) => {
   return useQuery<any, any, GetAllDiaryDataResponseDto>({
-    queryKey: ["events"],
+    queryKey: ["all-data"],
     queryFn: async () => {
       console.log(date);
       const res = await api.diaryControllerGetAllData();

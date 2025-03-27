@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
+// import { useForm } from "react-hook-form";
 import {
   Card,
   CardContent,
@@ -7,28 +8,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { PlusCircle, Edit, Trash, Plus } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { PlusCircle, Trash } from "lucide-react";
 import useGetAllData from "@/hooks/useGetAllData";
 import { GetGymProgressResponseDto } from "@vipulwaghmare/apis";
+import AddGymNote from "./forms/AddGymNote";
 
 // Update the component definition to accept selectedDate prop
 export default function GymProgress({
@@ -38,333 +21,166 @@ export default function GymProgress({
 }) {
   const { data } = useGetAllData(selectedDate);
   const workouts = data?.gym ?? [];
-  const [newWorkout, setNewWorkout] = useState<GetGymProgressResponseDto>({
-    type: "",
-    duration: 0,
-    exercises: [{ name: "", sets: "", reps: "", weight: "" }],
-    notes: "",
-  });
-  const [editingWorkout, setEditingWorkout] = useState<TEntry | null>(null);
+  console.log({ workouts });
+  // const {
+  //   watch,
+  //   // control,
+  //   // formState: { errors },
+  // } = useForm<{
+  //   date: "";
+  //   type: "";
+  //   data: GetGymProgressResponseDto[];
+  // }>();
+  // const [newWorkout, setNewWorkout] = useState<GetGymProgressResponseDto>({
+  //   type: "",
+  //   duration: 0,
+  //   date: "",
+  //   id: 1,
+  //   exercises: [{ name: "", sets: 0, reps: 0, weight: 0, duration: 50 }],
+  //   notes: "",
+  // });
+  const [editingWorkout, setEditingWorkout] =
+    useState<GetGymProgressResponseDto | null>(null);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
   // Inside the component, add this after the useState declarations:
-  const [filteredWorkouts, setFilteredWorkouts] = useState<TEntry[]>([]);
+  // const [filteredWorkouts, setFilteredWorkouts] = useState<TEntry[]>([]);
 
   // Add this useEffect to filter workouts by selected date
-  useEffect(() => {
-    if (selectedDate) {
-      setFilteredWorkouts(
-        workouts.filter((workout) => workout.date === selectedDate),
-      );
-    } else {
-      setFilteredWorkouts(workouts);
-    }
-  }, [workouts, selectedDate]);
+  // useEffect(() => {
+  //   if (selectedDate) {
+  //     setFilteredWorkouts(
+  //       workouts.filter((workout) => workout.date === selectedDate),
+  //     );
+  //   } else {
+  //     setFilteredWorkouts(workouts);
+  //   }
+  // }, [workouts, selectedDate]);
 
-  const handleAddExercise = () => {
-    setNewWorkout({
-      ...newWorkout,
-      exercises: [
-        ...newWorkout.exercises,
-        { name: "", sets: "", reps: "", weight: "" },
-      ],
+  // const handleAddExercise = () => {
+  // setNewWorkout({
+  //   ...newWorkout,
+  //   exercises: [
+  //     ...newWorkout.exercises,
+  //     { name: "", sets: "", reps: "", weight: "" },
+  //   ],
+  // });
+  // };
+
+  // const handleRemoveExercise = (index: number) => {
+  //   const exercises = [...newWorkout.exercises];
+  //   exercises.splice(index, 1);
+  //   setNewWorkout({ ...newWorkout, exercises });
+  // };
+
+  // const handleExerciseChange = (index: number, field, value) => {
+  //   const exercises = [...newWorkout.exercises];
+  //   exercises[index] = { ...exercises[index], [field]: value };
+  //   setNewWorkout({ ...newWorkout, exercises });
+  // };
+
+  // const handleEditExerciseChange = (index: number, field, value) => {
+  //   if (!editingWorkout) return;
+  //   const exercises = [...editingWorkout.exercises];
+  //   exercises[index] = { ...exercises[index], [field]: value };
+  //   setEditingWorkout({ ...editingWorkout, exercises });
+  // };
+
+  // const handleAddEditExercise = () => {
+  //   if (!editingWorkout) return;
+  //   setEditingWorkout({
+  //     ...editingWorkout,
+  //     exercises: [
+  //       ...editingWorkout.exercises,
+  //       { name: "", sets: "", reps: "", weight: "" },
+  //     ],
+  //   });
+  // };
+
+  // const handleRemoveEditExercise = (index: number) => {
+  //   if (!editingWorkout) return;
+  //   const exercises = [...editingWorkout.exercises];
+  //   exercises.splice(index, 1);
+  //   setEditingWorkout({ ...editingWorkout, exercises });
+  // };
+
+  // const handleAddWorkout = () => {
+  // if (!newWorkout.type || !newWorkout.duration) return;
+  // // Validate exercises
+  // const validExercises = newWorkout.exercises.filter(
+  //   (ex) => ex.name && ex.sets && ex.reps,
+  // );
+  // if (validExercises.length === 0) return;
+  // const workout = {
+  //   id: Date.now(),
+  //   date: new Date().toISOString().split("T")[0],
+  //   type: newWorkout.type,
+  //   duration: Number.parseInt(newWorkout.duration),
+  //   exercises: validExercises.map((ex) => ({
+  //     name: ex.name,
+  //     sets: Number.parseInt(ex.sets),
+  //     reps: Number.parseInt(ex.reps),
+  //     weight: ex.weight ? Number.parseInt(ex.weight) : 0,
+  //   })),
+  //   notes: newWorkout.notes,
+  // };
+  // setWorkouts([workout, ...workouts]);
+  // setNewWorkout({
+  //   type: "",
+  //   duration: "",
+  //   exercises: [{ name: "", sets: "", reps: "", weight: "" }],
+  //   notes: "",
+  // });
+  // setIsAddDialogOpen(false);
+  // };
+
+  // const handleEditWorkout = () => {
+  // if (!editingWorkout || !editingWorkout.type || !editingWorkout.duration)
+  //   return;
+  // // Validate exercises
+  // const validExercises = editingWorkout.exercises.filter(
+  //   (ex) => ex.name && ex.sets && ex.reps,
+  // );
+  // if (validExercises.length === 0) return;
+  // const updatedWorkout = {
+  //   ...editingWorkout,
+  //   duration: Number.parseInt(editingWorkout.duration),
+  //   exercises: validExercises.map((ex) => ({
+  //     name: ex.name,
+  //     sets: Number.parseInt(ex.sets),
+  //     reps: Number.parseInt(ex.reps),
+  //     weight: ex.weight ? Number.parseInt(ex.weight) : 0,
+  //   })),
+  // };
+  // setWorkouts(
+  //   workouts.map((workout) =>
+  //     workout.id === editingWorkout.id ? updatedWorkout : workout,
+  //   ),
+  // );
+  // setEditingWorkout(null);
+  // setIsEditDialogOpen(false);
+  // };
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
-  };
-
-  const handleRemoveExercise = (index: number) => {
-    const exercises = [...newWorkout.exercises];
-    exercises.splice(index, 1);
-    setNewWorkout({ ...newWorkout, exercises });
-  };
-
-  const handleExerciseChange = (index: number, field, value) => {
-    const exercises = [...newWorkout.exercises];
-    exercises[index] = { ...exercises[index], [field]: value };
-    setNewWorkout({ ...newWorkout, exercises });
-  };
-
-  const handleEditExerciseChange = (index: number, field, value) => {
-    if (!editingWorkout) return;
-    const exercises = [...editingWorkout.exercises];
-    exercises[index] = { ...exercises[index], [field]: value };
-    setEditingWorkout({ ...editingWorkout, exercises });
-  };
-
-  const handleAddEditExercise = () => {
-    if (!editingWorkout) return;
-    setEditingWorkout({
-      ...editingWorkout,
-      exercises: [
-        ...editingWorkout.exercises,
-        { name: "", sets: "", reps: "", weight: "" },
-      ],
-    });
-  };
-
-  const handleRemoveEditExercise = (index: number) => {
-    if (!editingWorkout) return;
-    const exercises = [...editingWorkout.exercises];
-    exercises.splice(index, 1);
-    setEditingWorkout({ ...editingWorkout, exercises });
-  };
-
-  const handleAddWorkout = () => {
-    if (!newWorkout.type || !newWorkout.duration) return;
-
-    // Validate exercises
-    const validExercises = newWorkout.exercises.filter(
-      (ex) => ex.name && ex.sets && ex.reps,
-    );
-    if (validExercises.length === 0) return;
-
-    const workout = {
-      id: Date.now(),
-      date: new Date().toISOString().split("T")[0],
-      type: newWorkout.type,
-      duration: Number.parseInt(newWorkout.duration),
-      exercises: validExercises.map((ex) => ({
-        name: ex.name,
-        sets: Number.parseInt(ex.sets),
-        reps: Number.parseInt(ex.reps),
-        weight: ex.weight ? Number.parseInt(ex.weight) : 0,
-      })),
-      notes: newWorkout.notes,
-    };
-
-    setWorkouts([workout, ...workouts]);
-    setNewWorkout({
-      type: "",
-      duration: "",
-      exercises: [{ name: "", sets: "", reps: "", weight: "" }],
-      notes: "",
-    });
-    setIsAddDialogOpen(false);
-  };
-
-  const handleEditWorkout = () => {
-    if (!editingWorkout || !editingWorkout.type || !editingWorkout.duration)
-      return;
-
-    // Validate exercises
-    const validExercises = editingWorkout.exercises.filter(
-      (ex) => ex.name && ex.sets && ex.reps,
-    );
-    if (validExercises.length === 0) return;
-
-    const updatedWorkout = {
-      ...editingWorkout,
-      duration: Number.parseInt(editingWorkout.duration),
-      exercises: validExercises.map((ex) => ({
-        name: ex.name,
-        sets: Number.parseInt(ex.sets),
-        reps: Number.parseInt(ex.reps),
-        weight: ex.weight ? Number.parseInt(ex.weight) : 0,
-      })),
-    };
-
-    setWorkouts(
-      workouts.map((workout) =>
-        workout.id === editingWorkout.id ? updatedWorkout : workout,
-      ),
-    );
-
-    setEditingWorkout(null);
-    setIsEditDialogOpen(false);
-  };
-
-  const handleDeleteWorkout = (id) => {
-    setWorkouts(workouts.filter((workout) => workout.id !== id));
-  };
-
-  const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">Gym Progress</h2>
-        <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-          <DialogTrigger asChild>
-            <Button>
-              <PlusCircle className="mr-2 h-4 w-4" />
-              New Workout
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="max-w-2xl">
-            <DialogHeader>
-              <DialogTitle>Add New Workout</DialogTitle>
-              <DialogDescription>
-                Record your workout details including exercises, sets, reps, and
-                weights.
-              </DialogDescription>
-            </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="workout-type">Workout Type</Label>
-                  <Select
-                    value={newWorkout.type}
-                    onValueChange={(value) =>
-                      setNewWorkout({ ...newWorkout, type: value })
-                    }
-                  >
-                    <SelectTrigger id="workout-type">
-                      <SelectValue placeholder="Select type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="Strength Training">
-                        Strength Training
-                      </SelectItem>
-                      <SelectItem value="Cardio">Cardio</SelectItem>
-                      <SelectItem value="HIIT">HIIT</SelectItem>
-                      <SelectItem value="Yoga">Yoga</SelectItem>
-                      <SelectItem value="Other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="duration">Duration (minutes)</Label>
-                  <Input
-                    id="duration"
-                    type="number"
-                    value={newWorkout.duration}
-                    onChange={(e) =>
-                      setNewWorkout({ ...newWorkout, duration: e.target.value })
-                    }
-                    placeholder="60"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <Label>Exercises</Label>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={handleAddExercise}
-                  >
-                    <Plus className="h-4 w-4 mr-1" /> Add Exercise
-                  </Button>
-                </div>
-
-                {newWorkout.exercises.map((exercise, index) => (
-                  <div
-                    key={index}
-                    className="grid grid-cols-12 gap-2 items-end border p-2 rounded-md"
-                  >
-                    <div className="col-span-4 grid gap-1">
-                      <Label
-                        htmlFor={`exercise-name-${index}`}
-                        className="text-xs"
-                      >
-                        Exercise
-                      </Label>
-                      <Input
-                        id={`exercise-name-${index}`}
-                        value={exercise.name}
-                        onChange={(e) =>
-                          handleExerciseChange(index, "name", e.target.value)
-                        }
-                        placeholder="Bench Press"
-                      />
-                    </div>
-                    <div className="col-span-2 grid gap-1">
-                      <Label
-                        htmlFor={`exercise-sets-${index}`}
-                        className="text-xs"
-                      >
-                        Sets
-                      </Label>
-                      <Input
-                        id={`exercise-sets-${index}`}
-                        type="number"
-                        value={exercise.sets}
-                        onChange={(e) =>
-                          handleExerciseChange(index, "sets", e.target.value)
-                        }
-                        placeholder="3"
-                      />
-                    </div>
-                    <div className="col-span-2 grid gap-1">
-                      <Label
-                        htmlFor={`exercise-reps-${index}`}
-                        className="text-xs"
-                      >
-                        Reps
-                      </Label>
-                      <Input
-                        id={`exercise-reps-${index}`}
-                        type="number"
-                        value={exercise.reps}
-                        onChange={(e) =>
-                          handleExerciseChange(index, "reps", e.target.value)
-                        }
-                        placeholder="10"
-                      />
-                    </div>
-                    <div className="col-span-3 grid gap-1">
-                      <Label
-                        htmlFor={`exercise-weight-${index}`}
-                        className="text-xs"
-                      >
-                        Weight (kg)
-                      </Label>
-                      <Input
-                        id={`exercise-weight-${index}`}
-                        type="number"
-                        value={exercise.weight}
-                        onChange={(e) =>
-                          handleExerciseChange(index, "weight", e.target.value)
-                        }
-                        placeholder="50"
-                      />
-                    </div>
-                    <div className="col-span-1">
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => handleRemoveExercise(index)}
-                        disabled={newWorkout.exercises.length === 1}
-                      >
-                        <Trash className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="grid gap-2">
-                <Label htmlFor="notes">Notes</Label>
-                <Textarea
-                  id="notes"
-                  value={newWorkout.notes}
-                  onChange={(e) =>
-                    setNewWorkout({ ...newWorkout, notes: e.target.value })
-                  }
-                  placeholder="How was your workout? Any achievements or challenges?"
-                />
-              </div>
-            </div>
-            <DialogFooter>
-              <Button
-                variant="outline"
-                onClick={() => setIsAddDialogOpen(false)}
-              >
-                Cancel
-              </Button>
-              <Button onClick={handleAddWorkout}>Save Workout</Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+        <AddGymNote
+          isAddDialogOpen={isAddDialogOpen}
+          setIsAddDialogOpen={setIsAddDialogOpen}
+        />
       </div>
 
-      {filteredWorkouts.length === 0 ? (
+      {workouts.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center">
           <h3 className="mb-2 text-lg font-semibold">No workouts yet</h3>
           <p className="mb-4 text-sm text-muted-foreground">
@@ -377,7 +193,7 @@ export default function GymProgress({
         </div>
       ) : (
         <div className="space-y-4">
-          {filteredWorkouts.map((workout) => (
+          {workouts.map((workout) => (
             <Card key={workout.id}>
               <CardHeader>
                 <div className="flex justify-between items-start">
@@ -388,220 +204,20 @@ export default function GymProgress({
                     </CardDescription>
                   </div>
                   <div className="flex space-x-2">
-                    <Dialog
-                      open={
+                    <AddGymNote
+                      isAdding={false}
+                      isAddDialogOpen={
                         isEditDialogOpen && editingWorkout?.id === workout.id
                       }
-                      onOpenChange={(open) => {
+                      setIsAddDialogOpen={(open) => {
                         setIsEditDialogOpen(open);
                         if (open) setEditingWorkout({ ...workout });
                       }}
-                    >
-                      <DialogTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent className="max-w-2xl">
-                        <DialogHeader>
-                          <DialogTitle>Edit Workout</DialogTitle>
-                        </DialogHeader>
-                        <div className="grid gap-4 py-4">
-                          <div className="grid grid-cols-2 gap-4">
-                            <div className="grid gap-2">
-                              <Label htmlFor="edit-workout-type">
-                                Workout Type
-                              </Label>
-                              <Select
-                                value={editingWorkout?.type || ""}
-                                onValueChange={(value) =>
-                                  setEditingWorkout({
-                                    ...editingWorkout,
-                                    type: value,
-                                  })
-                                }
-                              >
-                                <SelectTrigger id="edit-workout-type">
-                                  <SelectValue placeholder="Select type" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectItem value="Strength Training">
-                                    Strength Training
-                                  </SelectItem>
-                                  <SelectItem value="Cardio">Cardio</SelectItem>
-                                  <SelectItem value="HIIT">HIIT</SelectItem>
-                                  <SelectItem value="Yoga">Yoga</SelectItem>
-                                  <SelectItem value="Other">Other</SelectItem>
-                                </SelectContent>
-                              </Select>
-                            </div>
-                            <div className="grid gap-2">
-                              <Label htmlFor="edit-duration">
-                                Duration (minutes)
-                              </Label>
-                              <Input
-                                id="edit-duration"
-                                type="number"
-                                value={editingWorkout?.duration || ""}
-                                onChange={(e) =>
-                                  setEditingWorkout({
-                                    ...editingWorkout,
-                                    duration: e.target.value,
-                                  })
-                                }
-                              />
-                            </div>
-                          </div>
-
-                          <div className="space-y-2">
-                            <div className="flex items-center justify-between">
-                              <Label>Exercises</Label>
-                              <Button
-                                type="button"
-                                variant="outline"
-                                size="sm"
-                                onClick={handleAddEditExercise}
-                              >
-                                <Plus className="h-4 w-4 mr-1" /> Add Exercise
-                              </Button>
-                            </div>
-
-                            {editingWorkout?.exercises.map(
-                              (exercise, index) => (
-                                <div
-                                  key={index}
-                                  className="grid grid-cols-12 gap-2 items-end border p-2 rounded-md"
-                                >
-                                  <div className="col-span-4 grid gap-1">
-                                    <Label
-                                      htmlFor={`edit-exercise-name-${index}`}
-                                      className="text-xs"
-                                    >
-                                      Exercise
-                                    </Label>
-                                    <Input
-                                      id={`edit-exercise-name-${index}`}
-                                      value={exercise.name}
-                                      onChange={(e) =>
-                                        handleEditExerciseChange(
-                                          index,
-                                          "name",
-                                          e.target.value,
-                                        )
-                                      }
-                                    />
-                                  </div>
-                                  <div className="col-span-2 grid gap-1">
-                                    <Label
-                                      htmlFor={`edit-exercise-sets-${index}`}
-                                      className="text-xs"
-                                    >
-                                      Sets
-                                    </Label>
-                                    <Input
-                                      id={`edit-exercise-sets-${index}`}
-                                      type="number"
-                                      value={exercise.sets}
-                                      onChange={(e) =>
-                                        handleEditExerciseChange(
-                                          index,
-                                          "sets",
-                                          e.target.value,
-                                        )
-                                      }
-                                    />
-                                  </div>
-                                  <div className="col-span-2 grid gap-1">
-                                    <Label
-                                      htmlFor={`edit-exercise-reps-${index}`}
-                                      className="text-xs"
-                                    >
-                                      Reps
-                                    </Label>
-                                    <Input
-                                      id={`edit-exercise-reps-${index}`}
-                                      type="number"
-                                      value={exercise.reps}
-                                      onChange={(e) =>
-                                        handleEditExerciseChange(
-                                          index,
-                                          "reps",
-                                          e.target.value,
-                                        )
-                                      }
-                                    />
-                                  </div>
-                                  <div className="col-span-3 grid gap-1">
-                                    <Label
-                                      htmlFor={`edit-exercise-weight-${index}`}
-                                      className="text-xs"
-                                    >
-                                      Weight (kg)
-                                    </Label>
-                                    <Input
-                                      id={`edit-exercise-weight-${index}`}
-                                      type="number"
-                                      value={exercise.weight}
-                                      onChange={(e) =>
-                                        handleEditExerciseChange(
-                                          index,
-                                          "weight",
-                                          e.target.value,
-                                        )
-                                      }
-                                    />
-                                  </div>
-                                  <div className="col-span-1">
-                                    <Button
-                                      type="button"
-                                      variant="ghost"
-                                      size="icon"
-                                      onClick={() =>
-                                        handleRemoveEditExercise(index)
-                                      }
-                                      disabled={
-                                        editingWorkout.exercises.length === 1
-                                      }
-                                    >
-                                      <Trash className="h-4 w-4" />
-                                    </Button>
-                                  </div>
-                                </div>
-                              ),
-                            )}
-                          </div>
-
-                          <div className="grid gap-2">
-                            <Label htmlFor="edit-notes">Notes</Label>
-                            <Textarea
-                              id="edit-notes"
-                              value={editingWorkout?.notes || ""}
-                              onChange={(e) =>
-                                setEditingWorkout({
-                                  ...editingWorkout,
-                                  notes: e.target.value,
-                                })
-                              }
-                            />
-                          </div>
-                        </div>
-                        <DialogFooter>
-                          <Button
-                            variant="outline"
-                            onClick={() => setIsEditDialogOpen(false)}
-                          >
-                            Cancel
-                          </Button>
-                          <Button onClick={handleEditWorkout}>
-                            Save Changes
-                          </Button>
-                        </DialogFooter>
-                      </DialogContent>
-                    </Dialog>
+                    />
                     <Button
                       variant="ghost"
                       size="icon"
-                      onClick={() => handleDeleteWorkout(workout.id)}
+                      // onClick={() => handleDeleteWorkout(workout.id)}
                     >
                       <Trash className="h-4 w-4" />
                     </Button>
@@ -622,7 +238,7 @@ export default function GymProgress({
                           <div>{exercise.sets} sets</div>
                           <div>{exercise.reps} reps</div>
                           <div>
-                            {exercise.weight > 0
+                            {exercise.weight && exercise.weight > 0
                               ? `${exercise.weight} kg`
                               : "Bodyweight"}
                           </div>
