@@ -142,7 +142,7 @@ export default function EntriesPage() {
   const [filteredEntries, setFilteredEntries] = useState(sampleEntries);
   const [searchQuery, setSearchQuery] = useState("");
   const [typeFilter, setTypeFilter] = useState("all");
-  const [dateFilter, setDateFilter] = useState("all");
+  const [dateFilter, setDateFilter] = useState("today");
 
   // useEffect(() => {
   //   // Check if user is logged in
@@ -301,7 +301,7 @@ export default function EntriesPage() {
                 onClick={() => {
                   setSearchQuery("");
                   setTypeFilter("all");
-                  setDateFilter("all");
+                  setDateFilter("today");
                 }}
               >
                 Clear Filters

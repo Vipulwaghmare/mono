@@ -580,12 +580,11 @@ export default function SortingVisualizer() {
   };
 
   return (
-    <div className="container mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold text-center mb-8">
+    <div className="container mx-auto py-2 px-2">
+      <h1 className="text-3xl font-bold text-center mb-4">
         Sorting Algorithm Visualizer
       </h1>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-4">
         <Card>
           <CardHeader>
             <CardTitle>Algorithm</CardTitle>
@@ -713,16 +712,15 @@ export default function SortingVisualizer() {
               <p className="text-lg">{swapCount}</p>
             </div>
 
-            <div>
+            {/* <div>
               <h3 className="font-medium">Status:</h3>
               <p className="text-lg">
                 {isSorting ? "Sorting..." : isSorted ? "Sorted!" : "Ready"}
               </p>
-            </div>
+            </div> */}
           </CardContent>
         </Card>
       </div>
-
       <div className="bg-muted p-6 rounded-lg">
         <div className="flex items-end h-64 gap-[2px]">
           {array.map((value, index) => (

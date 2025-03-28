@@ -257,32 +257,38 @@
           <button class="filter-btn" data-filter="backend">Backend</button>
         </div>
         <div class="projects-grid">
-          <div class="project-card" data-category="fullstack">
+          <div class="project-card" data-category="frontend">
             <div class="project-img">
               <img
-                src="/placeholder.svg?height=300&width=500"
+                src="./assets/project/sorting-algo.PNG"
+                height="300"
+                width="500"
                 alt="E-commerce Platform"
               />
             </div>
             <div class="project-info">
-              <h3>E-commerce Platform</h3>
-              <p>
-                A full-stack e-commerce platform with product management, cart
-                functionality, and payment integration.
-              </p>
+              <h3>Sorting Algorithm visualization</h3>
+              <p>A react application to visualize the sorting algorithms.</p>
               <div class="project-tech">
                 <span>React</span>
-                <span>Node.js</span>
-                <span>MongoDB</span>
-                <span>Express</span>
               </div>
               <div class="project-links">
-                <a href="#" class="btn small-btn">View Demo</a>
-                <a href="#" class="btn small-btn secondary-btn">GitHub</a>
+                <a
+                  href="https://mono-sorting-algo.vercel.app/"
+                  target="_blank"
+                  class="btn small-btn"
+                  >View Demo</a
+                >
+                <a
+                  href="https://github.com/Vipulwaghmare/mono/tree/master/packages/sorting-algo"
+                  target="_blank"
+                  class="btn small-btn secondary-btn"
+                  >GitHub</a
+                >
               </div>
             </div>
           </div>
-          <div class="project-card" data-category="frontend">
+          <!-- <div class="project-card" data-category="frontend">
             <div class="project-img">
               <img
                 src="/placeholder.svg?height=300&width=500"
@@ -306,8 +312,8 @@
                 <a href="#" class="btn small-btn secondary-btn">GitHub</a>
               </div>
             </div>
-          </div>
-          <div class="project-card" data-category="backend">
+          </div> -->
+          <!-- <div class="project-card" data-category="backend">
             <div class="project-img">
               <img
                 src="/placeholder.svg?height=300&width=500"
@@ -331,8 +337,8 @@
                 <a href="#" class="btn small-btn secondary-btn">GitHub</a>
               </div>
             </div>
-          </div>
-          <div class="project-card" data-category="fullstack">
+          </div> -->
+          <!-- <div class="project-card" data-category="fullstack">
             <div class="project-img">
               <img
                 src="/placeholder.svg?height=300&width=500"
@@ -356,7 +362,7 @@
                 <a href="#" class="btn small-btn secondary-btn">GitHub</a>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
         <!-- <div class="view-more">
           <a href="#" class="btn primary-btn">View All Projects</a>
@@ -417,7 +423,7 @@
             </div>
           </div>
           <div class="contact-form">
-            <form>
+            <form id="contact-form" onsubmit="sendContactForm(event);">
               <div class="form-group">
                 <label for="name">Name</label>
                 <input
@@ -502,6 +508,29 @@
     </footer>
 
     <script>
+      // Contact me submit
+      async function sendContactForm(e) {
+        e.preventDefault();
+        const form = document.getElementById("contact-form");
+        const formData = new FormData(form);
+        const data = {};
+        formData.forEach((value, key) => {
+          data[key] = value;
+        });
+        const jsonData = JSON.stringify(data);
+        const response = await fetch(
+          "https://api.vipulwaghmare.com/api/v1/message/contact-me/",
+          {
+            method: "POST",
+            body: jsonData,
+          },
+        );
+        if (response.ok) {
+          // TODO: FIX
+        } else {
+          console.log("error");
+        }
+      }
       // Mobile Navigation Toggle
       document
         .querySelector(".hamburger")

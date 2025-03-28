@@ -290,19 +290,7 @@
         ]
       }
     },
-    "/api/v1/message": {
-      "get": {
-        "operationId": "MessagesController_listMessages",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": [
-          "Messages"
-        ]
-      },
+    "/api/v1/message/contact-me": {
       "post": {
         "operationId": "MessagesController_createMessage",
         "parameters": [],
@@ -311,36 +299,13 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateMessageDto"
+                "$ref": "#/components/schemas/ContactMeDto"
               }
             }
           }
         },
         "responses": {
           "201": {
-            "description": ""
-          }
-        },
-        "tags": [
-          "Messages"
-        ]
-      }
-    },
-    "/api/v1/message/{id}": {
-      "get": {
-        "operationId": "MessagesController_getMessage",
-        "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
             "description": ""
           }
         },
@@ -623,9 +588,32 @@
           "roomId"
         ]
       },
-      "CreateMessageDto": {
+      "ContactMeDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "example": "john.doe@email.com"
+          },
+          "subject": {
+            "type": "string",
+            "example": "Regarding a job opportunity"
+          },
+          "message": {
+            "type": "string",
+            "example": "Hi Vipul, ..."
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "subject",
+          "message"
+        ]
       },
       "GetEventsResponseDto": {
         "type": "object",

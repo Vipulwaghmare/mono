@@ -1,8 +1,8 @@
 import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { DiaryController } from './diary.controller';
 import { AuthMiddleware } from '../middlewares/auth.middleware';
-import { DatabaseModule } from 'src/database/database.module';
-import { CryptoService } from 'src/services/crypto.service';
+import { DatabaseModule } from '../database/database.module';
+import { CryptoService } from '../services/crypto.service';
 
 @Module({
   imports: [DatabaseModule],
