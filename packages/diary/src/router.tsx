@@ -1,8 +1,8 @@
 import { createBrowserRouter, Navigate } from "react-router";
-import DashboardPage from "./screens/Dashboard";
-import EntriesPage from "./screens/Entries";
-import CalendarPage from "./screens/Calendar";
-import MementoMoriPage from "./screens/MementoMori";
+// import DashboardPage from "./screens/Dashboard";
+// import EntriesPage from "./screens/Entries";
+// import CalendarPage from "./screens/Calendar";
+// import MementoMoriPage from "./screens/MementoMori";
 import {
   ForgotPasswordPage,
   LoginPage,
@@ -19,46 +19,46 @@ const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
 };
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: (
-      <PrivateRoute>
-        <DashboardPage />
-      </PrivateRoute>
-    ),
-  },
-  {
-    path: "/dashboard",
-    element: (
-      <PrivateRoute>
-        <DashboardPage />
-      </PrivateRoute>
-    ),
-  },
-  {
-    path: "/dashboard/entries",
-    element: (
-      <PrivateRoute>
-        <EntriesPage />
-      </PrivateRoute>
-    ),
-  },
-  {
-    path: "/dashboard/calendar",
-    element: (
-      <PrivateRoute>
-        <CalendarPage />
-      </PrivateRoute>
-    ),
-  },
-  {
-    path: "/dashboard/memento-mori",
-    element: (
-      <PrivateRoute>
-        <MementoMoriPage />
-      </PrivateRoute>
-    ),
-  },
+  // {
+  //   path: "/",
+  //   element: (
+  //     <PrivateRoute>
+  //       <DashboardPage />
+  //     </PrivateRoute>
+  //   ),
+  // },
+  // {
+  //   path: "/dashboard",
+  //   element: (
+  //     <PrivateRoute>
+  //       <DashboardPage />
+  //     </PrivateRoute>
+  //   ),
+  // },
+  // {
+  //   path: "/dashboard/entries",
+  //   element: (
+  //     <PrivateRoute>
+  //       <EntriesPage />
+  //     </PrivateRoute>
+  //   ),
+  // },
+  // {
+  //   path: "/dashboard/calendar",
+  //   element: (
+  //     <PrivateRoute>
+  //       <CalendarPage />
+  //     </PrivateRoute>
+  //   ),
+  // },
+  // {
+  //   path: "/dashboard/memento-mori",
+  //   element: (
+  //     <PrivateRoute>
+  //       <MementoMoriPage />
+  //     </PrivateRoute>
+  //   ),
+  // },
   {
     path: "/login",
     element: <LoginPage onSuccessRedirect="/" />,
