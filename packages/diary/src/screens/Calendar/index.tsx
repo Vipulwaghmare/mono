@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -23,7 +23,6 @@ import {
   Dumbbell,
 } from "lucide-react";
 import DashboardHeader from "@/components/DashboardHeader";
-import { useNavigate } from "react-router";
 
 // Sample data for demonstration - same as in entries page
 const sampleEntries = [
@@ -137,12 +136,11 @@ const sampleEntries = [
 ];
 
 export default function CalendarPage() {
-  const navigate = useNavigate();
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedEntries, setSelectedEntries] = useState([]);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedEntries, setSelectedEntries] = useState<typeof sampleEntries>(
+    [],
+  );
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [typeFilter, setTypeFilter] = useState("all");
 
@@ -158,7 +156,7 @@ export default function CalendarPage() {
   // }, [navigate])
 
   // Get entries for a specific date
-  const getEntriesForDate = (date) => {
+  const getEntriesForDate = (date: Date) => {
     const dateString = date.toISOString().split("T")[0];
     let filtered = sampleEntries.filter((entry) => entry.date === dateString);
 
@@ -170,7 +168,7 @@ export default function CalendarPage() {
   };
 
   // Handle date selection
-  const handleDateClick = (date) => {
+  const handleDateClick = (date: Date) => {
     setSelectedDate(date);
     const entries = getEntriesForDate(date);
     setSelectedEntries(entries);
@@ -225,12 +223,12 @@ export default function CalendarPage() {
   };
 
   // Format date for display
-  const formatDate = (date) => {
+  const formatDate = (date: Date) => {
     return date.toLocaleDateString("en-US", { month: "long", year: "numeric" });
   };
 
   // Check if a date is today
-  const isToday = (date) => {
+  const isToday = (date: Date) => {
     const today = new Date();
     return (
       date.getDate() === today.getDate() &&
@@ -240,12 +238,12 @@ export default function CalendarPage() {
   };
 
   // Get entry count for a date
-  const getEntryCount = (date) => {
+  const getEntryCount = (date: Date) => {
     return getEntriesForDate(date).length;
   };
 
   // Get entry type colors
-  const getTypeColor = (type) => {
+  const getTypeColor = (type: string) => {
     switch (type) {
       case "personal":
         return "bg-blue-500";
@@ -261,7 +259,7 @@ export default function CalendarPage() {
   };
 
   // Get entry types for a date
-  const getEntryTypes = (date) => {
+  const getEntryTypes = (date: Date) => {
     const entries = getEntriesForDate(date);
     return [...new Set(entries.map((entry) => entry.type))];
   };
@@ -281,7 +279,7 @@ export default function CalendarPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <DashboardHeader user={user} />
+      <DashboardHeader />
       <main className="flex-1 p-4 md:p-6">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
@@ -431,7 +429,7 @@ export default function CalendarPage() {
                         setIsDialogOpen(false);
                         // In a real app, this would navigate to the new entry page with the date pre-filled
                         alert(
-                          `Create new entry for ${selectedDate.toLocaleDateString()}`,
+                          `Create new entry for ${selectedDate?.toLocaleDateString()}`,
                         );
                       }}
                     >

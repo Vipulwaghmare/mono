@@ -17,15 +17,11 @@ import {
 } from "@/components/ui/select";
 import { Info } from "lucide-react";
 import DashboardHeader from "@/components/DashboardHeader";
-import { useNavigate } from "react-router";
 
 // Average life expectancy in years
 const AVERAGE_LIFE_EXPECTANCY = 80;
 
 export default function MementoMoriPage() {
-  const navigate = useNavigate();
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [birthdate, setBirthdate] = useState("");
   const [lifeExpectancy, setLifeExpectancy] = useState(AVERAGE_LIFE_EXPECTANCY);
   const [viewMode, setViewMode] = useState("weeks");
@@ -97,7 +93,7 @@ export default function MementoMoriPage() {
     const weekMs = 7 * 24 * 60 * 60 * 1000;
 
     // Calculate weeks lived
-    const weeksLived = Math.floor((today - birth) / weekMs);
+    const weeksLived = Math.floor((today.getTime() - birth.getTime()) / weekMs);
 
     // Calculate total weeks in life expectancy
     const totalWeeks = lifeExpectancy * 52;
@@ -201,7 +197,7 @@ export default function MementoMoriPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <DashboardHeader user={user} />
+      <DashboardHeader />
       <main className="flex-1 p-4 md:p-6">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">

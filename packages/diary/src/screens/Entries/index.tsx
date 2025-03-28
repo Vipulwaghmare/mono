@@ -25,7 +25,6 @@ import {
   Filter,
 } from "lucide-react";
 import DashboardHeader from "@/components/DashboardHeader";
-import { useNavigate } from "react-router";
 
 // Sample data for demonstration
 const sampleEntries = [
@@ -139,10 +138,7 @@ const sampleEntries = [
 ];
 
 export default function EntriesPage() {
-  const navigate = useNavigate();
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [entries, setEntries] = useState(sampleEntries);
+  const [entries] = useState(sampleEntries);
   const [filteredEntries, setFilteredEntries] = useState(sampleEntries);
   const [searchQuery, setSearchQuery] = useState("");
   const [typeFilter, setTypeFilter] = useState("all");
@@ -198,8 +194,11 @@ export default function EntriesPage() {
   }, [entries, typeFilter, dateFilter, searchQuery]);
 
   const formatDate = (dateString: string) => {
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    return new Date(dateString).toLocaleDateString(undefined, options);
+    return new Date(dateString).toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
   };
 
   const getTypeLabel = (type: string) => {
@@ -246,7 +245,7 @@ export default function EntriesPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <DashboardHeader user={user} />
+      <DashboardHeader />
       <main className="flex-1 p-4 md:p-6">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
