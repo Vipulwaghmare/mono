@@ -413,6 +413,20 @@
           "Diary"
         ]
       }
+    },
+    "/diary/test": {
+      "get": {
+        "operationId": "DiaryController_test",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Diary"
+        ]
+      }
     }
   },
   "info": {
@@ -885,10 +899,7 @@
             }
           },
           "health": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/GetHealthLogResponseDto"
-            }
+            "$ref": "#/components/schemas/GetHealthLogResponseDto"
           }
         },
         "required": [

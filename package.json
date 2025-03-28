@@ -12,6 +12,7 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean",
-    "publish": "lerna publish"
+    "publish": "lerna publish",
+    "start:server": "npx lerna exec \"npm run start:dev\" --scope=backend-nestjs"
   }
 }

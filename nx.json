@@ -10,7 +10,8 @@
   },
   "targetDefaults": {
     "dev": {
-      "dependsOn": ["^generate"]
+      "dependsOn": ["^generate"],
+      "parallel": false
     }
   },
   "affected": {

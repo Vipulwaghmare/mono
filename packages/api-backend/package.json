@@ -9,7 +9,7 @@
     "src"
   ],
   "scripts": {
-    "generate": "openapi-generator-cli generate -g typescript-axios -i ./swagger.json -o ./src -t ./src/template"
+    "generate": "openapi-generator-cli generate -g typescript-axios -i ../backend-nestjs/swagger.json -o ./src -t ./src/template"
   },
   "keywords": [],
   "author": "",

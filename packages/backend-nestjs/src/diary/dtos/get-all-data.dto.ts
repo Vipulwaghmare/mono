@@ -197,7 +197,7 @@ export class GetAllDiaryDataResponseDto {
   readonly gym: GetGymProgressResponseDto[];
 
   @ApiProperty({
-    type: [GetHealthLogResponseDto],
+    type: GetHealthLogResponseDto,
   })
   readonly health: GetHealthLogResponseDto;
 }

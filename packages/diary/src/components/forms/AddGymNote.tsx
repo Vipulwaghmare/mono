@@ -19,8 +19,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { PlusCircle, Trash, Plus, Edit } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { GetGymProgressResponseDto } from "@vipulwaghmare/apis";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
+import { GetGymProgressResponseDto } from "@vipulwaghmare/apis";
 
 const defaultExerciseValue = {
   name: "",

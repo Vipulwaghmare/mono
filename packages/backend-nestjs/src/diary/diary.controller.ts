@@ -146,4 +146,9 @@ export class DiaryController {
       health
     };
   }
+
+  @Get('/test')
+  test() {
+    return 'test';
+  }
 }
