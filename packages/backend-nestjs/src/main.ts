@@ -54,13 +54,7 @@ async function bootstrap() {
     });
   }
 
-  app.use(helmet());
-  app.enableCors({
-    "origin": "*",
-    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-    "preflightContinue": false,
-    "optionsSuccessStatus": 204
-  })
+  app.enableCors()
   await app.listen(process.env.PORT ?? 8080);
 }
 bootstrap();
