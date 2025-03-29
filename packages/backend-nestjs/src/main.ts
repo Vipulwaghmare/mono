@@ -22,6 +22,7 @@ async function bootstrap() {
     new ValidationPipe()
   );
   app.use(cookieParser());
+  app.use(helmet());
   app.enableCors({
     origin: corsOrigin,
     credentials: true,
@@ -58,7 +59,6 @@ async function bootstrap() {
       ],
     });
   }
-  app.use(helmet());
 
   await app.listen(process.env.PORT ?? 8080);
 }
