@@ -26,6 +26,37 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
+ * @interface ContactMeDto
+ */
+export interface ContactMeDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof ContactMeDto
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContactMeDto
+     */
+    'email': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContactMeDto
+     */
+    'subject': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContactMeDto
+     */
+    'message': string;
+}
+/**
+ * 
+ * @export
  * @interface CreateRoomDto
  */
 export interface CreateRoomDto {
@@ -1196,14 +1227,14 @@ export const MessagesApiAxiosParamCreator = function (configuration?: Configurat
     return {
         /**
          * 
-         * @param {object} body 
+         * @param {ContactMeDto} contactMeDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesControllerCreateMessage: async (body: object, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('messagesControllerCreateMessage', 'body', body)
-            const localVarPath = `/api/v1/message`;
+        messagesControllerCreateMessage: async (contactMeDto: ContactMeDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'contactMeDto' is not null or undefined
+            assertParamExists('messagesControllerCreateMessage', 'contactMeDto', contactMeDto)
+            const localVarPath = `/api/v1/message/contact-me`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1222,69 +1253,7 @@ export const MessagesApiAxiosParamCreator = function (configuration?: Configurat
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        messagesControllerGetMessage: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('messagesControllerGetMessage', 'id', id)
-            const localVarPath = `/api/v1/message/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        messagesControllerListMessages: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/v1/message`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(contactMeDto, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1303,37 +1272,14 @@ export const MessagesApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @param {object} body 
+         * @param {ContactMeDto} contactMeDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async messagesControllerCreateMessage(body: object, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.messagesControllerCreateMessage(body, options);
+        async messagesControllerCreateMessage(contactMeDto: ContactMeDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.messagesControllerCreateMessage(contactMeDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MessagesApi.messagesControllerCreateMessage']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async messagesControllerGetMessage(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.messagesControllerGetMessage(id, options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['MessagesApi.messagesControllerGetMessage']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async messagesControllerListMessages(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.messagesControllerListMessages(options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['MessagesApi.messagesControllerListMessages']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -1348,29 +1294,12 @@ export const MessagesApiFactory = function (configuration?: Configuration, baseP
     return {
         /**
          * 
-         * @param {object} body 
+         * @param {ContactMeDto} contactMeDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        messagesControllerCreateMessage(body: object, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.messagesControllerCreateMessage(body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        messagesControllerGetMessage(id: string, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.messagesControllerGetMessage(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        messagesControllerListMessages(options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.messagesControllerListMessages(options).then((request) => request(axios, basePath));
+        messagesControllerCreateMessage(contactMeDto: ContactMeDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.messagesControllerCreateMessage(contactMeDto, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1384,34 +1313,13 @@ export const MessagesApiFactory = function (configuration?: Configuration, baseP
 export class MessagesApi extends BaseAPI {
     /**
      * 
-     * @param {object} body 
+     * @param {ContactMeDto} contactMeDto 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MessagesApi
      */
-    public messagesControllerCreateMessage(body: object, options?: RawAxiosRequestConfig) {
-        return MessagesApiFp(this.configuration).messagesControllerCreateMessage(body, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {string} id 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MessagesApi
-     */
-    public messagesControllerGetMessage(id: string, options?: RawAxiosRequestConfig) {
-        return MessagesApiFp(this.configuration).messagesControllerGetMessage(id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MessagesApi
-     */
-    public messagesControllerListMessages(options?: RawAxiosRequestConfig) {
-        return MessagesApiFp(this.configuration).messagesControllerListMessages(options).then((request) => request(this.axios, this.basePath));
+    public messagesControllerCreateMessage(contactMeDto: ContactMeDto, options?: RawAxiosRequestConfig) {
+        return MessagesApiFp(this.configuration).messagesControllerCreateMessage(contactMeDto, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

@@ -10,6 +10,8 @@ import {
   SignupPage,
 } from "@vipulwaghmare/auth-frontend";
 import { useUser } from "./hooks/user";
+import ProfilePage from "./screens/Profile";
+import SettingsPage from "./screens/Setting";
 
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   const userContext = useUser();
@@ -56,6 +58,22 @@ const router = createBrowserRouter([
     element: (
       <PrivateRoute>
         <MementoMoriPage />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/profile",
+    element: (
+      <PrivateRoute>
+        <ProfilePage />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/settings",
+    element: (
+      <PrivateRoute>
+        <SettingsPage />
       </PrivateRoute>
     ),
   },

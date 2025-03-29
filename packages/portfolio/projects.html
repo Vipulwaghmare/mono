@@ -14,7 +14,7 @@
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body class="dark">
     <!-- Header -->
     <header class="sticky">
       <div class="container">
@@ -28,6 +28,9 @@
             <li><a href="index.html#skills">Skills</a></li>
             <li><a href="index.html#projects">Projects</a></li>
             <li><a href="index.html#contact">Contact</a></li>
+            <li class="theme-toggle" id="themeToggle">
+              <i class="fas fa-sun"></i>
+            </li>
           </ul>
           <div class="hamburger">
             <span></span>
@@ -158,6 +161,36 @@
     </footer>
 
     <script>
+      // Set dark mode as default
+      document.addEventListener("DOMContentLoaded", function () {
+        // Check if user has a preference stored
+        const savedTheme = localStorage.getItem("theme") || "dark";
+        document.body.className = savedTheme;
+        updateThemeIcon(savedTheme);
+      });
+
+      // Theme Toggle
+      const themeToggle = document.getElementById("themeToggle");
+      themeToggle.addEventListener("click", function () {
+        if (document.body.classList.contains("dark")) {
+          document.body.classList.remove("dark");
+          localStorage.setItem("theme", "");
+          updateThemeIcon("light");
+        } else {
+          document.body.classList.add("dark");
+          localStorage.setItem("theme", "dark");
+          updateThemeIcon("dark");
+        }
+      });
+
+      function updateThemeIcon(theme) {
+        const icon = themeToggle.querySelector("i");
+        if (theme === "dark") {
+          icon.className = "fas fa-sun";
+        } else {
+          icon.className = "fas fa-moon";
+        }
+      }
       // Mobile Navigation Toggle
       document
         .querySelector(".hamburger")

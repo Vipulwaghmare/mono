@@ -1,5 +1,6 @@
 /* Base Styles */
 :root {
+  /* Light Mode Colors */
   --primary-color: #4a6cf7;
   --secondary-color: #6c757d;
   --dark-color: #212529;
@@ -10,9 +11,23 @@
   --bg-color: #fff;
   --border-color: #e9ecef;
   --shadow-color: rgba(0, 0, 0, 0.1);
+  --card-bg: #fff;
   --transition: all 0.3s ease;
   --border-radius: 5px;
   --section-padding: 100px 0;
+}
+
+/* Dark Mode Colors */
+.dark {
+  --primary-color: #6d8bff;
+  --secondary-color: #a0a9b1;
+  --dark-color: #e9ecef;
+  --light-color: #1e2125;
+  --text-color: #e9ecef;
+  --bg-color: #121212;
+  --border-color: #2c2c2c;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --card-bg: #1e1e1e;
 }
 
 * {
@@ -30,6 +45,9 @@ body {
   line-height: 1.6;
   color: var(--text-color);
   background-color: var(--bg-color);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 a {
@@ -114,6 +132,24 @@ img {
   color: var(--primary-color);
 }
 
+/* Theme Toggle */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.theme-toggle i {
+  font-size: 1.2rem;
+  color: var(--text-color);
+  transition: var(--transition);
+}
+
+.theme-toggle:hover i {
+  color: var(--primary-color);
+}
+
 /* Header */
 header {
   position: fixed;
@@ -146,6 +182,7 @@ header .container {
 
 .nav-links {
   display: flex;
+  align-items: center;
 }
 
 .nav-links li {
@@ -182,7 +219,7 @@ header .container {
   display: block;
   width: 25px;
   height: 3px;
-  background-color: var(--dark-color);
+  background-color: var(--text-color);
   margin: 5px 0;
   transition: var(--transition);
 }
@@ -313,7 +350,7 @@ header .container {
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-  border: 10px solid white;
+  border: 10px solid var(--card-bg);
   box-shadow: 0 10px 30px var(--shadow-color);
 }
 
@@ -395,7 +432,7 @@ header .container {
 }
 
 .skills-category {
-  background-color: white;
+  background-color: var(--card-bg);
   border-radius: 15px;
   padding: 30px;
   box-shadow: 0 5px 20px var(--shadow-color);
@@ -434,7 +471,7 @@ header .container {
   background-color: var(--light-color);
   transition: var(--transition);
   cursor: default;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 3px 10px var(--shadow-color);
 }
 
 .skill-tag i {
@@ -443,7 +480,7 @@ header .container {
 
 .skill-tag:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 15px var(--shadow-color);
 }
 
 .skill-tag.large {
@@ -454,11 +491,19 @@ header .container {
   padding: 12px 24px;
 }
 
+.dark .skill-tag.large {
+  background-color: rgba(109, 139, 255, 0.15);
+}
+
 .skill-tag.medium {
   font-size: 1rem;
   font-weight: 500;
   background-color: rgba(74, 108, 247, 0.1);
   color: var(--dark-color);
+}
+
+.dark .skill-tag.medium {
+  background-color: rgba(109, 139, 255, 0.1);
 }
 
 .skill-tag.small {
@@ -489,6 +534,7 @@ header .container {
   cursor: pointer;
   font-weight: 500;
   transition: var(--transition);
+  color: var(--text-color);
 }
 
 .filter-btn.active,
@@ -505,7 +551,7 @@ header .container {
 }
 
 .project-card {
-  background-color: white;
+  background-color: var(--card-bg);
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 5px 15px var(--shadow-color);
@@ -540,6 +586,7 @@ header .container {
 .project-info h3 {
   font-size: 1.3rem;
   margin-bottom: 10px;
+  color: var(--dark-color);
 }
 
 .project-info p {
@@ -561,6 +608,7 @@ header .container {
   border-radius: 20px;
   font-size: 0.8rem;
   font-weight: 500;
+  color: var(--text-color);
 }
 
 .project-links {
@@ -611,6 +659,7 @@ header .container {
 .contact-info h3 {
   font-size: 1.8rem;
   margin-bottom: 20px;
+  color: var(--dark-color);
 }
 
 .contact-info p {
@@ -639,14 +688,16 @@ header .container {
 .contact-item h4 {
   font-size: 1.1rem;
   margin-bottom: 5px;
+  color: var(--dark-color);
 }
 
 .contact-item p {
   margin: 0;
+  color: var(--secondary-color);
 }
 
 .contact-form form {
-  background-color: white;
+  background-color: var(--card-bg);
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 5px 15px var(--shadow-color);
@@ -660,6 +711,7 @@ header .container {
   display: block;
   margin-bottom: 5px;
   font-weight: 500;
+  color: var(--dark-color);
 }
 
 .form-group input,
@@ -671,6 +723,8 @@ header .container {
   font-family: inherit;
   font-size: 1rem;
   transition: var(--transition);
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 .form-group input:focus,
@@ -710,6 +764,10 @@ footer {
   background-color: var(--dark-color);
   color: white;
   padding: 50px 0 20px;
+}
+
+.dark footer {
+  background-color: #0a0a0a;
 }
 
 .footer-content {
