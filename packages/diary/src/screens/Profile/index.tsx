@@ -61,7 +61,9 @@ export default function ProfilePage() {
     setLoading(false);
   }, []);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+  ) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -69,7 +71,7 @@ export default function ProfilePage() {
     });
   };
 
-  const handlePasswordChange = (e) => {
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setPasswordData({
       ...passwordData,
@@ -77,7 +79,7 @@ export default function ProfilePage() {
     });
   };
 
-  const handleProfileUpdate = (e) => {
+  const handleProfileUpdate = (e: React.FormEvent) => {
     e.preventDefault();
 
     // In a real app, you would send this data to your backend
@@ -94,7 +96,7 @@ export default function ProfilePage() {
     setTimeout(() => setSuccessMessage(""), 3000);
   };
 
-  const handlePasswordUpdate = (e) => {
+  const handlePasswordUpdate = (e: React.FormEvent) => {
     e.preventDefault();
 
     // Basic validation
@@ -122,7 +124,7 @@ export default function ProfilePage() {
     setTimeout(() => setSuccessMessage(""), 3000);
   };
 
-  const getInitials = (name) => {
+  const getInitials = (name: string) => {
     if (!name) return "U";
     return name
       .split(" ")
