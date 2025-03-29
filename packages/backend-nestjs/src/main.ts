@@ -56,10 +56,10 @@ async function bootstrap() {
 
   app.use(helmet());
   app.enableCors({
-    origin: corsOrigin,
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: 'Content-Type, Accept', // Allowed headers
+    "origin": "*",
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "preflightContinue": false,
+    "optionsSuccessStatus": 204
   })
   await app.listen(process.env.PORT ?? 8080);
 }
