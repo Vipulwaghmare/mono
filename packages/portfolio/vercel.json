@@ -1,6 +1,7 @@
 {
   "routes": [
     { "src": "/styles.css", "dest": "/styles.css" },
+    { "src": "/assets/(.*)", "dest": "/images/$1" },
     { "src": "/projects", "dest": "/projects.html" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
