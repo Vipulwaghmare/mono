@@ -222,6 +222,15 @@
               <span class="skill-tag medium"
                 ><i class="fab fa-docker"></i> Docker</span
               >
+              <span class="skill-tag medium"
+                ><i class="fas fa-check-circle"></i> Cypress</span
+              >
+              <span class="skill-tag medium"
+                ><i class="fas fa-theater-masks"></i> Playwright</span
+              >
+              <span class="skill-tag medium"
+                ><i class="fas fa-paper-plane"></i> Postman</span
+              >
               <!-- <span class="skill-tag medium"
                 ><i class="fas fa-vial"></i> Jest/Testing</span
               > -->
@@ -313,31 +322,40 @@
               </div>
             </div>
           </div> -->
-          <!-- <div class="project-card" data-category="backend">
+          <div class="project-card" data-category="backend">
             <div class="project-img">
               <img
-                src="/placeholder.svg?height=300&width=500"
+                src="./assets/project/backend.PNG"
+                height="300"
+                width="500"
                 alt="API Service"
               />
             </div>
             <div class="project-info">
               <h3>RESTful API Service</h3>
-              <p>
-                A scalable RESTful API service with authentication, rate
-                limiting, and comprehensive documentation.
-              </p>
+              <p>A scalable RESTful API service with authentication.</p>
               <div class="project-tech">
                 <span>Node.js</span>
-                <span>Express</span>
+                <span>NestJS</span>
                 <span>MongoDB</span>
                 <span>JWT</span>
               </div>
               <div class="project-links">
-                <a href="#" class="btn small-btn">View Demo</a>
-                <a href="#" class="btn small-btn secondary-btn">GitHub</a>
+                <a
+                  href="https://api.vipulwaghmare.com/api-docs"
+                  class="btn small-btn"
+                  target="_blank"
+                  >View Demo</a
+                >
+                <a
+                  href="https://github.com/Vipulwaghmare/mono/tree/master/packages/backend-nestjs"
+                  class="btn small-btn secondary-btn"
+                  target="_blank"
+                  >GitHub</a
+                >
               </div>
             </div>
-          </div> -->
+          </div>
           <!-- <div class="project-card" data-category="fullstack">
             <div class="project-img">
               <img
@@ -364,9 +382,9 @@
             </div>
           </div> -->
         </div>
-        <!-- <div class="view-more">
-          <a href="#" class="btn primary-btn">View All Projects</a>
-        </div> -->
+        <div class="view-more">
+          <a href="projects.html" class="btn primary-btn">View All Projects</a>
+        </div>
       </div>
     </section>
 
@@ -423,7 +441,7 @@
             </div>
           </div>
           <div class="contact-form">
-            <form id="contact-form" onsubmit="sendContactForm(event);">
+            <form id="contactForm">
               <div class="form-group">
                 <label for="name">Name</label>
                 <input
@@ -463,7 +481,8 @@
                   required
                 ></textarea>
               </div>
-              <button type="submit" class="btn primary-btn">
+              <div class="form-message" id="formMessage"></div>
+              <button type="submit" class="btn primary-btn" id="submitBtn">
                 Send Message
               </button>
             </form>
@@ -509,28 +528,91 @@
 
     <script>
       // Contact me submit
-      async function sendContactForm(e) {
+      // async function sendContactForm(e) {
+      //   e.preventDefault();
+      //   const form = document.getElementById("contact-form");
+      //   const formData = new FormData(form);
+      //   const data = {};
+      //   formData.forEach((value, key) => {
+      //     data[key] = value;
+      //   });
+      //   const jsonData = JSON.stringify(data);
+      //   const response = await fetch(
+      //     "https://api.vipulwaghmare.com/api/v1/message/contact-me/",
+      //     {
+      //       method: "POST",
+      //       body: jsonData,
+      //     },
+      //   );
+      //   if (response.ok) {
+      //     // TODO: FIX
+      //   } else {
+      //     console.log("error");
+      //   }
+      // }
+
+      // Contact Form Submission
+      const contactForm = document.getElementById("contactForm");
+      const formMessage = document.getElementById("formMessage");
+      const submitBtn = document.getElementById("submitBtn");
+
+      contactForm.addEventListener("submit", function (e) {
         e.preventDefault();
-        const form = document.getElementById("contact-form");
-        const formData = new FormData(form);
-        const data = {};
-        formData.forEach((value, key) => {
-          data[key] = value;
-        });
-        const jsonData = JSON.stringify(data);
-        const response = await fetch(
-          "https://api.vipulwaghmare.com/api/v1/message/contact-me/",
-          {
-            method: "POST",
-            body: jsonData,
+
+        // Disable button and show loading state
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending...";
+
+        // Get form data
+        const formData = {
+          name: document.getElementById("name").value,
+          email: document.getElementById("email").value,
+          subject: document.getElementById("subject").value,
+          message: document.getElementById("message").value,
+        };
+
+        // Make API call
+        fetch("https://api.vipulwaghmare.com/api/v1/message/contact-me/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
-        );
-        if (response.ok) {
-          // TODO: FIX
-        } else {
-          console.log("error");
-        }
-      }
+          body: JSON.stringify(formData),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            // Show success message
+            formMessage.textContent =
+              "Your message has been sent successfully!";
+            formMessage.className = "form-message success";
+
+            // Reset form
+            contactForm.reset();
+          })
+          .catch((error) => {
+            // Show error message
+            formMessage.textContent =
+              "There was an error sending your message. Please try again.";
+            formMessage.className = "form-message error";
+            console.error("Error:", error);
+          })
+          .finally(() => {
+            // Re-enable button
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Send Message";
+
+            // Hide message after 5 seconds
+            setTimeout(() => {
+              formMessage.textContent = "";
+              formMessage.className = "form-message";
+            }, 5000);
+          });
+      });
       // Mobile Navigation Toggle
       document
         .querySelector(".hamburger")

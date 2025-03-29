@@ -1,0 +1,243 @@
+
+          <!-- Project 1 -->
+          <div class="project-card" data-category="fullstack">
+            <div class="project-img">
+              <img
+                src="/placeholder.svg?height=300&width=500"
+                alt="E-commerce Platform"
+              />
+            </div>
+            <div class="project-info">
+              <h3>E-commerce Platform</h3>
+              <p>
+                A full-stack e-commerce platform with product management, cart
+                functionality, and payment integration.
+              </p>
+              <div class="project-tech">
+                <span>React</span>
+                <span>Node.js</span>
+                <span>MongoDB</span>
+                <span>Express</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="btn small-btn">View Demo</a>
+                <a href="#" class="btn small-btn secondary-btn">GitHub</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2 -->
+          <div class="project-card" data-category="frontend">
+            <div class="project-img">
+              <img
+                src="/placeholder.svg?height=300&width=500"
+                alt="Dashboard UI"
+              />
+            </div>
+            <div class="project-info">
+              <h3>Admin Dashboard</h3>
+              <p>
+                A responsive admin dashboard with data visualization, user
+                management, and analytics features.
+              </p>
+              <div class="project-tech">
+                <span>React</span>
+                <span>Redux</span>
+                <span>Chart.js</span>
+                <span>CSS Grid</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="btn small-btn">View Demo</a>
+                <a href="#" class="btn small-btn secondary-btn">GitHub</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 3 -->
+          <div class="project-card" data-category="backend">
+            <div class="project-img">
+              <img
+                src="/placeholder.svg?height=300&width=500"
+                alt="API Service"
+              />
+            </div>
+            <div class="project-info">
+              <h3>RESTful API Service</h3>
+              <p>
+                A scalable RESTful API service with authentication, rate
+                limiting, and comprehensive documentation.
+              </p>
+              <div class="project-tech">
+                <span>Node.js</span>
+                <span>Express</span>
+                <span>MongoDB</span>
+                <span>JWT</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="btn small-btn">View Demo</a>
+                <a href="#" class="btn small-btn secondary-btn">GitHub</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 4 -->
+          <div class="project-card" data-category="fullstack">
+            <div class="project-img">
+              <img
+                src="/placeholder.svg?height=300&width=500"
+                alt="Task Management App"
+              />
+            </div>
+            <div class="project-info">
+              <h3>Task Management App</h3>
+              <p>
+                A collaborative task management application with real-time
+                updates and team collaboration features.
+              </p>
+              <div class="project-tech">
+                <span>React</span>
+                <span>Node.js</span>
+                <span>Socket.io</span>
+                <span>MongoDB</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="btn small-btn">View Demo</a>
+                <a href="#" class="btn small-btn secondary-btn">GitHub</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 5 -->
+          <div class="project-card" data-category="frontend">
+            <div class="project-img">
+              <img
+                src="/placeholder.svg?height=300&width=500"
+                alt="Portfolio Website"
+              />
+            </div>
+            <div class="project-info">
+              <h3>Portfolio Website</h3>
+              <p>
+                A modern, responsive portfolio website with smooth animations
+                and interactive elements.
+              </p>
+              <div class="project-tech">
+                <span>HTML5</span>
+                <span>CSS3</span>
+                <span>JavaScript</span>
+                <span>GSAP</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="btn small-btn">View Demo</a>
+                <a href="#" class="btn small-btn secondary-btn">GitHub</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 6 -->
+          <div class="project-card" data-category="fullstack">
+            <div class="project-img">
+              <img
+                src="/placeholder.svg?height=300&width=500"
+                alt="Social Media App"
+              />
+            </div>
+            <div class="project-info">
+              <h3>Social Media App</h3>
+              <p>
+                A social networking platform with user profiles, posts,
+                comments, and real-time notifications.
+              </p>
+              <div class="project-tech">
+                <span>React</span>
+                <span>Node.js</span>
+                <span>MongoDB</span>
+                <span>Socket.io</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="btn small-btn">View Demo</a>
+                <a href="#" class="btn small-btn secondary-btn">GitHub</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 7 -->
+          <div class="project-card" data-category="backend">
+            <div class="project-img">
+              <img
+                src="/placeholder.svg?height=300&width=500"
+                alt="Content Management System"
+              />
+            </div>
+            <div class="project-info">
+              <h3>Content Management System</h3>
+              <p>
+                A headless CMS with a powerful API for managing content across
+                multiple platforms.
+              </p>
+              <div class="project-tech">
+                <span>Node.js</span>
+                <span>Express</span>
+                <span>MongoDB</span>
+                <span>GraphQL</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="btn small-btn">View Demo</a>
+                <a href="#" class="btn small-btn secondary-btn">GitHub</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 8 -->
+          <div class="project-card" data-category="frontend">
+            <div class="project-img">
+              <img
+                src="/placeholder.svg?height=300&width=500"
+                alt="Weather App"
+              />
+            </div>
+            <div class="project-info">
+              <h3>Weather App</h3>
+              <p>
+                A beautiful weather application with real-time forecasts,
+                location-based weather data, and interactive maps.
+              </p>
+              <div class="project-tech">
+                <span>React</span>
+                <span>Weather API</span>
+                <span>Leaflet.js</span>
+                <span>CSS3</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="btn small-btn">View Demo</a>
+                <a href="#" class="btn small-btn secondary-btn">GitHub</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 9 -->
+          <div class="project-card" data-category="fullstack">
+            <div class="project-img">
+              <img
+                src="/placeholder.svg?height=300&width=500"
+                alt="Booking System"
+              />
+            </div>
+            <div class="project-info">
+              <h3>Booking System</h3>
+              <p>
+                An appointment booking system with calendar integration,
+                notifications, and payment processing.
+              </p>
+              <div class="project-tech">
+                <span>React</span>
+                <span>Node.js</span>
+                <span>MongoDB</span>
+                <span>Stripe API</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="btn small-btn">View Demo</a>
+                <a href="#" class="btn small-btn secondary-btn">GitHub</a>
+              </div>
+            </div>
+          </div>
