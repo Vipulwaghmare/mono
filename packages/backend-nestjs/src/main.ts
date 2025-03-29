@@ -22,12 +22,6 @@ async function bootstrap() {
     new ValidationPipe()
   );
   app.use(cookieParser());
-  app.use(helmet());
-  app.enableCors({
-    origin: corsOrigin,
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
-  })
   // Swagger Setup
   // Doesn't work on vercel
   const config = new DocumentBuilder()
@@ -60,6 +54,15 @@ async function bootstrap() {
     });
   }
 
+  app.use(helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+    crossOriginOpenerPolicy: { policy: "same-origin-allow-popups" }
+  }));
+  app.enableCors({
+    origin: corsOrigin,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+  })
   await app.listen(process.env.PORT ?? 8080);
 }
 bootstrap();
