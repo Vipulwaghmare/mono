@@ -1,7 +1,7 @@
 {
   "routes": [
+    { "src": "/styles.css", "dest": "/styles.css" },
     { "src": "/projects", "dest": "/projects.html" },
-    { "src": "/(.*)", "dest": "/index.html" },
-    { "src": "/styles.css", "dest": "/styles.css" }
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
