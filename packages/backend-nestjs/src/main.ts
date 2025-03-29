@@ -10,7 +10,7 @@ import * as path from 'path';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
-const corsOrigin: CorsOptions['origin'] = ["http://vipulwaghmare.com", /\.vipulwaghmare\.com$/]
+const corsOrigin: CorsOptions['origin'] = ["https://vipulwaghmare.com", /\.vipulwaghmare\.com$/]
 if (isDevelopment) {
   corsOrigin.push('http://localhost:5173')
 }
