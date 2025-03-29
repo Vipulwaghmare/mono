@@ -10,13 +10,11 @@ import * as path from 'path';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
-const corsOrigin: CorsOptions['origin'] = [
-  /^(https?:\/\/)?([a-zA-Z0-9-]+\.)*vipulwaghmare\.com$/
-];
-
+const corsOrigin: CorsOptions['origin'] = ["http://vipulwaghmare.com", /\.vipulwaghmare\.com$/]
 if (isDevelopment) {
-  corsOrigin.push(/^http:\/\/localhost:5173$/);
+  corsOrigin.push('http://localhost:5173')
 }
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // Validation setup
