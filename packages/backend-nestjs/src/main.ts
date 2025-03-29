@@ -10,7 +10,7 @@ import * as path from 'path';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
-const corsOrigin: CorsOptions['origin'] = ["https://vipulwaghmare.com", /\.vipulwaghmare\.com$/]
+const corsOrigin: CorsOptions['origin'] = ["https://vipulwaghmare.com", "https://www.vipulwaghmare.com", /\.vipulwaghmare\.com$/]
 if (isDevelopment) {
   corsOrigin.push('http://localhost:5173')
 }
@@ -25,6 +25,7 @@ async function bootstrap() {
   app.enableCors({
     origin: corsOrigin,
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
   })
   // Swagger Setup
   // Doesn't work on vercel
