@@ -774,6 +774,7 @@ footer {
   display: flex;
   justify-content: space-between;
   margin-bottom: 30px;
+  flex-wrap: wrap;
 }
 
 .footer-logo a {
