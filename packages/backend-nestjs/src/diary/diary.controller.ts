@@ -6,7 +6,7 @@ import { DiaryService } from './diary.service';
 import { CreateGymNotesResponseDto, CreateHealthNotesResponseDto, CreatePersonalNotesResponseDto, CreateWorkNotesResponseDto } from './dtos/create-entry.dto';
 import { UpdateGymNotesResponseDto, UpdateHealthNotesResponseDto, UpdatePersonalNotesResponseDto, UpdateWorkNotesResponseDto } from './dtos/update-entry.dto';
 import { DeletePersonalEntryDto, DeleteWorkEntryDto, DeleteGymEntryDto, DeleteHealthEntryDto } from './dtos/delete-entry.dto';
-import { JWT_DTO } from 'src/services/crypto.service';
+import { JWT_DTO } from '../services/crypto.service';
 // import { CreateAllDiaryDataResponseDto, getCreateEntryResOptions } from './dtos/create-entry.dto';
 
 @Controller('diary')
