@@ -31,26 +31,25 @@ export default function WorkEntryList({
 }) {
   const { data } = useGetAllData(selectedDate);
   const entries = data?.work ?? [];
-  const [newEntry, setNewEntry] = useState({ title: "", description: "" });
+  const [newEntry, setNewEntry] = useState({ title: "", content: "" });
   const [editingEntry, setEditingEntry] =
     useState<GetWorkNotesResponseDto | null>(null);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
   const handleAddEntry = () => {
-    if (newEntry.title.trim() === "" || newEntry.description.trim() === "")
-      return;
+    if (newEntry.title.trim() === "" || newEntry.content.trim() === "") return;
 
     const entry = {
       id: Date.now(),
       title: newEntry.title,
-      content: newEntry.description,
+      content: newEntry.content,
       date: new Date().toISOString().split("T")[0],
     };
 
     // TODO: MAKE API CALL
     console.log(entry);
-    setNewEntry({ title: "", description: "" });
+    setNewEntry({ title: "", content: "" });
     setIsAddDialogOpen(false);
   };
 
@@ -58,7 +57,7 @@ export default function WorkEntryList({
     if (
       !editingEntry ||
       editingEntry.title.trim() === "" ||
-      editingEntry.description.trim() === ""
+      editingEntry.content.trim() === ""
     )
       return;
 
@@ -68,7 +67,7 @@ export default function WorkEntryList({
     setIsEditDialogOpen(false);
   };
 
-  const handleDeleteEntry = (id: number) => {
+  const handleDeleteEntry = (id: string) => {
     // setEntries(entries.filter((entry) => entry.id !== id));
     console.log("deleing", id);
   };
@@ -81,6 +80,7 @@ export default function WorkEntryList({
     });
   };
 
+  if (!data) return null;
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -115,9 +115,9 @@ export default function WorkEntryList({
                 <Label htmlFor="content">Content</Label>
                 <Textarea
                   id="content"
-                  value={newEntry.description}
+                  value={newEntry.content}
                   onChange={(e) =>
-                    setNewEntry({ ...newEntry, description: e.target.value })
+                    setNewEntry({ ...newEntry, content: e.target.value })
                   }
                   placeholder="Write about your work day..."
                   className="min-h-[200px]"
@@ -151,13 +151,13 @@ export default function WorkEntryList({
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {entries.map((entry) => (
-            <Card key={entry.id}>
+            <Card key={entry._id}>
               <CardHeader>
                 <div className="flex justify-between items-start">
                   <CardTitle>{entry.title}</CardTitle>
                   <div className="flex space-x-2">
                     <Dialog
-                      open={isEditDialogOpen && editingEntry?.id === entry.id}
+                      open={isEditDialogOpen && editingEntry?._id === entry._id}
                       onOpenChange={(open) => {
                         setIsEditDialogOpen(open);
                         if (open) setEditingEntry(entry);
@@ -191,12 +191,12 @@ export default function WorkEntryList({
                             <Label htmlFor="edit-content">Content</Label>
                             <Textarea
                               id="edit-content"
-                              value={editingEntry?.description || ""}
+                              value={editingEntry?.content || ""}
                               onChange={(e) =>
                                 editingEntry &&
                                 setEditingEntry({
                                   ...editingEntry,
-                                  description: e.target.value,
+                                  content: e.target.value,
                                 })
                               }
                               className="min-h-[200px]"
@@ -219,16 +219,16 @@ export default function WorkEntryList({
                     <Button
                       variant="ghost"
                       size="icon"
-                      onClick={() => handleDeleteEntry(entry.id)}
+                      onClick={() => handleDeleteEntry(entry._id)}
                     >
                       <Trash className="h-4 w-4" />
                     </Button>
                   </div>
                 </div>
-                <CardDescription>{formatDate(entry.date)}</CardDescription>
+                <CardDescription>{formatDate(data.date)}</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="line-clamp-4">{entry.description}</p>
+                <p className="line-clamp-4">{entry.content}</p>
               </CardContent>
               <CardFooter>
                 <Button variant="outline" size="sm" className="w-full">

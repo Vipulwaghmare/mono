@@ -6,8 +6,7 @@ const useGetAllData = (date: string) => {
   return useQuery<any, any, GetAllDiaryDataResponseDto>({
     queryKey: ["all-data"],
     queryFn: async () => {
-      console.log(date);
-      const res = await api.diaryControllerGetAllData();
+      const res = await api.diaryControllerGetAllData(date, {});
       return res.data;
     },
   });

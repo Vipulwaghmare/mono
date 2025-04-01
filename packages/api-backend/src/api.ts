@@ -57,6 +57,93 @@ export interface ContactMeDto {
 /**
  * 
  * @export
+ * @interface CreateGymNotesResponseDto
+ */
+export interface CreateGymNotesResponseDto {
+    /**
+     * The type of workout
+     * @type {string}
+     * @memberof CreateGymNotesResponseDto
+     */
+    'type': string;
+    /**
+     * The duration of the workout in minutes
+     * @type {number}
+     * @memberof CreateGymNotesResponseDto
+     */
+    'duration': number;
+    /**
+     * 
+     * @type {Array<GymProgressExerciseDto>}
+     * @memberof CreateGymNotesResponseDto
+     */
+    'exercises': Array<GymProgressExerciseDto>;
+    /**
+     * A brief description of the workout
+     * @type {string}
+     * @memberof CreateGymNotesResponseDto
+     */
+    'notes': string;
+    /**
+     * The date of the event
+     * @type {string}
+     * @memberof CreateGymNotesResponseDto
+     */
+    'date': string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateHealthNotesResponseDto
+ */
+export interface CreateHealthNotesResponseDto {
+    /**
+     * 
+     * @type {Array<DietEntryDto>}
+     * @memberof CreateHealthNotesResponseDto
+     */
+    'diet': Array<DietEntryDto>;
+    /**
+     * Notes about the diet and health
+     * @type {string}
+     * @memberof CreateHealthNotesResponseDto
+     */
+    'notes': string;
+    /**
+     * The date of the event
+     * @type {string}
+     * @memberof CreateHealthNotesResponseDto
+     */
+    'date': string;
+}
+/**
+ * 
+ * @export
+ * @interface CreatePersonalNotesResponseDto
+ */
+export interface CreatePersonalNotesResponseDto {
+    /**
+     * The title of the event
+     * @type {string}
+     * @memberof CreatePersonalNotesResponseDto
+     */
+    'title': string;
+    /**
+     * A brief description of the event
+     * @type {string}
+     * @memberof CreatePersonalNotesResponseDto
+     */
+    'content': string;
+    /**
+     * The date of the event
+     * @type {string}
+     * @memberof CreatePersonalNotesResponseDto
+     */
+    'date': string;
+}
+/**
+ * 
+ * @export
  * @interface CreateRoomDto
  */
 export interface CreateRoomDto {
@@ -104,6 +191,120 @@ export interface CreateUserDto {
      * @memberof CreateUserDto
      */
     'password': string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateWorkNotesResponseDto
+ */
+export interface CreateWorkNotesResponseDto {
+    /**
+     * The title of the event
+     * @type {string}
+     * @memberof CreateWorkNotesResponseDto
+     */
+    'title': string;
+    /**
+     * A brief description of the event
+     * @type {string}
+     * @memberof CreateWorkNotesResponseDto
+     */
+    'content': string;
+    /**
+     * The date of the event
+     * @type {string}
+     * @memberof CreateWorkNotesResponseDto
+     */
+    'date': string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteGymEntryDto
+ */
+export interface DeleteGymEntryDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteGymEntryDto
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteGymEntryDto
+     */
+    'date': string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteHealthEntryDto
+ */
+export interface DeleteHealthEntryDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteHealthEntryDto
+     */
+    'date': string;
+}
+/**
+ * 
+ * @export
+ * @interface DeletePersonalEntryDto
+ */
+export interface DeletePersonalEntryDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof DeletePersonalEntryDto
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeletePersonalEntryDto
+     */
+    'date': string;
+}
+/**
+ * 
+ * @export
+ * @interface DeleteWorkEntryDto
+ */
+export interface DeleteWorkEntryDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteWorkEntryDto
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DeleteWorkEntryDto
+     */
+    'date': string;
+}
+/**
+ * 
+ * @export
+ * @interface DietEntryDto
+ */
+export interface DietEntryDto {
+    /**
+     * The name of the food item
+     * @type {string}
+     * @memberof DietEntryDto
+     */
+    'name': string;
+    /**
+     * The calories contained in the food item
+     * @type {number}
+     * @memberof DietEntryDto
+     */
+    'calories': number;
 }
 /**
  * 
@@ -173,6 +374,36 @@ export interface GetAllDiaryDataResponseDto {
      * @memberof GetAllDiaryDataResponseDto
      */
     'health': GetHealthLogResponseDto;
+    /**
+     * The weight of the person in kg
+     * @type {number}
+     * @memberof GetAllDiaryDataResponseDto
+     */
+    'weight': number;
+    /**
+     * The height of the person in cm
+     * @type {number}
+     * @memberof GetAllDiaryDataResponseDto
+     */
+    'height': number;
+    /**
+     * id of the event
+     * @type {string}
+     * @memberof GetAllDiaryDataResponseDto
+     */
+    '_id': string;
+    /**
+     * user id
+     * @type {string}
+     * @memberof GetAllDiaryDataResponseDto
+     */
+    'userId': string;
+    /**
+     * date
+     * @type {string}
+     * @memberof GetAllDiaryDataResponseDto
+     */
+    'date': string;
 }
 /**
  * 
@@ -192,56 +423,12 @@ export interface GetDietEntryDto {
      * @memberof GetDietEntryDto
      */
     'calories': number;
-}
-/**
- * 
- * @export
- * @interface GetEventsResponse
- */
-export interface GetEventsResponse {
     /**
-     * 
-     * @type {Array<GetEventsResponseDto>}
-     * @memberof GetEventsResponse
-     */
-    'events': Array<GetEventsResponseDto>;
-}
-/**
- * 
- * @export
- * @interface GetEventsResponseDto
- */
-export interface GetEventsResponseDto {
-    /**
-     * The ID of the event
-     * @type {number}
-     * @memberof GetEventsResponseDto
-     */
-    'id': number;
-    /**
-     * The title of the event
+     * id of the event
      * @type {string}
-     * @memberof GetEventsResponseDto
+     * @memberof GetDietEntryDto
      */
-    'title': string;
-    /**
-     * The date of the event
-     * @type {string}
-     * @memberof GetEventsResponseDto
-     */
-    'date': string;
-    /**
-     * The type of event
-     * @type {string}
-     * @memberof GetEventsResponseDto
-     */
-    'type': string;
-    /**
-     * A brief description of the event
-     * @type {string}
-     * @memberof GetEventsResponseDto
-     */
-    'description': string;
+    '_id': string;
 }
 /**
  * 
@@ -249,18 +436,6 @@ export interface GetEventsResponseDto {
  * @interface GetGymProgressResponseDto
  */
 export interface GetGymProgressResponseDto {
-    /**
-     * The ID of the workout
-     * @type {number}
-     * @memberof GetGymProgressResponseDto
-     */
-    'id': number;
-    /**
-     * The date of the workout
-     * @type {string}
-     * @memberof GetGymProgressResponseDto
-     */
-    'date': string;
     /**
      * The type of workout
      * @type {string}
@@ -285,6 +460,12 @@ export interface GetGymProgressResponseDto {
      * @memberof GetGymProgressResponseDto
      */
     'notes': string;
+    /**
+     * id of the event
+     * @type {string}
+     * @memberof GetGymProgressResponseDto
+     */
+    '_id': string;
 }
 /**
  * 
@@ -322,6 +503,12 @@ export interface GetGymProgressResponseExerciseDto {
      * @memberof GetGymProgressResponseExerciseDto
      */
     'duration'?: number;
+    /**
+     * id of the event
+     * @type {string}
+     * @memberof GetGymProgressResponseExerciseDto
+     */
+    '_id': string;
 }
 /**
  * 
@@ -329,18 +516,6 @@ export interface GetGymProgressResponseExerciseDto {
  * @interface GetHealthLogResponseDto
  */
 export interface GetHealthLogResponseDto {
-    /**
-     * The weight of the person in kg
-     * @type {number}
-     * @memberof GetHealthLogResponseDto
-     */
-    'weight': number;
-    /**
-     * The height of the person in cm
-     * @type {number}
-     * @memberof GetHealthLogResponseDto
-     */
-    'height': number;
     /**
      * 
      * @type {Array<GetDietEntryDto>}
@@ -353,12 +528,6 @@ export interface GetHealthLogResponseDto {
      * @memberof GetHealthLogResponseDto
      */
     'notes': string;
-    /**
-     * The date of the health log entry
-     * @type {string}
-     * @memberof GetHealthLogResponseDto
-     */
-    'date': string;
 }
 /**
  * 
@@ -367,29 +536,23 @@ export interface GetHealthLogResponseDto {
  */
 export interface GetPersonalNotesResponseDto {
     /**
-     * The ID of the event
-     * @type {number}
-     * @memberof GetPersonalNotesResponseDto
-     */
-    'id': number;
-    /**
      * The title of the event
      * @type {string}
      * @memberof GetPersonalNotesResponseDto
      */
     'title': string;
     /**
-     * The date of the event
-     * @type {string}
-     * @memberof GetPersonalNotesResponseDto
-     */
-    'date': string;
-    /**
      * A brief description of the event
      * @type {string}
      * @memberof GetPersonalNotesResponseDto
      */
-    'description': string;
+    'content': string;
+    /**
+     * id of the event
+     * @type {string}
+     * @memberof GetPersonalNotesResponseDto
+     */
+    '_id': string;
 }
 /**
  * 
@@ -398,29 +561,60 @@ export interface GetPersonalNotesResponseDto {
  */
 export interface GetWorkNotesResponseDto {
     /**
-     * The ID of the event
-     * @type {number}
-     * @memberof GetWorkNotesResponseDto
-     */
-    'id': number;
-    /**
      * The title of the event
      * @type {string}
      * @memberof GetWorkNotesResponseDto
      */
     'title': string;
     /**
-     * The date of the event
-     * @type {string}
-     * @memberof GetWorkNotesResponseDto
-     */
-    'date': string;
-    /**
      * A brief description of the event
      * @type {string}
      * @memberof GetWorkNotesResponseDto
      */
-    'description': string;
+    'content': string;
+    /**
+     * id of the event
+     * @type {string}
+     * @memberof GetWorkNotesResponseDto
+     */
+    '_id': string;
+}
+/**
+ * 
+ * @export
+ * @interface GymProgressExerciseDto
+ */
+export interface GymProgressExerciseDto {
+    /**
+     * The name of the exercise
+     * @type {string}
+     * @memberof GymProgressExerciseDto
+     */
+    'name': string;
+    /**
+     * The number of sets
+     * @type {number}
+     * @memberof GymProgressExerciseDto
+     */
+    'sets': number;
+    /**
+     * The number of reps
+     * @type {number}
+     * @memberof GymProgressExerciseDto
+     */
+    'reps': number;
+    /**
+     * The weight in kg
+     * @type {number}
+     * @memberof GymProgressExerciseDto
+     */
+    'weight'?: number;
+    /**
+     * The duration in minutes
+     * @type {number}
+     * @memberof GymProgressExerciseDto
+     */
+    'duration'?: number;
 }
 /**
  * 
@@ -495,6 +689,74 @@ export interface ResetPasswordDto {
 /**
  * 
  * @export
+ * @interface UpdateGymNotesResponseDto
+ */
+export interface UpdateGymNotesResponseDto {
+    /**
+     * The type of workout
+     * @type {string}
+     * @memberof UpdateGymNotesResponseDto
+     */
+    'type': string;
+    /**
+     * The duration of the workout in minutes
+     * @type {number}
+     * @memberof UpdateGymNotesResponseDto
+     */
+    'duration': number;
+    /**
+     * 
+     * @type {Array<GymProgressExerciseDto>}
+     * @memberof UpdateGymNotesResponseDto
+     */
+    'exercises': Array<GymProgressExerciseDto>;
+    /**
+     * A brief description of the workout
+     * @type {string}
+     * @memberof UpdateGymNotesResponseDto
+     */
+    'notes': string;
+    /**
+     * The date of the event
+     * @type {string}
+     * @memberof UpdateGymNotesResponseDto
+     */
+    'date': string;
+    /**
+     * The ID of the event
+     * @type {string}
+     * @memberof UpdateGymNotesResponseDto
+     */
+    'id': string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateHealthNotesResponseDto
+ */
+export interface UpdateHealthNotesResponseDto {
+    /**
+     * 
+     * @type {Array<DietEntryDto>}
+     * @memberof UpdateHealthNotesResponseDto
+     */
+    'diet': Array<DietEntryDto>;
+    /**
+     * Notes about the diet and health
+     * @type {string}
+     * @memberof UpdateHealthNotesResponseDto
+     */
+    'notes': string;
+    /**
+     * The date of the event
+     * @type {string}
+     * @memberof UpdateHealthNotesResponseDto
+     */
+    'date': string;
+}
+/**
+ * 
+ * @export
  * @interface UpdatePasswordDto
  */
 export interface UpdatePasswordDto {
@@ -510,6 +772,68 @@ export interface UpdatePasswordDto {
      * @memberof UpdatePasswordDto
      */
     'password': string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdatePersonalNotesResponseDto
+ */
+export interface UpdatePersonalNotesResponseDto {
+    /**
+     * The title of the event
+     * @type {string}
+     * @memberof UpdatePersonalNotesResponseDto
+     */
+    'title': string;
+    /**
+     * A brief description of the event
+     * @type {string}
+     * @memberof UpdatePersonalNotesResponseDto
+     */
+    'content': string;
+    /**
+     * The date of the event
+     * @type {string}
+     * @memberof UpdatePersonalNotesResponseDto
+     */
+    'date': string;
+    /**
+     * The ID of the event
+     * @type {string}
+     * @memberof UpdatePersonalNotesResponseDto
+     */
+    'id': string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateWorkNotesResponseDto
+ */
+export interface UpdateWorkNotesResponseDto {
+    /**
+     * The title of the event
+     * @type {string}
+     * @memberof UpdateWorkNotesResponseDto
+     */
+    'title': string;
+    /**
+     * A brief description of the event
+     * @type {string}
+     * @memberof UpdateWorkNotesResponseDto
+     */
+    'content': string;
+    /**
+     * The date of the event
+     * @type {string}
+     * @memberof UpdateWorkNotesResponseDto
+     */
+    'date': string;
+    /**
+     * The ID of the event
+     * @type {string}
+     * @memberof UpdateWorkNotesResponseDto
+     */
+    'id': string;
 }
 /**
  * 
@@ -1014,11 +1338,14 @@ export const DiaryApiAxiosParamCreator = function (configuration?: Configuration
     return {
         /**
          * 
+         * @param {DeleteGymEntryDto} deleteGymEntryDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        diaryControllerGetAllData: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/diary/all-data`;
+        diaryControllerDeleteGymEntry: async (deleteGymEntryDto: DeleteGymEntryDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'deleteGymEntryDto' is not null or undefined
+            assertParamExists('diaryControllerDeleteGymEntry', 'deleteGymEntryDto', deleteGymEntryDto)
+            const localVarPath = `/diary/entry/gym`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1026,15 +1353,18 @@ export const DiaryApiAxiosParamCreator = function (configuration?: Configuration
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(deleteGymEntryDto, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1043,11 +1373,14 @@ export const DiaryApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @param {DeleteHealthEntryDto} deleteHealthEntryDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        diaryControllerGetTodaysEvents: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/diary/events`;
+        diaryControllerDeleteHealthEntry: async (deleteHealthEntryDto: DeleteHealthEntryDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'deleteHealthEntryDto' is not null or undefined
+            assertParamExists('diaryControllerDeleteHealthEntry', 'deleteHealthEntryDto', deleteHealthEntryDto)
+            const localVarPath = `/diary/entry/health`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1055,15 +1388,18 @@ export const DiaryApiAxiosParamCreator = function (configuration?: Configuration
                 baseOptions = configuration.baseOptions;
             }
 
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(deleteHealthEntryDto, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1072,11 +1408,87 @@ export const DiaryApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @param {DeletePersonalEntryDto} deletePersonalEntryDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        diaryControllerTest: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/diary/test`;
+        diaryControllerDeletePersonalEntry: async (deletePersonalEntryDto: DeletePersonalEntryDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'deletePersonalEntryDto' is not null or undefined
+            assertParamExists('diaryControllerDeletePersonalEntry', 'deletePersonalEntryDto', deletePersonalEntryDto)
+            const localVarPath = `/diary/entry/personal`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(deletePersonalEntryDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {DeleteWorkEntryDto} deleteWorkEntryDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        diaryControllerDeleteWorkEntry: async (deleteWorkEntryDto: DeleteWorkEntryDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'deleteWorkEntryDto' is not null or undefined
+            assertParamExists('diaryControllerDeleteWorkEntry', 'deleteWorkEntryDto', deleteWorkEntryDto)
+            const localVarPath = `/diary/entry/work`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(deleteWorkEntryDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} date 
+         * @param {object} body 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        diaryControllerGetAllData: async (date: string, body: object, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'date' is not null or undefined
+            assertParamExists('diaryControllerGetAllData', 'date', date)
+            // verify required parameter 'body' is not null or undefined
+            assertParamExists('diaryControllerGetAllData', 'body', body)
+            const localVarPath = `/diary`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1088,11 +1500,298 @@ export const DiaryApiAxiosParamCreator = function (configuration?: Configuration
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            if (date !== undefined) {
+                localVarQueryParameter['date'] = date;
+            }
+
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {CreateGymNotesResponseDto} createGymNotesResponseDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        diaryControllerPostGymEntry: async (createGymNotesResponseDto: CreateGymNotesResponseDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createGymNotesResponseDto' is not null or undefined
+            assertParamExists('diaryControllerPostGymEntry', 'createGymNotesResponseDto', createGymNotesResponseDto)
+            const localVarPath = `/diary/entry/gym`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createGymNotesResponseDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {CreateHealthNotesResponseDto} createHealthNotesResponseDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        diaryControllerPostHealthEntry: async (createHealthNotesResponseDto: CreateHealthNotesResponseDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createHealthNotesResponseDto' is not null or undefined
+            assertParamExists('diaryControllerPostHealthEntry', 'createHealthNotesResponseDto', createHealthNotesResponseDto)
+            const localVarPath = `/diary/entry/health`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createHealthNotesResponseDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {CreatePersonalNotesResponseDto} createPersonalNotesResponseDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        diaryControllerPostPersonalEntry: async (createPersonalNotesResponseDto: CreatePersonalNotesResponseDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createPersonalNotesResponseDto' is not null or undefined
+            assertParamExists('diaryControllerPostPersonalEntry', 'createPersonalNotesResponseDto', createPersonalNotesResponseDto)
+            const localVarPath = `/diary/entry/personal`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createPersonalNotesResponseDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {CreateWorkNotesResponseDto} createWorkNotesResponseDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        diaryControllerPostWorkEntry: async (createWorkNotesResponseDto: CreateWorkNotesResponseDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createWorkNotesResponseDto' is not null or undefined
+            assertParamExists('diaryControllerPostWorkEntry', 'createWorkNotesResponseDto', createWorkNotesResponseDto)
+            const localVarPath = `/diary/entry/work`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createWorkNotesResponseDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {UpdateGymNotesResponseDto} updateGymNotesResponseDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        diaryControllerPutGymEntry: async (updateGymNotesResponseDto: UpdateGymNotesResponseDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'updateGymNotesResponseDto' is not null or undefined
+            assertParamExists('diaryControllerPutGymEntry', 'updateGymNotesResponseDto', updateGymNotesResponseDto)
+            const localVarPath = `/diary/entry/gym`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateGymNotesResponseDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {UpdateHealthNotesResponseDto} updateHealthNotesResponseDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        diaryControllerPutHealthEntry: async (updateHealthNotesResponseDto: UpdateHealthNotesResponseDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'updateHealthNotesResponseDto' is not null or undefined
+            assertParamExists('diaryControllerPutHealthEntry', 'updateHealthNotesResponseDto', updateHealthNotesResponseDto)
+            const localVarPath = `/diary/entry/health`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateHealthNotesResponseDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {UpdatePersonalNotesResponseDto} updatePersonalNotesResponseDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        diaryControllerPutPersonalEntry: async (updatePersonalNotesResponseDto: UpdatePersonalNotesResponseDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'updatePersonalNotesResponseDto' is not null or undefined
+            assertParamExists('diaryControllerPutPersonalEntry', 'updatePersonalNotesResponseDto', updatePersonalNotesResponseDto)
+            const localVarPath = `/diary/entry/personal`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updatePersonalNotesResponseDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {UpdateWorkNotesResponseDto} updateWorkNotesResponseDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        diaryControllerPutWorkEntry: async (updateWorkNotesResponseDto: UpdateWorkNotesResponseDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'updateWorkNotesResponseDto' is not null or undefined
+            assertParamExists('diaryControllerPutWorkEntry', 'updateWorkNotesResponseDto', updateWorkNotesResponseDto)
+            const localVarPath = `/diary/entry/work`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateWorkNotesResponseDto, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1111,35 +1810,159 @@ export const DiaryApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @param {DeleteGymEntryDto} deleteGymEntryDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async diaryControllerGetAllData(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAllDiaryDataResponseDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.diaryControllerGetAllData(options);
+        async diaryControllerDeleteGymEntry(deleteGymEntryDto: DeleteGymEntryDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.diaryControllerDeleteGymEntry(deleteGymEntryDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DiaryApi.diaryControllerDeleteGymEntry']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {DeleteHealthEntryDto} deleteHealthEntryDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async diaryControllerDeleteHealthEntry(deleteHealthEntryDto: DeleteHealthEntryDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.diaryControllerDeleteHealthEntry(deleteHealthEntryDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DiaryApi.diaryControllerDeleteHealthEntry']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {DeletePersonalEntryDto} deletePersonalEntryDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async diaryControllerDeletePersonalEntry(deletePersonalEntryDto: DeletePersonalEntryDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.diaryControllerDeletePersonalEntry(deletePersonalEntryDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DiaryApi.diaryControllerDeletePersonalEntry']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {DeleteWorkEntryDto} deleteWorkEntryDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async diaryControllerDeleteWorkEntry(deleteWorkEntryDto: DeleteWorkEntryDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.diaryControllerDeleteWorkEntry(deleteWorkEntryDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DiaryApi.diaryControllerDeleteWorkEntry']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} date 
+         * @param {object} body 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async diaryControllerGetAllData(date: string, body: object, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAllDiaryDataResponseDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.diaryControllerGetAllData(date, body, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DiaryApi.diaryControllerGetAllData']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * 
+         * @param {CreateGymNotesResponseDto} createGymNotesResponseDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async diaryControllerGetTodaysEvents(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetEventsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.diaryControllerGetTodaysEvents(options);
+        async diaryControllerPostGymEntry(createGymNotesResponseDto: CreateGymNotesResponseDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.diaryControllerPostGymEntry(createGymNotesResponseDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['DiaryApi.diaryControllerGetTodaysEvents']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['DiaryApi.diaryControllerPostGymEntry']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
          * 
+         * @param {CreateHealthNotesResponseDto} createHealthNotesResponseDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async diaryControllerTest(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.diaryControllerTest(options);
+        async diaryControllerPostHealthEntry(createHealthNotesResponseDto: CreateHealthNotesResponseDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.diaryControllerPostHealthEntry(createHealthNotesResponseDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['DiaryApi.diaryControllerTest']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['DiaryApi.diaryControllerPostHealthEntry']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {CreatePersonalNotesResponseDto} createPersonalNotesResponseDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async diaryControllerPostPersonalEntry(createPersonalNotesResponseDto: CreatePersonalNotesResponseDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.diaryControllerPostPersonalEntry(createPersonalNotesResponseDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DiaryApi.diaryControllerPostPersonalEntry']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {CreateWorkNotesResponseDto} createWorkNotesResponseDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async diaryControllerPostWorkEntry(createWorkNotesResponseDto: CreateWorkNotesResponseDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.diaryControllerPostWorkEntry(createWorkNotesResponseDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DiaryApi.diaryControllerPostWorkEntry']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {UpdateGymNotesResponseDto} updateGymNotesResponseDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async diaryControllerPutGymEntry(updateGymNotesResponseDto: UpdateGymNotesResponseDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.diaryControllerPutGymEntry(updateGymNotesResponseDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DiaryApi.diaryControllerPutGymEntry']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {UpdateHealthNotesResponseDto} updateHealthNotesResponseDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async diaryControllerPutHealthEntry(updateHealthNotesResponseDto: UpdateHealthNotesResponseDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.diaryControllerPutHealthEntry(updateHealthNotesResponseDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DiaryApi.diaryControllerPutHealthEntry']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {UpdatePersonalNotesResponseDto} updatePersonalNotesResponseDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async diaryControllerPutPersonalEntry(updatePersonalNotesResponseDto: UpdatePersonalNotesResponseDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.diaryControllerPutPersonalEntry(updatePersonalNotesResponseDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DiaryApi.diaryControllerPutPersonalEntry']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {UpdateWorkNotesResponseDto} updateWorkNotesResponseDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async diaryControllerPutWorkEntry(updateWorkNotesResponseDto: UpdateWorkNotesResponseDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.diaryControllerPutWorkEntry(updateWorkNotesResponseDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DiaryApi.diaryControllerPutWorkEntry']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -1154,27 +1977,121 @@ export const DiaryApiFactory = function (configuration?: Configuration, basePath
     return {
         /**
          * 
+         * @param {DeleteGymEntryDto} deleteGymEntryDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        diaryControllerGetAllData(options?: RawAxiosRequestConfig): AxiosPromise<GetAllDiaryDataResponseDto> {
-            return localVarFp.diaryControllerGetAllData(options).then((request) => request(axios, basePath));
+        diaryControllerDeleteGymEntry(deleteGymEntryDto: DeleteGymEntryDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.diaryControllerDeleteGymEntry(deleteGymEntryDto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
+         * @param {DeleteHealthEntryDto} deleteHealthEntryDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        diaryControllerGetTodaysEvents(options?: RawAxiosRequestConfig): AxiosPromise<GetEventsResponse> {
-            return localVarFp.diaryControllerGetTodaysEvents(options).then((request) => request(axios, basePath));
+        diaryControllerDeleteHealthEntry(deleteHealthEntryDto: DeleteHealthEntryDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.diaryControllerDeleteHealthEntry(deleteHealthEntryDto, options).then((request) => request(axios, basePath));
         },
         /**
          * 
+         * @param {DeletePersonalEntryDto} deletePersonalEntryDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        diaryControllerTest(options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.diaryControllerTest(options).then((request) => request(axios, basePath));
+        diaryControllerDeletePersonalEntry(deletePersonalEntryDto: DeletePersonalEntryDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.diaryControllerDeletePersonalEntry(deletePersonalEntryDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {DeleteWorkEntryDto} deleteWorkEntryDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        diaryControllerDeleteWorkEntry(deleteWorkEntryDto: DeleteWorkEntryDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.diaryControllerDeleteWorkEntry(deleteWorkEntryDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} date 
+         * @param {object} body 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        diaryControllerGetAllData(date: string, body: object, options?: RawAxiosRequestConfig): AxiosPromise<GetAllDiaryDataResponseDto> {
+            return localVarFp.diaryControllerGetAllData(date, body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {CreateGymNotesResponseDto} createGymNotesResponseDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        diaryControllerPostGymEntry(createGymNotesResponseDto: CreateGymNotesResponseDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.diaryControllerPostGymEntry(createGymNotesResponseDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {CreateHealthNotesResponseDto} createHealthNotesResponseDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        diaryControllerPostHealthEntry(createHealthNotesResponseDto: CreateHealthNotesResponseDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.diaryControllerPostHealthEntry(createHealthNotesResponseDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {CreatePersonalNotesResponseDto} createPersonalNotesResponseDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        diaryControllerPostPersonalEntry(createPersonalNotesResponseDto: CreatePersonalNotesResponseDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.diaryControllerPostPersonalEntry(createPersonalNotesResponseDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {CreateWorkNotesResponseDto} createWorkNotesResponseDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        diaryControllerPostWorkEntry(createWorkNotesResponseDto: CreateWorkNotesResponseDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.diaryControllerPostWorkEntry(createWorkNotesResponseDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {UpdateGymNotesResponseDto} updateGymNotesResponseDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        diaryControllerPutGymEntry(updateGymNotesResponseDto: UpdateGymNotesResponseDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.diaryControllerPutGymEntry(updateGymNotesResponseDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {UpdateHealthNotesResponseDto} updateHealthNotesResponseDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        diaryControllerPutHealthEntry(updateHealthNotesResponseDto: UpdateHealthNotesResponseDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.diaryControllerPutHealthEntry(updateHealthNotesResponseDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {UpdatePersonalNotesResponseDto} updatePersonalNotesResponseDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        diaryControllerPutPersonalEntry(updatePersonalNotesResponseDto: UpdatePersonalNotesResponseDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.diaryControllerPutPersonalEntry(updatePersonalNotesResponseDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {UpdateWorkNotesResponseDto} updateWorkNotesResponseDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        diaryControllerPutWorkEntry(updateWorkNotesResponseDto: UpdateWorkNotesResponseDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.diaryControllerPutWorkEntry(updateWorkNotesResponseDto, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1188,32 +2105,146 @@ export const DiaryApiFactory = function (configuration?: Configuration, basePath
 export class DiaryApi extends BaseAPI {
     /**
      * 
+     * @param {DeleteGymEntryDto} deleteGymEntryDto 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DiaryApi
      */
-    public diaryControllerGetAllData(options?: RawAxiosRequestConfig) {
-        return DiaryApiFp(this.configuration).diaryControllerGetAllData(options).then((request) => request(this.axios, this.basePath));
+    public diaryControllerDeleteGymEntry(deleteGymEntryDto: DeleteGymEntryDto, options?: RawAxiosRequestConfig) {
+        return DiaryApiFp(this.configuration).diaryControllerDeleteGymEntry(deleteGymEntryDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
+     * @param {DeleteHealthEntryDto} deleteHealthEntryDto 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DiaryApi
      */
-    public diaryControllerGetTodaysEvents(options?: RawAxiosRequestConfig) {
-        return DiaryApiFp(this.configuration).diaryControllerGetTodaysEvents(options).then((request) => request(this.axios, this.basePath));
+    public diaryControllerDeleteHealthEntry(deleteHealthEntryDto: DeleteHealthEntryDto, options?: RawAxiosRequestConfig) {
+        return DiaryApiFp(this.configuration).diaryControllerDeleteHealthEntry(deleteHealthEntryDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
+     * @param {DeletePersonalEntryDto} deletePersonalEntryDto 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DiaryApi
      */
-    public diaryControllerTest(options?: RawAxiosRequestConfig) {
-        return DiaryApiFp(this.configuration).diaryControllerTest(options).then((request) => request(this.axios, this.basePath));
+    public diaryControllerDeletePersonalEntry(deletePersonalEntryDto: DeletePersonalEntryDto, options?: RawAxiosRequestConfig) {
+        return DiaryApiFp(this.configuration).diaryControllerDeletePersonalEntry(deletePersonalEntryDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {DeleteWorkEntryDto} deleteWorkEntryDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DiaryApi
+     */
+    public diaryControllerDeleteWorkEntry(deleteWorkEntryDto: DeleteWorkEntryDto, options?: RawAxiosRequestConfig) {
+        return DiaryApiFp(this.configuration).diaryControllerDeleteWorkEntry(deleteWorkEntryDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} date 
+     * @param {object} body 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DiaryApi
+     */
+    public diaryControllerGetAllData(date: string, body: object, options?: RawAxiosRequestConfig) {
+        return DiaryApiFp(this.configuration).diaryControllerGetAllData(date, body, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {CreateGymNotesResponseDto} createGymNotesResponseDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DiaryApi
+     */
+    public diaryControllerPostGymEntry(createGymNotesResponseDto: CreateGymNotesResponseDto, options?: RawAxiosRequestConfig) {
+        return DiaryApiFp(this.configuration).diaryControllerPostGymEntry(createGymNotesResponseDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {CreateHealthNotesResponseDto} createHealthNotesResponseDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DiaryApi
+     */
+    public diaryControllerPostHealthEntry(createHealthNotesResponseDto: CreateHealthNotesResponseDto, options?: RawAxiosRequestConfig) {
+        return DiaryApiFp(this.configuration).diaryControllerPostHealthEntry(createHealthNotesResponseDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {CreatePersonalNotesResponseDto} createPersonalNotesResponseDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DiaryApi
+     */
+    public diaryControllerPostPersonalEntry(createPersonalNotesResponseDto: CreatePersonalNotesResponseDto, options?: RawAxiosRequestConfig) {
+        return DiaryApiFp(this.configuration).diaryControllerPostPersonalEntry(createPersonalNotesResponseDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {CreateWorkNotesResponseDto} createWorkNotesResponseDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DiaryApi
+     */
+    public diaryControllerPostWorkEntry(createWorkNotesResponseDto: CreateWorkNotesResponseDto, options?: RawAxiosRequestConfig) {
+        return DiaryApiFp(this.configuration).diaryControllerPostWorkEntry(createWorkNotesResponseDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {UpdateGymNotesResponseDto} updateGymNotesResponseDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DiaryApi
+     */
+    public diaryControllerPutGymEntry(updateGymNotesResponseDto: UpdateGymNotesResponseDto, options?: RawAxiosRequestConfig) {
+        return DiaryApiFp(this.configuration).diaryControllerPutGymEntry(updateGymNotesResponseDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {UpdateHealthNotesResponseDto} updateHealthNotesResponseDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DiaryApi
+     */
+    public diaryControllerPutHealthEntry(updateHealthNotesResponseDto: UpdateHealthNotesResponseDto, options?: RawAxiosRequestConfig) {
+        return DiaryApiFp(this.configuration).diaryControllerPutHealthEntry(updateHealthNotesResponseDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {UpdatePersonalNotesResponseDto} updatePersonalNotesResponseDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DiaryApi
+     */
+    public diaryControllerPutPersonalEntry(updatePersonalNotesResponseDto: UpdatePersonalNotesResponseDto, options?: RawAxiosRequestConfig) {
+        return DiaryApiFp(this.configuration).diaryControllerPutPersonalEntry(updatePersonalNotesResponseDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {UpdateWorkNotesResponseDto} updateWorkNotesResponseDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DiaryApi
+     */
+    public diaryControllerPutWorkEntry(updateWorkNotesResponseDto: UpdateWorkNotesResponseDto, options?: RawAxiosRequestConfig) {
+        return DiaryApiFp(this.configuration).diaryControllerPutWorkEntry(updateWorkNotesResponseDto, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

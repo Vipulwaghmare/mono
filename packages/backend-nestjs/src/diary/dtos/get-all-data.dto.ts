@@ -15,6 +15,13 @@ export class GetPersonalNotesResponseDto {
   })
   @IsString()
   readonly content: string;
+
+  @ApiProperty({
+    example: '67eb8c8028300395ab7df7a0',
+    description: 'id of the event',
+  })
+  @IsString()
+  readonly _id: string;
 }
 
 export class GetWorkNotesResponseDto {
@@ -31,6 +38,13 @@ export class GetWorkNotesResponseDto {
   })
   @IsString()
   readonly content: string;
+
+  @ApiProperty({
+    example: '67eb8c8028300395ab7df7a0',
+    description: 'id of the event',
+  })
+  @IsString()
+  readonly _id: string;
 }
 
 
@@ -67,6 +81,13 @@ export class GetGymProgressResponseExerciseDto {
     required: false,
   })
   readonly duration?: number;
+
+  @ApiProperty({
+    example: '67eb8c8028300395ab7df7a0',
+    description: 'id of the event',
+  })
+  @IsString()
+  readonly _id: string;
 }
 
 export class GetGymProgressResponseDto {
@@ -94,6 +115,13 @@ export class GetGymProgressResponseDto {
   })
   @IsString()
   readonly notes: string;
+
+  @ApiProperty({
+    example: '67eb8c8028300395ab7df7a0',
+    description: 'id of the event',
+  })
+  @IsString()
+  readonly _id: string;
 }
 
 export class GetDietEntryDto {
@@ -109,6 +137,13 @@ export class GetDietEntryDto {
     description: 'The calories contained in the food item',
   })
   readonly calories: number;
+
+  @ApiProperty({
+    example: '67eb8c8028300395ab7df7a0',
+    description: 'id of the event',
+  })
+  @IsString()
+  readonly _id: string;
 }
 
 export class GetHealthLogResponseDto {
@@ -159,6 +194,27 @@ export class GetAllDiaryDataResponseDto {
     description: 'The height of the person in cm',
   })
   readonly height: number;
+
+  @ApiProperty({
+    example: '67eb8c8028300395ab7df7a0',
+    description: 'id of the event',
+  })
+  @IsString()
+  readonly _id: string;
+
+  @ApiProperty({
+    example: '67eb8c8028300395ab7df7a0',
+    description: 'user id',
+  })
+  @IsString()
+  readonly userId: string;
+
+  @ApiProperty({
+    example: '2025-03-26',
+    description: 'date',
+  })
+  @IsString()
+  readonly date: string;
 }
 
 export const getAllDiaryApiResOptions: ApiResponseNoStatusOptions = {

@@ -21,41 +21,20 @@ import WorkEntryList from "@/components/WorkEntryList";
 import HealthTracker from "@/components/HealthTracker";
 import GymProgress from "@/components/GymProgress";
 import { Input } from "@/components/ui/input";
-import { useQuery } from "@tanstack/react-query";
-import api from "@/apis/instance";
-import { GetEventsResponse } from "@vipulwaghmare/apis";
 
 export default function DashboardPage() {
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split("T")[0],
   );
-  const { data } = useQuery<any, any, GetEventsResponse>({
-    queryKey: ["events"],
-    queryFn: async () => {
-      const res = await api.diaryControllerGetTodaysEvents();
-      return res.data;
-    },
-  });
-  // const [events, setEvents] = useState(sampleEvents);
+  // const { data } = useQuery<any, any, GetEventsResponse>({
+  //   queryKey: ["events"],
+  //   queryFn: async () => {
+  //     const res = await api.diaryControllerGetTodaysEvents();
+  //     return res.data;
+  //   },
+  // });
   const [showEvents, setShowEvents] = useState(true);
-
-  // Get today's events
-  // const todayEvents = events.filter(
-  //   (event) => event.date === new Date().toISOString().split("T")[0],
-  // );
-
-  // Get selected day's events
-  // const selectedDayEvents = events.filter(
-  //   (event) => event.date === selectedDate,
-  // );
-
-  // useEffect(() => {
-  //   const savedEvents = localStorage.getItem("events");
-  //   if (savedEvents) {
-  //     setEvents(JSON.parse(savedEvents));
-  //   }
-  // }, []);
 
   // Format date for display
   const formatDate = (dateString: string) => {
@@ -85,7 +64,6 @@ export default function DashboardPage() {
   const dismissEventAlert = () => {
     setShowEvents(false);
   };
-  console.log({ data });
   return (
     <div className="flex min-h-screen flex-col">
       <DashboardHeader />
@@ -100,7 +78,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Today's Events Alert */}
-          {data && showEvents && data.events.length > 0 && (
+          {/* {data && showEvents && data.events.length > 0 && (
             <Alert className="mb-6">
               <Bell className="h-4 w-4" />
               <AlertTitle>Events Today</AlertTitle>
@@ -123,7 +101,7 @@ export default function DashboardPage() {
                 <X className="h-4 w-4" />
               </Button>
             </Alert>
-          )}
+          )} */}
 
           {/* Date Selection */}
           <div className="flex items-center justify-between mb-6">

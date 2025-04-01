@@ -170,6 +170,7 @@ export default function GymProgress({
     });
   };
 
+  if (!data) return null;
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -194,20 +195,20 @@ export default function GymProgress({
       ) : (
         <div className="space-y-4">
           {workouts.map((workout) => (
-            <Card key={workout.id}>
+            <Card key={workout._id}>
               <CardHeader>
                 <div className="flex justify-between items-start">
                   <div>
                     <CardTitle>{workout.type}</CardTitle>
                     <CardDescription>
-                      {formatDate(workout.date)} • {workout.duration} minutes
+                      {formatDate(data.date)} • {workout.duration} minutes
                     </CardDescription>
                   </div>
                   <div className="flex space-x-2">
                     <AddGymNote
                       isAdding={false}
                       isAddDialogOpen={
-                        isEditDialogOpen && editingWorkout?.id === workout.id
+                        isEditDialogOpen && editingWorkout?._id === workout._id
                       }
                       setIsAddDialogOpen={(open) => {
                         setIsEditDialogOpen(open);

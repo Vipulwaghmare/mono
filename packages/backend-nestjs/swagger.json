@@ -887,11 +887,17 @@
             "type": "string",
             "example": "Had an amazing time hiking in the mountains this weekend",
             "description": "A brief description of the event"
+          },
+          "_id": {
+            "type": "string",
+            "example": "67eb8c8028300395ab7df7a0",
+            "description": "id of the event"
           }
         },
         "required": [
           "title",
-          "content"
+          "content",
+          "_id"
         ]
       },
       "GetWorkNotesResponseDto": {
@@ -906,11 +912,17 @@
             "type": "string",
             "example": "Had a productive meeting with the client.",
             "description": "A brief description of the event"
+          },
+          "_id": {
+            "type": "string",
+            "example": "67eb8c8028300395ab7df7a0",
+            "description": "id of the event"
           }
         },
         "required": [
           "title",
-          "content"
+          "content",
+          "_id"
         ]
       },
       "GetGymProgressResponseExerciseDto": {
@@ -940,12 +952,18 @@
             "type": "number",
             "example": 30,
             "description": "The duration in minutes"
+          },
+          "_id": {
+            "type": "string",
+            "example": "67eb8c8028300395ab7df7a0",
+            "description": "id of the event"
           }
         },
         "required": [
           "name",
           "sets",
-          "reps"
+          "reps",
+          "_id"
         ]
       },
       "GetGymProgressResponseDto": {
@@ -971,13 +989,19 @@
             "type": "string",
             "example": "Great workout today. Increased weight on bench press.",
             "description": "A brief description of the workout"
+          },
+          "_id": {
+            "type": "string",
+            "example": "67eb8c8028300395ab7df7a0",
+            "description": "id of the event"
           }
         },
         "required": [
           "type",
           "duration",
           "exercises",
-          "notes"
+          "notes",
+          "_id"
         ]
       },
       "GetDietEntryDto": {
@@ -992,11 +1016,17 @@
             "type": "number",
             "example": 600,
             "description": "The calories contained in the food item"
+          },
+          "_id": {
+            "type": "string",
+            "example": "67eb8c8028300395ab7df7a0",
+            "description": "id of the event"
           }
         },
         "required": [
           "name",
-          "calories"
+          "calories",
+          "_id"
         ]
       },
       "GetHealthLogResponseDto": {
@@ -1052,6 +1082,21 @@
             "type": "number",
             "example": 12,
             "description": "The height of the person in cm"
+          },
+          "_id": {
+            "type": "string",
+            "example": "67eb8c8028300395ab7df7a0",
+            "description": "id of the event"
+          },
+          "userId": {
+            "type": "string",
+            "example": "67eb8c8028300395ab7df7a0",
+            "description": "user id"
+          },
+          "date": {
+            "type": "string",
+            "example": "2025-03-26",
+            "description": "date"
           }
         },
         "required": [
@@ -1060,7 +1105,10 @@
           "gym",
           "health",
           "weight",
-          "height"
+          "height",
+          "_id",
+          "userId",
+          "date"
         ]
       },
       "CreatePersonalNotesResponseDto": {

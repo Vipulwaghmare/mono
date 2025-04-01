@@ -156,6 +156,7 @@ export default function HealthTracker({
     return null;
   };
 
+  if (!data) return null;
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -181,7 +182,7 @@ export default function HealthTracker({
               <CardHeader>
                 <div className="flex justify-between items-start">
                   <CardTitle className="flex items-center">
-                    Health Log - {formatDate(health.date)}
+                    Health Log - {formatDate(data.date)}
                     {getWeightTrend(index)}
                   </CardTitle>
                   <div className="flex space-x-2">
@@ -193,7 +194,7 @@ export default function HealthTracker({
                     <Button
                       variant="ghost"
                       size="icon"
-                      onClick={() => handleDeleteEntry(health.date)}
+                      onClick={() => handleDeleteEntry(data.date)}
                     >
                       <Trash className="h-4 w-4" />
                     </Button>
@@ -206,22 +207,22 @@ export default function HealthTracker({
                     <p className="text-sm font-medium text-muted-foreground">
                       Weight
                     </p>
-                    <p className="text-lg font-semibold">{health.weight} kg</p>
+                    <p className="text-lg font-semibold">{data.weight} kg</p>
                   </div>
                   <div className="space-y-1">
                     <p className="text-sm font-medium text-muted-foreground">
                       Height
                     </p>
-                    <p className="text-lg font-semibold">{health.height} cm</p>
+                    <p className="text-lg font-semibold">{data.height} cm</p>
                   </div>
                   <div className="space-y-1">
                     <p className="text-sm font-medium text-muted-foreground">
                       BMI
                     </p>
                     <p className="text-lg font-semibold">
-                      {(
-                        health.weight / Math.pow(health.height / 100, 2)
-                      ).toFixed(1)}
+                      {(data.weight / Math.pow(data.height / 100, 2)).toFixed(
+                        1,
+                      )}
                     </p>
                   </div>
                   <div className="space-y-1">

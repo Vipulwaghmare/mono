@@ -33,11 +33,11 @@ export default function PersonalEntryList({
   const entries = data?.personal ?? [];
   const [newEntry, setNewEntry] = useState<{
     title: string;
-    description: string;
+    content: string;
   }>({
     // TODO: Fix with backend type
     title: "",
-    description: "",
+    content: "",
   });
   const [editingEntry, setEditingEntry] =
     useState<GetPersonalNotesResponseDto | null>(null);
@@ -45,18 +45,17 @@ export default function PersonalEntryList({
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
   const handleAddEntry = () => {
-    if (newEntry.title.trim() === "" || newEntry.description.trim() === "")
-      return;
+    if (newEntry.title.trim() === "" || newEntry.content.trim() === "") return;
 
     const entry = {
       id: Date.now(),
       title: newEntry.title,
-      description: newEntry.description,
+      content: newEntry.content,
       date: new Date().toISOString().split("T")[0],
     };
     // TODO: MAKE API CALL
     console.log(entry);
-    setNewEntry({ title: "", description: "" });
+    setNewEntry({ title: "", content: "" });
     setIsAddDialogOpen(false);
   };
 
@@ -64,7 +63,7 @@ export default function PersonalEntryList({
     if (
       !editingEntry ||
       editingEntry.title.trim() === "" ||
-      editingEntry.description.trim() === ""
+      editingEntry.content.trim() === ""
     )
       return;
     // TODO: Update API CALL
@@ -73,7 +72,7 @@ export default function PersonalEntryList({
     setIsEditDialogOpen(false);
   };
 
-  const handleDeleteEntry = (id: number) => {
+  const handleDeleteEntry = (id: string) => {
     console.log("deleting", id);
     // setEntries(entries.filter((entry) => entry.id !== id));
     // TODO: Delete API CALL
@@ -87,6 +86,7 @@ export default function PersonalEntryList({
     });
   };
 
+  if (!data) return null;
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -118,12 +118,12 @@ export default function PersonalEntryList({
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="description">Description</Label>
+                <Label htmlFor="content">Description</Label>
                 <Textarea
-                  id="description"
-                  value={newEntry.description}
+                  id="content"
+                  value={newEntry.content}
                   onChange={(e) =>
-                    setNewEntry({ ...newEntry, description: e.target.value })
+                    setNewEntry({ ...newEntry, content: e.target.value })
                   }
                   placeholder="Write your thoughts here..."
                   className="min-h-[200px]"
@@ -157,13 +157,13 @@ export default function PersonalEntryList({
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {entries.map((entry) => (
-            <Card key={entry.id}>
+            <Card key={entry.title}>
               <CardHeader>
                 <div className="flex justify-between items-start">
                   <CardTitle>{entry.title}</CardTitle>
                   <div className="flex space-x-2">
                     <Dialog
-                      open={isEditDialogOpen && editingEntry?.id === entry.id}
+                      open={isEditDialogOpen && editingEntry?._id === entry._id}
                       onOpenChange={(open) => {
                         setIsEditDialogOpen(open);
                         if (open) setEditingEntry(entry);
@@ -194,17 +194,15 @@ export default function PersonalEntryList({
                             />
                           </div>
                           <div className="grid gap-2">
-                            <Label htmlFor="edit-description">
-                              Description
-                            </Label>
+                            <Label htmlFor="edit-content">Description</Label>
                             <Textarea
-                              id="edit-description"
-                              value={editingEntry?.description || ""}
+                              id="edit-content"
+                              value={editingEntry?.content || ""}
                               onChange={(e) =>
                                 editingEntry &&
                                 setEditingEntry({
                                   ...editingEntry,
-                                  description: e.target.value,
+                                  content: e.target.value,
                                 })
                               }
                               className="min-h-[200px]"
@@ -227,16 +225,16 @@ export default function PersonalEntryList({
                     <Button
                       variant="ghost"
                       size="icon"
-                      onClick={() => handleDeleteEntry(entry.id)}
+                      onClick={() => handleDeleteEntry(entry._id)}
                     >
                       <Trash className="h-4 w-4" />
                     </Button>
                   </div>
                 </div>
-                <CardDescription>{formatDate(entry.date)}</CardDescription>
+                <CardDescription>{formatDate(data.date)}</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="line-clamp-4">{entry.description}</p>
+                <p className="line-clamp-4">{entry.content}</p>
               </CardContent>
               <CardFooter>
                 <Button variant="outline" size="sm" className="w-full">
