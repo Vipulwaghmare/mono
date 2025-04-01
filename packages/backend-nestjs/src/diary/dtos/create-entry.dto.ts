@@ -1,7 +1,8 @@
-import { IsString, IsEmail, MinLength, ValidateNested, IsUUID } from 'class-validator';
+import { IsString, IsEmail, MinLength, ValidateNested, IsUUID, IsDate } from 'class-validator';
 import { ApiProperty, ApiResponseNoStatusOptions } from '@nestjs/swagger';
+import { JWT_DTO } from '../../services/crypto.service';
 
-export class GetPersonalNotesResponseDto {
+export class CreatePersonalNotesResponseDto extends JWT_DTO {
   @ApiProperty({
     example: 'Weekend Trip to the Mountains',
     description: 'The title of the event',
@@ -15,9 +16,16 @@ export class GetPersonalNotesResponseDto {
   })
   @IsString()
   readonly content: string;
+
+  @ApiProperty({
+    example: '2025-03-26',
+    description: 'The date of the event',
+  })
+  @IsString()
+  readonly date: string
 }
 
-export class GetWorkNotesResponseDto {
+export class CreateWorkNotesResponseDto extends JWT_DTO {
   @ApiProperty({
     example: 'Client Meeting',
     description: 'The title of the event',
@@ -31,10 +39,17 @@ export class GetWorkNotesResponseDto {
   })
   @IsString()
   readonly content: string;
+
+  @ApiProperty({
+    example: '2025-03-26',
+    description: 'The date of the event',
+  })
+  @IsString()
+  readonly date: string
 }
 
 
-export class GetGymProgressResponseExerciseDto {
+class GymProgressExerciseDto extends JWT_DTO {
   @ApiProperty({
     example: 'Bench Press',
     description: 'The name of the exercise',
@@ -69,7 +84,7 @@ export class GetGymProgressResponseExerciseDto {
   readonly duration?: number;
 }
 
-export class GetGymProgressResponseDto {
+export class CreateGymNotesResponseDto extends JWT_DTO {
   @ApiProperty({
     example: 'Strength Training',
     description: 'The type of workout',
@@ -84,9 +99,9 @@ export class GetGymProgressResponseDto {
   readonly duration: number;
 
   @ApiProperty({
-    type: [GetGymProgressResponseExerciseDto],
+    type: [GymProgressExerciseDto],
   })
-  readonly exercises: GetGymProgressResponseExerciseDto[];
+  readonly exercises: GymProgressExerciseDto[];
 
   @ApiProperty({
     example: 'Great workout today. Increased weight on bench press.',
@@ -94,9 +109,16 @@ export class GetGymProgressResponseDto {
   })
   @IsString()
   readonly notes: string;
+
+  @ApiProperty({
+    example: '2025-03-26',
+    description: 'The date of the event',
+  })
+  @IsString()
+  readonly date: string
 }
 
-export class GetDietEntryDto {
+class DietEntryDto {
   @ApiProperty({
     example: 'Biryani',
     description: 'The name of the food item',
@@ -111,12 +133,11 @@ export class GetDietEntryDto {
   readonly calories: number;
 }
 
-export class GetHealthLogResponseDto {
-
+export class CreateHealthNotesResponseDto extends JWT_DTO {
   @ApiProperty({
-    type: [GetDietEntryDto],
+    type: [DietEntryDto],
   })
-  readonly diet: GetDietEntryDto[];
+  readonly diet: DietEntryDto[];
 
   @ApiProperty({
     example: 'Had a cheat meal for dinner. Otherwise, stuck to my meal plan.',
@@ -124,45 +145,59 @@ export class GetHealthLogResponseDto {
   })
   @IsString()
   readonly notes: string;
+
+  @ApiProperty({
+    example: '2025-03-26',
+    description: 'The date of the event',
+  })
+  @IsString()
+  readonly date: string
 }
 
 
-export class GetAllDiaryDataResponseDto {
-  @ApiProperty({
-    type: [GetPersonalNotesResponseDto],
-  })
-  readonly personal: GetPersonalNotesResponseDto[];
+// export class CreateAllDiaryDataResponseDto {
+//   @ApiProperty({
+//     type: [GetPersonalNotesResponseDto],
+//   })
+//   readonly personal: GetPersonalNotesResponseDto[];
 
-  @ApiProperty({
-    type: [GetWorkNotesResponseDto],
-  })
-  readonly work: GetWorkNotesResponseDto[];
+//   @ApiProperty({
+//     type: [GetWorkNotesResponseDto],
+//   })
+//   readonly work: GetWorkNotesResponseDto[];
 
-  @ApiProperty({
-    type: [GetGymProgressResponseDto],
-  })
-  readonly gym: GetGymProgressResponseDto[];
+//   @ApiProperty({
+//     type: [GetGymProgressResponseDto],
+//   })
+//   readonly gym: GetGymProgressResponseDto[];
 
-  @ApiProperty({
-    type: GetHealthLogResponseDto,
-  })
-  readonly health: GetHealthLogResponseDto;
+//   @ApiProperty({
+//     type: GetHealthLogResponseDto,
+//   })
+//   readonly health: GetHealthLogResponseDto;
 
-  @ApiProperty({
-    example: 11,
-    description: 'The weight of the person in kg',
-  })
-  readonly weight: number;
+//   @ApiProperty({
+//     example: 11,
+//     description: 'The weight of the person in kg',
+//   })
+//   readonly weight: number;
 
-  @ApiProperty({
-    example: 12,
-    description: 'The height of the person in cm',
-  })
-  readonly height: number;
-}
+//   @ApiProperty({
+//     example: 12,
+//     description: 'The height of the person in cm',
+//   })
+//   readonly height: number;
 
-export const getAllDiaryApiResOptions: ApiResponseNoStatusOptions = {
-  description: 'Room created successfully',
-  type: GetAllDiaryDataResponseDto,
-};
+//   @ApiProperty({
+//     example: '2023-06-15',
+//     description: 'The date of the entry',
+//   })
+//   @IsString()
+//   readonly date: string;
+// }
+
+// export const getCreateEntryResOptions: ApiResponseNoStatusOptions = {
+//   description: 'Room created successfully',
+//   type: CreateAllDiaryDataResponseDto,
+// };
 

@@ -1,10 +1,17 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Put, Post } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { getEventsApiResOptions } from './dtos/get-events.dto';
 import { getAllDiaryApiResOptions } from './dtos/get-all-data.dto';
+import { DiaryService } from './diary.service';
+import { CreateGymNotesResponseDto, CreateHealthNotesResponseDto, CreatePersonalNotesResponseDto, CreateWorkNotesResponseDto } from './dtos/create-entry.dto';
+import { UpdateGymNotesResponseDto, UpdateHealthNotesResponseDto, UpdatePersonalNotesResponseDto, UpdateWorkNotesResponseDto } from './dtos/update-entry.dto';
+// import { CreateAllDiaryDataResponseDto, getCreateEntryResOptions } from './dtos/create-entry.dto';
 
 @Controller('diary')
 export class DiaryController {
+  constructor(
+    private readonly diaryService: DiaryService,
+  ) { }
 
   @Get('/events')
   @ApiOkResponse(getEventsApiResOptions)
@@ -42,55 +49,38 @@ export class DiaryController {
   getAllData() {
     const personal = [
       {
-        id: 1,
         title: "Doctor's Appointment",
-        date: "2025-03-26",
-        type: "appointment",
-        description: "Annual checkup at City Hospital",
+        content: "Annual checkup at City Hospital",
       },
       {
-        id: 2,
         title: "Mom's Birthday",
-        date: "2025-03-26",
-        type: "birthday",
-        description: "Don't forget to buy a gift!",
+        content: "Don't forget to buy a gift!",
       },
       {
-        id: 3,
         title: "Team Meeting",
-        date: "2025-03-26",
-        type: "meeting",
-        description: "Quarterly review with the department",
+        content: "Quarterly review with the department",
       },
     ];
     const work = [
       {
-        id: 1,
         title: "Project Milestone Achieved",
         content:
           "Successfully completed the first phase of the project ahead of schedule. The team worked really well together.",
-        date: "2023-06-14",
       },
       {
-        id: 2,
         title: "Client Meeting",
         content:
           "Had a productive meeting with the client. They were pleased with our progress and provided valuable feedback.",
-        date: "2023-06-12",
       },
       {
-        id: 3,
         title: "New Skills Learned",
         content:
           "Spent the day learning a new framework that will help streamline our development process.",
-        date: "2023-06-08",
       },
     ];
 
     const gym = [
       {
-        id: 1,
-        date: new Date(),
         type: "Strength Training",
         duration: 60,
         exercises: [
@@ -101,8 +91,6 @@ export class DiaryController {
         notes: "Great workout today. Increased weight on bench press.",
       },
       {
-        id: 2,
-        date: new Date(),
         type: "Cardio",
         duration: 45,
         exercises: [
@@ -112,8 +100,6 @@ export class DiaryController {
         notes: "Focused on cardio today. Felt good.",
       },
       {
-        id: 3,
-        date: new Date(),
         type: "Strength Training",
         duration: 75,
         exercises: [
@@ -127,8 +113,8 @@ export class DiaryController {
     ];
 
     const health = {
-      weight: 11,
-      height: 12,
+      // weight: 11,
+      // height: 12,
       diet: [
         {
           name: 'Biryani',
@@ -137,18 +123,121 @@ export class DiaryController {
         }
       ],
       notes: 'Had a cheat meal for dinner. Otherwise, stuck to my meal plan.',
-      date: new Date(),
     }
     return {
       personal: personal.map((event) => ({ ...event, date: new Date() })),
       work: work.map((event) => ({ ...event, date: new Date() })),
       gym,
-      health
+      health,
+      weight: 11,
+      height: 11,
     };
   }
 
-  @Get('/test')
-  test() {
-    return 'test';
+  @Post('/entry/personal')
+  postPersonalEntry(@Body() body: CreatePersonalNotesResponseDto) {
+    return this.diaryService.addPersonalEntry({
+      userId: body.jwtPayload.userId,
+      date: new Date(body.date),
+      data: {
+        title: body.title,
+        content: body.content,
+      }
+    });
   }
+
+  @Post('/entry/work')
+  postWorkEntry(@Body() body: CreateWorkNotesResponseDto) {
+    return this.diaryService.addWorkEntry({
+      userId: body.jwtPayload.userId,
+      date: new Date(body.date),
+      data: {
+        title: body.title,
+        content: body.content,
+      }
+    });
+  }
+
+  @Post('/entry/gym')
+  postGymEntry(@Body() body: CreateGymNotesResponseDto) {
+    return this.diaryService.addGymWorkout({
+      userId: body.jwtPayload.userId,
+      date: new Date(body.date),
+      data: {
+        type: body.type as "Strength Training" | "Cardio" | "Yoga" | "Others",
+        duration: body.duration,
+        exercises: body.exercises,
+        notes: body.notes,
+      },
+    })
+  }
+  @Post('/entry/health')
+  postHealthEntry(@Body() body: CreateHealthNotesResponseDto) {
+    return this.diaryService.addHealthEntry({
+      userId: body.jwtPayload.userId,
+      date: new Date(body.date),
+      data: {
+        diet: body.diet,
+        notes: body.notes
+      },
+    })
+  }
+
+  @Put('/entry/personal')
+  putPersonalEntry(@Body() body: UpdatePersonalNotesResponseDto) {
+    return this.diaryService.updatePersonalEntry({
+      userId: body.jwtPayload.userId,
+      date: new Date(body.date),
+      data: {
+        title: body.title,
+        content: body.content,
+        id: body.id,
+      }
+    });
+  }
+
+  @Put('/entry/work')
+  putWorkEntry(@Body() body: UpdateWorkNotesResponseDto) {
+    return this.diaryService.updateWorkEntry({
+      userId: body.jwtPayload.userId,
+      date: new Date(body.date),
+      data: {
+        title: body.title,
+        content: body.content,
+        id: body.id,
+      }
+    });
+  }
+
+  @Put('/entry/gym')
+  putGymEntry(@Body() body: UpdateGymNotesResponseDto) {
+    return this.diaryService.updateGymWorkout({
+      userId: body.jwtPayload.userId,
+      date: new Date(body.date),
+      data: {
+        type: body.type as "Strength Training" | "Cardio" | "Yoga" | "Others",
+        duration: body.duration,
+        exercises: body.exercises,
+        notes: body.notes,
+        id: body.id,
+      }
+    });
+  }
+
+  @Put('/entry/health')
+  putHealthEntry(@Body() body: UpdateHealthNotesResponseDto) {
+    return this.diaryService.updateHealthEntry({
+      userId: body.jwtPayload.userId,
+      date: new Date(body.date),
+      data: {
+        diet: body.diet,
+        notes: body.notes,
+      }
+    });
+  }
+
+  // @Put('/entry')
+  // putEntry(@Body() body: UpdateEntryDto) {
+  //   const entry = this.diaryService.updateEntry(body);
+  // }
 }

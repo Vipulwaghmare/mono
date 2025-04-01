@@ -51,7 +51,7 @@ export default function MarkdownEditor() {
       setSelectionEnd(editorRef.current.selectionEnd);
     }
   };
-  console.log("editorEf", editorRef);
+
   // Insert text at cursor position or replace selected text
   const insertText = (before: string, after = "") => {
     if (!editorRef.current) return;
