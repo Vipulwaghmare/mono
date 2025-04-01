@@ -337,31 +337,29 @@
         ]
       }
     },
-    "/diary/events": {
+    "/diary": {
       "get": {
-        "operationId": "DiaryController_getTodaysEvents",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Room created successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetEventsResponse"
-                }
+        "operationId": "DiaryController_getAllData",
+        "parameters": [
+          {
+            "name": "date",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JWT_DTO"
               }
             }
           }
         },
-        "tags": [
-          "Diary"
-        ]
-      }
-    },
-    "/diary/all-data": {
-      "get": {
-        "operationId": "DiaryController_getAllData",
-        "parameters": [],
         "responses": {
           "200": {
             "description": "Room created successfully",
@@ -423,6 +421,28 @@
         "tags": [
           "Diary"
         ]
+      },
+      "delete": {
+        "operationId": "DiaryController_deletePersonalEntry",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeletePersonalEntryDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Diary"
+        ]
       }
     },
     "/diary/entry/work": {
@@ -457,6 +477,28 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateWorkNotesResponseDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Diary"
+        ]
+      },
+      "delete": {
+        "operationId": "DiaryController_deleteWorkEntry",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteWorkEntryDto"
               }
             }
           }
@@ -515,6 +557,28 @@
         "tags": [
           "Diary"
         ]
+      },
+      "delete": {
+        "operationId": "DiaryController_deleteGymEntry",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteGymEntryDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Diary"
+        ]
       }
     },
     "/diary/entry/health": {
@@ -549,6 +613,28 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateHealthNotesResponseDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Diary"
+        ]
+      },
+      "delete": {
+        "operationId": "DiaryController_deleteHealthEntry",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteHealthEntryDto"
               }
             }
           }
@@ -785,56 +871,9 @@
           "message"
         ]
       },
-      "GetEventsResponseDto": {
+      "JWT_DTO": {
         "type": "object",
-        "properties": {
-          "id": {
-            "type": "number",
-            "example": 1,
-            "description": "The ID of the event"
-          },
-          "title": {
-            "type": "string",
-            "example": "Doctor's Appointment",
-            "description": "The title of the event"
-          },
-          "date": {
-            "type": "string",
-            "example": "2025-03-26",
-            "description": "The date of the event"
-          },
-          "type": {
-            "type": "string",
-            "example": "appointment",
-            "description": "The type of event"
-          },
-          "description": {
-            "type": "string",
-            "example": "Annual checkup at City Hospital",
-            "description": "A brief description of the event"
-          }
-        },
-        "required": [
-          "id",
-          "title",
-          "date",
-          "type",
-          "description"
-        ]
-      },
-      "GetEventsResponse": {
-        "type": "object",
-        "properties": {
-          "events": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/GetEventsResponseDto"
-            }
-          }
-        },
-        "required": [
-          "events"
-        ]
+        "properties": {}
       },
       "GetPersonalNotesResponseDto": {
         "type": "object",
@@ -1321,6 +1360,62 @@
         "required": [
           "diet",
           "notes",
+          "date"
+        ]
+      },
+      "DeletePersonalEntryDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "date"
+        ]
+      },
+      "DeleteWorkEntryDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "date"
+        ]
+      },
+      "DeleteGymEntryDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "date"
+        ]
+      },
+      "DeleteHealthEntryDto": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string"
+          }
+        },
+        "required": [
           "date"
         ]
       }

@@ -10,7 +10,7 @@ export class DiaryService {
   ) { }
 
 
-  async getEntry(userId: string, date: Date): Promise<TDiary | undefined> {
+  async getEntry({ userId, date }: { userId: string; date: Date }): Promise<TDiary | undefined> {
     return this.diaryModel.findOne({ userId, date }).exec();
   };
 
