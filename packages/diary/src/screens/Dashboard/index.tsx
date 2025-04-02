@@ -3,18 +3,7 @@ import { useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 // import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import {
-  // BookOpen,
-  // Briefcase,
-  // Heart,
-  // Dumbbell,
-  ChevronLeft,
-  ChevronRight,
-  X,
-  Calendar,
-  Bell,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight, Calendar } from "lucide-react";
 import DashboardHeader from "@/components/DashboardHeader";
 import PersonalEntryList from "@/components/PersonalEntryList";
 import WorkEntryList from "@/components/WorkEntryList";
@@ -34,7 +23,7 @@ export default function DashboardPage() {
   //     return res.data;
   //   },
   // });
-  const [showEvents, setShowEvents] = useState(true);
+  // const [showEvents, setShowEvents] = useState(true);
 
   // Format date for display
   const formatDate = (dateString: string) => {
@@ -61,9 +50,9 @@ export default function DashboardPage() {
   };
 
   // Dismiss event alert
-  const dismissEventAlert = () => {
-    setShowEvents(false);
-  };
+  // const dismissEventAlert = () => {
+  //   setShowEvents(false);
+  // };
   return (
     <div className="flex min-h-screen flex-col">
       <DashboardHeader />

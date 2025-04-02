@@ -2,7 +2,7 @@ import { BadRequestException, Body, Controller, Post, Headers, Res } from '@nest
 import { ConfigService } from '@nestjs/config';
 import { UsersService } from '../users/users.service';
 import { CreateUserDto } from './dtos/create-user.dto';
-import { LoginUserDto } from './dtos/login-user.dto';
+import { LoginUserDto, loginApiResOptions } from './dtos/login-user.dto';
 import { ForgotPasswordDto } from './dtos/forgot-password.dto';
 import { ResetPasswordDto } from './dtos/reset-password.dto';
 import { UpdatePasswordDto } from './dtos/update-password.dto';
@@ -51,6 +51,7 @@ export class AuthController {
 
   @Post('/login')
   @ApiResponse(validationApiResOptions)
+  @ApiOkResponse(loginApiResOptions)
   async login(@Body() body: LoginUserDto, @Res({ passthrough: true }) response) {
     this.logger.log('User login attempt');
     const email = body.email.trim().toLowerCase();
@@ -81,6 +82,8 @@ export class AuthController {
       accessToken,
       // refreshToken,
       userId: user._id,
+      email: user.email,
+      name: user.name,
     };
   }
 

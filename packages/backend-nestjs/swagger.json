@@ -65,6 +65,16 @@
           }
         },
         "responses": {
+          "200": {
+            "description": "Login successful.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponseDto"
+                }
+              }
+            }
+          },
           "400": {
             "description": "Validation error.",
             "content": {
@@ -743,6 +753,43 @@
         "required": [
           "email",
           "password"
+        ]
+      },
+      "LoginResponseDto": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "string",
+            "example": "User is logged in with email: user@example.com",
+            "description": "Success message"
+          },
+          "accessToken": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+            "description": "JWT access token"
+          },
+          "userId": {
+            "type": "string",
+            "example": "507f1f77bcf86cd799439011",
+            "description": "MongoDB user ID"
+          },
+          "email": {
+            "type": "string",
+            "example": "user@example.com",
+            "description": "User email"
+          },
+          "name": {
+            "type": "string",
+            "example": "John Doe",
+            "description": "User name"
+          }
+        },
+        "required": [
+          "success",
+          "accessToken",
+          "userId",
+          "email",
+          "name"
         ]
       },
       "ForgotPasswordDto": {

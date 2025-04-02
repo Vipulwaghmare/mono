@@ -9,11 +9,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Menu, User, Settings, LogOut } from "lucide-react";
+import { Menu, User, LogOut } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useNavigate } from "react-router";
-import { useGetUser } from "@/hooks/user";
+import { Link, useNavigate } from "react-router";
 import ThemeToggle from "./ThemeToggle";
+import { useGetUser } from "@vipulwaghmare/auth-frontend";
 
 const getInitials = (name: string) => {
   if (!name) return "U";
@@ -37,32 +37,32 @@ export default function DashboardHeader() {
   return (
     <header className="sticky top-0 z-10 w-full border-b bg-background">
       <div className="container flex h-16 items-center px-4">
-        <a href="/dashboard" className="flex items-center gap-2">
+        <Link to="/dashboard" className="flex items-center gap-2">
           <h1 className="text-xl font-bold">MyDiary</h1>
-        </a>
+        </Link>
 
         <div className="hidden md:flex items-center gap-6 ml-6">
-          <a href="/dashboard" className="text-sm font-medium">
+          <Link to="/dashboard" className="text-sm font-medium">
             Dashboard
-          </a>
-          <a
-            href="/dashboard/entries"
+          </Link>
+          <Link
+            to="/dashboard/entries"
             className="text-sm font-medium text-muted-foreground hover:text-foreground"
           >
             All Entries
-          </a>
-          <a
-            href="/dashboard/calendar"
+          </Link>
+          <Link
+            to="/dashboard/calendar"
             className="text-sm font-medium text-muted-foreground hover:text-foreground"
           >
             Calendar
-          </a>
-          <a
-            href="/dashboard/memento-mori"
+          </Link>
+          <Link
+            to="/dashboard/memento-mori"
             className="text-sm font-medium text-muted-foreground hover:text-foreground"
           >
             Memento Mori
-          </a>
+          </Link>
         </div>
 
         <div className="ml-auto flex items-center gap-4">
@@ -91,14 +91,14 @@ export default function DashboardHeader() {
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate("/profile")}>
                 <User className="mr-2 h-4 w-4" />
                 <span>Profile</span>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              {/* <DropdownMenuItem onClick={() => navigate("/settings")}>
                 <Settings className="mr-2 h-4 w-4" />
                 <span>Settings</span>
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleLogout}>
                 <LogOut className="mr-2 h-4 w-4" />
@@ -114,38 +114,38 @@ export default function DashboardHeader() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left">
-              <a href="/dashboard" className="flex items-center gap-2 mb-6">
+              <Link to="/dashboard" className="flex items-center gap-2 mb-6">
                 <h1 className="text-xl font-bold">MyDiary</h1>
-              </a>
+              </Link>
               <div className="grid gap-4">
-                <a
-                  href="/dashboard"
+                <Link
+                  to="/dashboard"
                   className="text-sm font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Dashboard
-                </a>
-                <a
-                  href="/dashboard/entries"
+                </Link>
+                <Link
+                  to="/dashboard/entries"
                   className="text-sm font-medium text-muted-foreground"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   All Entries
-                </a>
-                <a
-                  href="/dashboard/calendar"
+                </Link>
+                <Link
+                  to="/dashboard/calendar"
                   className="text-sm font-medium text-muted-foreground"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Calendar
-                </a>{" "}
-                <a
-                  href="/dashboard/memento-mori"
+                </Link>{" "}
+                <Link
+                  to="/dashboard/memento-mori"
                   className="text-sm font-medium text-muted-foreground"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Memento Mori
-                </a>
+                </Link>
               </div>
             </SheetContent>
           </Sheet>

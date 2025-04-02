@@ -651,6 +651,43 @@ export interface JoinRoomResponseDto {
 /**
  * 
  * @export
+ * @interface LoginResponseDto
+ */
+export interface LoginResponseDto {
+    /**
+     * Success message
+     * @type {string}
+     * @memberof LoginResponseDto
+     */
+    'success': string;
+    /**
+     * JWT access token
+     * @type {string}
+     * @memberof LoginResponseDto
+     */
+    'accessToken': string;
+    /**
+     * MongoDB user ID
+     * @type {string}
+     * @memberof LoginResponseDto
+     */
+    'userId': string;
+    /**
+     * User email
+     * @type {string}
+     * @memberof LoginResponseDto
+     */
+    'email': string;
+    /**
+     * User name
+     * @type {string}
+     * @memberof LoginResponseDto
+     */
+    'name': string;
+}
+/**
+ * 
+ * @export
  * @interface LoginUserDto
  */
 export interface LoginUserDto {
@@ -1162,7 +1199,7 @@ export const AuthApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async authControllerLogin(loginUserDto: LoginUserDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async authControllerLogin(loginUserDto: LoginUserDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LoginResponseDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.authControllerLogin(loginUserDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AuthApi.authControllerLogin']?.[localVarOperationServerIndex]?.url;
@@ -1230,7 +1267,7 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        authControllerLogin(loginUserDto: LoginUserDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        authControllerLogin(loginUserDto: LoginUserDto, options?: RawAxiosRequestConfig): AxiosPromise<LoginResponseDto> {
             return localVarFp.authControllerLogin(loginUserDto, options).then((request) => request(axios, basePath));
         },
         /**

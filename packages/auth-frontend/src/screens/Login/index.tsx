@@ -13,29 +13,35 @@ import {
 import { Alert, AlertDescription } from "../../components/ui/alert";
 import { useNavigate } from "react-router";
 import api from "../../apis/instance";
-import { LoginUserDto } from "@vipulwaghmare/apis";
+import { LoginUserDto, LoginResponseDto } from "@vipulwaghmare/apis";
 import { useMutation } from "@tanstack/react-query";
-import { AxiosResponse } from "axios";
-
+import { useUser } from "../../hooks";
 export default function LoginPage({
   onSuccessRedirect,
 }: {
   onSuccessRedirect: string;
 }) {
   const navigate = useNavigate();
+  const userContext = useUser();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { mutate: mutateLogin, isPending: loading } = useMutation<
-    AxiosResponse<any, any>,
+    LoginResponseDto,
     Error,
     LoginUserDto
   >({
-    mutationFn: (body) => {
-      return api.authControllerLogin(body);
+    mutationFn: async (body) => {
+      const res = await api.authControllerLogin(body);
+      return res.data;
     },
     onSuccess: (data) => {
       // Store some user info in localStorage for demo purposes
+      userContext.setUser({
+        userId: data.userId,
+        email: data.email,
+        name: data.name,
+      });
       localStorage.setItem("user", JSON.stringify({ data }));
       navigate(onSuccessRedirect);
     },

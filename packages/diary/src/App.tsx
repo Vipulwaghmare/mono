@@ -1,9 +1,9 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { RouterProvider } from "react-router";
-import { UserProvider } from "./hooks/user";
 import router from "./router";
 import { ThemeProvider } from "./hooks/themes";
+import { UserProvider } from "@vipulwaghmare/auth-frontend";
 
 const queryClient = new QueryClient();
 
