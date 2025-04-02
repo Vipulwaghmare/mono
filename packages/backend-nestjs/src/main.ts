@@ -41,7 +41,7 @@ async function bootstrap() {
 
     SwaggerModule.setup("api-docs", app, swaggerDocument, {
       customSiteTitle: "Api Docs",
-      customfavIcon: "https://avatars.githubusercontent.com/u/6936373?s=200&v=4",
+      // customfavIcon: "https://avatars.githubusercontent.com/u/66200734?s=400&u=fe154367b1155c6d08830a39052847922120c330&v=4",
       customJs: [
         "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js",
         "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.js",

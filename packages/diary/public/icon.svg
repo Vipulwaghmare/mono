@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Diary cover -->
+  <rect x="4" y="4" width="24" height="24" rx="2" ry="2" fill="#8B4513" stroke="#5D2906" stroke-width="1"/>
+  
+  <!-- Diary binding -->
+  <rect x="14" y="4" width="4" height="24" fill="#5D2906"/>
+  
+  <!-- Pages edge -->
+  <rect x="4" y="5" width="24" height="22" rx="1" ry="1" fill="#F5F5DC"/>
+  
+  <!-- Clasp/lock -->
+  <rect x="26" y="14" width="3" height="4" rx="1" ry="1" fill="#D4AF37"/>
+  
+  <!-- Bookmark ribbon -->
+  <path d="M22 5 L22 12 L24 10 L26 12 L26 5" fill="#8B0000"/>
+  
+  <!-- Simple page lines -->
+  <line x1="19" y1="9" x2="25" y2="9" stroke="#CCCCB3" stroke-width="0.5"/>
+  <line x1="19" y1="13" x2="25" y2="13" stroke="#CCCCB3" stroke-width="0.5"/>
+  <line x1="19" y1="17" x2="25" y2="17" stroke="#CCCCB3" stroke-width="0.5"/>
+  <line x1="19" y1="21" x2="25" y2="21" stroke="#CCCCB3" stroke-width="0.5"/>
+  
+  <!-- "D" for diary -->
+  <text x="9" y="18" font-family="serif" font-size="10" font-weight="bold" fill="#D4AF37">D</text>
+</svg>

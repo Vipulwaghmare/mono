@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Background circle -->
+  <circle cx="16" cy="16" r="15" fill="#2D3748" stroke="#4A5568" stroke-width="1"/>
+  
+  <!-- Sorting bars - representing a visualization in progress -->
+  <!-- Unsorted side -->
+  <rect x="6" y="8" width="2" height="16" fill="#FC8181"/>
+  <rect x="9" y="12" width="2" height="12" fill="#F6AD55"/>
+  <rect x="12" y="6" width="2" height="18" fill="#68D391"/>
+  <rect x="15" y="14" width="2" height="10" fill="#63B3ED"/>
+  
+  <!-- Sorted side (height order) -->
+  <rect x="24" y="14" width="2" height="10" fill="#63B3ED"/>
+  <rect x="21" y="12" width="2" height="12" fill="#F6AD55"/>
+  <rect x="18" y="6" width="2" height="18" fill="#68D391"/>
+</svg>
