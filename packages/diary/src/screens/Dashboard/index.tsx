@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 // import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ChevronLeft, ChevronRight, Calendar } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import DashboardHeader from "@/components/DashboardHeader";
 import PersonalEntryList from "@/components/PersonalEntryList";
 import WorkEntryList from "@/components/WorkEntryList";
@@ -12,7 +12,7 @@ import GymProgress from "@/components/GymProgress";
 import { Input } from "@/components/ui/input";
 
 export default function DashboardPage() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split("T")[0],
   );
@@ -60,10 +60,10 @@ export default function DashboardPage() {
         <div className="mx-auto max-w-7xl">
           <div className="flex items-center justify-between mb-6">
             <h1 className="text-3xl font-bold">My Diary</h1>
-            <Button onClick={() => navigate("/dashboard/calendar")}>
+            {/* <Button onClick={() => navigate("/dashboard/calendar")}>
               <Calendar className="mr-2 h-4 w-4" />
               View Calendar
-            </Button>
+            </Button> */}
           </div>
 
           {/* Today's Events Alert */}

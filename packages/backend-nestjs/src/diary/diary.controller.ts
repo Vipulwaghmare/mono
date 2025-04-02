@@ -192,11 +192,4 @@ export class DiaryController {
       date: new Date(body.date)
     });
   }
-
-
-
-  // @Put('/entry')
-  // putEntry(@Body() body: UpdateEntryDto) {
-  //   const entry = this.diaryService.updateEntry(body);
-  // }
 }

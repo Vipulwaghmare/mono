@@ -1,5 +1,5 @@
-import api from "@/apis/instance";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import api, { userApi } from "@/apis/instance";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   CreatePersonalNotesResponseDto,
   CreateWorkNotesResponseDto,
@@ -14,6 +14,16 @@ import {
   DeleteHealthEntryDto,
   DeleteGymEntryDto,
 } from "@vipulwaghmare/apis";
+
+export const useGetUserData = () => {
+  return useQuery({
+    queryKey: ["user"],
+    queryFn: async () => {
+      const res = await userApi.usersControllerGetUser({});
+      return res.data;
+    },
+  });
+};
 
 export const useCreatePersonalNote = () => {
   const queryClient = useQueryClient();

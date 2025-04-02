@@ -190,6 +190,27 @@
         ]
       }
     },
+    "/auth/logout": {
+      "post": {
+        "operationId": "AuthController_logout",
+        "parameters": [],
+        "responses": {
+          "400": {
+            "description": "Validation error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
     "/portfolio/*": {
       "get": {
         "operationId": "PortfolioController_get",
@@ -324,22 +345,59 @@
         ]
       }
     },
-    "/users/{id}": {
+    "/users": {
       "get": {
         "operationId": "UsersController_getUser",
-        "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JWT_DTO"
+              }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
-            "description": ""
+            "description": "User successfully fetched",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUserDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      },
+      "patch": {
+        "operationId": "UsersController_updateUser",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUserDto"
+                }
+              }
+            }
           }
         },
         "tags": [
@@ -921,6 +979,86 @@
       "JWT_DTO": {
         "type": "object",
         "properties": {}
+      },
+      "GetUserDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the user",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "description": "The email of the user",
+            "example": "john.doe@example.com"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "The phone number of the user",
+            "example": "+1234567890"
+          },
+          "dob": {
+            "type": "string",
+            "description": "The date of birth of the user",
+            "example": "2021-01-01"
+          },
+          "bio": {
+            "type": "string",
+            "description": "The bio of the user",
+            "example": "I am a software engineer"
+          },
+          "id": {
+            "type": "string",
+            "description": "The ID of the user",
+            "example": "1234567890"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "phoneNumber",
+          "dob",
+          "bio",
+          "id"
+        ]
+      },
+      "UpdateUserDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the user",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "description": "The email of the user",
+            "example": "john.doe@example.com"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "The phone number of the user",
+            "example": "+1234567890"
+          },
+          "dob": {
+            "type": "string",
+            "description": "The date of birth of the user",
+            "example": "2021-01-01"
+          },
+          "bio": {
+            "type": "string",
+            "description": "The bio of the user",
+            "example": "I am a software engineer"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "phoneNumber",
+          "dob",
+          "bio"
+        ]
       },
       "GetPersonalNotesResponseDto": {
         "type": "object",

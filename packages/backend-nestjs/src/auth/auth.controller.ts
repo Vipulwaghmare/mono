@@ -174,5 +174,13 @@ export class AuthController {
       message: 'Successfully updated user password',
     };
   }
+
+  @Post('/logout')
+  @ApiResponse(validationApiResOptions)
+  async logout(@Res({ passthrough: true }) response) {
+    this.logger.log('Logout request');
+    response.clearCookie('accessToken');
+    return { message: 'Successfully logged out' };
+  }
 }
 

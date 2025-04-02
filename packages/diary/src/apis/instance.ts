@@ -1,19 +1,9 @@
-import { DiaryApi, Configuration } from "@vipulwaghmare/apis";
-import axios from 'axios';
+import { axiosInstance, axiosConfig } from "@vipulwaghmare/auth-frontend";
+import { AuthApi, DiaryApi, UsersApi } from "@vipulwaghmare/apis";
 
-const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL, // override if not already in swagger.json
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true,
-});
+const api = new DiaryApi(axiosConfig, undefined, axiosInstance); // Create an API instance
 
-// Initialize the Configuration
-const config = new Configuration({
-  basePath: import.meta.env.VITE_BASE_URL, // optional if already defined in swagger.json
-});
-
-const api = new DiaryApi(config, undefined, axiosInstance); // Create an API instance
+export const authApi = new AuthApi(axiosConfig, undefined, axiosInstance);
+export const userApi = new UsersApi(axiosConfig, undefined, axiosInstance);
 
 export default api;

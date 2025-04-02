@@ -14,6 +14,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Link, useNavigate } from "react-router";
 import ThemeToggle from "./ThemeToggle";
 import { useGetUser } from "@vipulwaghmare/auth-frontend";
+import { authApi } from "../apis/instance";
 
 const getInitials = (name: string) => {
   if (!name) return "U";
@@ -30,6 +31,7 @@ export default function DashboardHeader() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
+    authApi.authControllerLogout();
     localStorage.removeItem("user");
     navigate("/login");
   };
@@ -45,18 +47,18 @@ export default function DashboardHeader() {
           <Link to="/dashboard" className="text-sm font-medium">
             Dashboard
           </Link>
-          <Link
+          {/* <Link
             to="/dashboard/entries"
             className="text-sm font-medium text-muted-foreground hover:text-foreground"
           >
             All Entries
-          </Link>
-          <Link
+          </Link> */}
+          {/* <Link
             to="/dashboard/calendar"
             className="text-sm font-medium text-muted-foreground hover:text-foreground"
           >
             Calendar
-          </Link>
+          </Link> */}
           <Link
             to="/dashboard/memento-mori"
             className="text-sm font-medium text-muted-foreground hover:text-foreground"
@@ -125,20 +127,20 @@ export default function DashboardHeader() {
                 >
                   Dashboard
                 </Link>
-                <Link
+                {/* <Link
                   to="/dashboard/entries"
                   className="text-sm font-medium text-muted-foreground"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   All Entries
-                </Link>
-                <Link
+                </Link> */}
+                {/* <Link
                   to="/dashboard/calendar"
                   className="text-sm font-medium text-muted-foreground"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Calendar
-                </Link>{" "}
+                </Link> */}
                 <Link
                   to="/dashboard/memento-mori"
                   className="text-sm font-medium text-muted-foreground"

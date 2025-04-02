@@ -20,6 +20,6 @@ export class UsersModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(AuthMiddleware)
-      .forRoutes({ path: '/users/*', method: RequestMethod.ALL });
+      .forRoutes(UsersController);
   }
 }

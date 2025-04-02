@@ -24,6 +24,9 @@ export class UsersService {
     email?: string;
     password?: string;
     passwordResetData?: { expiryTime: Date; token: string };
+    phoneNumber?: string;
+    dob?: string;
+    bio?: string;
   }): Promise<User | { error: string }> {
     try {
       return this.userModel.findByIdAndUpdate(id, updateCatDto, { new: true }).exec();

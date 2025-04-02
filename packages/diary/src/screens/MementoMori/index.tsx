@@ -17,14 +17,22 @@ import {
 } from "@/components/ui/select";
 import { Info } from "lucide-react";
 import DashboardHeader from "@/components/DashboardHeader";
+import { useGetUserData } from "@/hooks/apis";
 
 // Average life expectancy in years
-const AVERAGE_LIFE_EXPECTANCY = 80;
+const AVERAGE_LIFE_EXPECTANCY = 60;
 
 export default function MementoMoriPage() {
+  const { data: user } = useGetUserData();
   const [birthdate, setBirthdate] = useState("");
   const [lifeExpectancy, setLifeExpectancy] = useState(AVERAGE_LIFE_EXPECTANCY);
   const [viewMode, setViewMode] = useState("weeks");
+
+  useEffect(() => {
+    if (user) {
+      setBirthdate(user.dob.split("T")[0]);
+    }
+  }, [user]);
 
   // Load saved birthdate from localStorage
   useEffect(() => {
@@ -50,17 +58,6 @@ export default function MementoMoriPage() {
   useEffect(() => {
     localStorage.setItem("lifeExpectancy", lifeExpectancy.toString());
   }, [lifeExpectancy]);
-
-  // useEffect(() => {
-  //   // Check if user is logged in
-  //   const userData = localStorage.getItem("user")
-  //   if (userData) {
-  //     setUser(JSON.parse(userData))er(JSON.parse(userData))
-  //   } else {
-  //     navigate("/login")
-  //   }
-  //   setLoading(false)
-  // }, [navigate])
 
   // Calculate age in years
   const calculateAge = () => {
@@ -180,18 +177,6 @@ export default function MementoMoriPage() {
 
     return boxes;
   };
-
-  // if (loading) {
-  //   return (
-  //     <div className="flex min-h-screen items-center justify-center">
-  //       Loading...
-  //     </div>
-  //   );
-  // }
-
-  // if (!user) {
-  //   return null; // Will redirect to login
-  // }
 
   const data = getData();
 
@@ -315,10 +300,7 @@ export default function MementoMoriPage() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="grid grid-cols-12 md:grid-cols-24 lg:grid-cols-52 gap-1">
-                      {generateGrid()}
-                    </div>
-                    <div className="flex items-center justify-between mt-4 text-sm text-muted-foreground">
+                    <div className="flex items-center justify-between text-sm text-muted-foreground">
                       <div className="flex items-center gap-2">
                         <div className="w-3 h-3 rounded-sm bg-primary/30 border border-primary/70" />
                         <span>
@@ -331,6 +313,9 @@ export default function MementoMoriPage() {
                           Remaining: {data.remaining} {viewMode}
                         </span>
                       </div>
+                    </div>
+                    <div className="grid grid-cols-12 md:grid-cols-24 lg:grid-cols-52 gap-1  mt-4">
+                      {generateGrid()}
                     </div>
                   </CardContent>
                 </Card>

@@ -1,13 +1,20 @@
 import { AuthApi, Configuration } from "@vipulwaghmare/apis";
 import axios from 'axios';
 
-const axiosInstance = axios.create({
+export const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
   withCredentials: true,
 });
+
+// Initialize the Configuration
+export const config = new Configuration({
+  basePath: import.meta.env.VITE_BASE_URL,
+});
+
+const api = new AuthApi(config, undefined, axiosInstance);
 
 // Add response interceptor to handle 401 errors
 axiosInstance.interceptors.response.use(
@@ -23,11 +30,5 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-// Initialize the Configuration
-const config = new Configuration({
-  basePath: import.meta.env.VITE_BASE_URL,
-});
-
-const api = new AuthApi(config, undefined, axiosInstance);
 
 export default api;
