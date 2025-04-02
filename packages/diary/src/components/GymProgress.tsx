@@ -10,8 +10,17 @@ import {
 } from "@/components/ui/card";
 import { PlusCircle, Trash } from "lucide-react";
 import useGetAllData from "@/hooks/useGetAllData";
-import { GetGymProgressResponseDto } from "@vipulwaghmare/apis";
+import {
+  GetGymProgressResponseDto,
+  CreateGymNotesResponseDto,
+  UpdateGymNotesResponseDto,
+} from "@vipulwaghmare/apis";
 import AddGymNote from "./forms/AddGymNote";
+import {
+  useDeleteGymNote,
+  useUpdateGymNote,
+  useCreateGymNote,
+} from "@/hooks/apis";
 
 // Update the component definition to accept selectedDate prop
 export default function GymProgress({
@@ -19,9 +28,11 @@ export default function GymProgress({
 }: {
   selectedDate: string;
 }) {
-  const { data } = useGetAllData(selectedDate);
+  const { data, isLoading } = useGetAllData(selectedDate);
   const workouts = data?.gym ?? [];
-  console.log({ workouts });
+  const createGymNote = useCreateGymNote();
+  const updateGymNote = useUpdateGymNote();
+  const deleteGymNote = useDeleteGymNote();
   // const {
   //   watch,
   //   // control,
@@ -43,6 +54,27 @@ export default function GymProgress({
     useState<GetGymProgressResponseDto | null>(null);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+
+  const onCreate = (data: Omit<CreateGymNotesResponseDto, "date">) => {
+    createGymNote.mutate({
+      date: selectedDate,
+      ...data,
+    });
+  };
+
+  const onUpdate = (data: Omit<UpdateGymNotesResponseDto, "date">) => {
+    updateGymNote.mutate({
+      date: selectedDate,
+      ...data,
+    });
+  };
+
+  const onDelete = (id: string) => {
+    deleteGymNote.mutate({
+      id,
+      date: selectedDate,
+    });
+  };
 
   // Inside the component, add this after the useState declarations:
   // const [filteredWorkouts, setFilteredWorkouts] = useState<TEntry[]>([]);
@@ -170,7 +202,7 @@ export default function GymProgress({
     });
   };
 
-  if (!data) return null;
+  if (isLoading) return <div>Loading...</div>;
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -178,6 +210,8 @@ export default function GymProgress({
         <AddGymNote
           isAddDialogOpen={isAddDialogOpen}
           setIsAddDialogOpen={setIsAddDialogOpen}
+          onCreate={onCreate}
+          onUpdate={() => {}}
         />
       </div>
 
@@ -201,7 +235,8 @@ export default function GymProgress({
                   <div>
                     <CardTitle>{workout.type}</CardTitle>
                     <CardDescription>
-                      {formatDate(data.date)} • {workout.duration} minutes
+                      {formatDate(data?.date || "")} • {workout.duration}{" "}
+                      minutes
                     </CardDescription>
                   </div>
                   <div className="flex space-x-2">
@@ -214,11 +249,13 @@ export default function GymProgress({
                         setIsEditDialogOpen(open);
                         if (open) setEditingWorkout({ ...workout });
                       }}
+                      onCreate={() => {}}
+                      onUpdate={onUpdate}
                     />
                     <Button
                       variant="ghost"
                       size="icon"
-                      // onClick={() => handleDeleteWorkout(workout.id)}
+                      onClick={() => onDelete(workout._id)}
                     >
                       <Trash className="h-4 w-4" />
                     </Button>

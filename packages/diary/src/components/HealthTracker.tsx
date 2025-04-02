@@ -23,7 +23,15 @@ import {
 import useGetAllData from "@/hooks/useGetAllData";
 // import { GetHealthLogResponseDto } from "@vipulwaghmare/apis";
 import AddHealthLog from "./forms/AddHealthLog";
-
+import {
+  useCreateHealthNote,
+  useDeleteHealthNote,
+  useUpdateHealthNote,
+} from "@/hooks/apis";
+import {
+  CreateHealthNotesResponseDto,
+  UpdateHealthNotesResponseDto,
+} from "@vipulwaghmare/apis";
 // Sample data for demonstration
 // const sampleEntries = [
 //   {
@@ -60,9 +68,11 @@ export default function HealthTracker({
 }: {
   selectedDate: string;
 }) {
-  const { data } = useGetAllData(selectedDate);
+  const { data, isLoading } = useGetAllData(selectedDate);
   const health = data?.health;
-  console.log({ health });
+  const deleteHealthNote = useDeleteHealthNote();
+  const createHealthNote = useCreateHealthNote();
+  const updateHealthNote = useUpdateHealthNote();
   // const [entries, setEntries] = useState(sampleEntries);
   // const [newEntry, setNewEntry] = useState<GetHealthLogResponseDto>({
   //   weight: 0,
@@ -75,6 +85,20 @@ export default function HealthTracker({
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   // const [filteredEntries, setFilteredEntries] = useState([]);
+
+  const onCreate = (data: Omit<CreateHealthNotesResponseDto, "date">) => {
+    createHealthNote.mutate({
+      date: selectedDate,
+      ...data,
+    });
+  };
+
+  const onUpdate = (data: Omit<UpdateHealthNotesResponseDto, "date">) => {
+    updateHealthNote.mutate({
+      date: selectedDate,
+      ...data,
+    });
+  };
 
   // useEffect(() => {
   //   if (selectedDate) {
@@ -131,8 +155,9 @@ export default function HealthTracker({
   // };
 
   const handleDeleteEntry = (date: string) => {
-    console.log(date);
-    // setEntries(entries.filter((entry) => entry.id !== id));
+    deleteHealthNote.mutate({
+      date,
+    });
   };
 
   const formatDate = (dateString: string) => {
@@ -156,12 +181,17 @@ export default function HealthTracker({
     return null;
   };
 
-  if (!data) return null;
+  if (isLoading) return <div>Loading...</div>;
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">Health Tracker</h2>
-        <AddHealthLog open={isAddDialogOpen} onToggle={setIsAddDialogOpen} />
+        <AddHealthLog
+          open={isAddDialogOpen}
+          onToggle={setIsAddDialogOpen}
+          onCreate={onCreate}
+          onUpdate={onUpdate}
+        />
       </div>
 
       {health?.diet?.length === 0 ? (
@@ -182,7 +212,7 @@ export default function HealthTracker({
               <CardHeader>
                 <div className="flex justify-between items-start">
                   <CardTitle className="flex items-center">
-                    Health Log - {formatDate(data.date)}
+                    Health Log - {formatDate(data?.date || "")}
                     {getWeightTrend(index)}
                   </CardTitle>
                   <div className="flex space-x-2">
@@ -190,11 +220,13 @@ export default function HealthTracker({
                       open={isEditDialogOpen}
                       onToggle={setIsEditDialogOpen}
                       isAdding={false}
+                      onCreate={() => {}}
+                      onUpdate={onUpdate}
                     />
                     <Button
                       variant="ghost"
                       size="icon"
-                      onClick={() => handleDeleteEntry(data.date)}
+                      onClick={() => handleDeleteEntry(data?.date || "")}
                     >
                       <Trash className="h-4 w-4" />
                     </Button>
@@ -207,22 +239,23 @@ export default function HealthTracker({
                     <p className="text-sm font-medium text-muted-foreground">
                       Weight
                     </p>
-                    <p className="text-lg font-semibold">{data.weight} kg</p>
+                    <p className="text-lg font-semibold">{data?.weight} kg</p>
                   </div>
                   <div className="space-y-1">
                     <p className="text-sm font-medium text-muted-foreground">
                       Height
                     </p>
-                    <p className="text-lg font-semibold">{data.height} cm</p>
+                    <p className="text-lg font-semibold">{data?.height} cm</p>
                   </div>
                   <div className="space-y-1">
                     <p className="text-sm font-medium text-muted-foreground">
                       BMI
                     </p>
                     <p className="text-lg font-semibold">
-                      {(data.weight / Math.pow(data.height / 100, 2)).toFixed(
-                        1,
-                      )}
+                      {(
+                        (data?.weight || 0) /
+                        Math.pow(data?.height || 0 / 100, 2)
+                      ).toFixed(1)}
                     </p>
                   </div>
                   <div className="space-y-1">
@@ -230,7 +263,7 @@ export default function HealthTracker({
                       Calories
                     </p>
                     <p className="text-lg font-semibold">
-                      {health.diet.reduce((ac: number, c) => {
+                      {health?.diet.reduce((ac: number, c) => {
                         return ac + c.calories;
                       }, 0)}
                     </p>
@@ -240,14 +273,14 @@ export default function HealthTracker({
                   <div>
                     <h4 className="font-medium mb-1">Diet</h4>
                     <p className="text-sm text-muted-foreground">
-                      {health.notes}
+                      {health?.notes}
                     </p>
                   </div>
                   {/* {health.notes && (
                     <div>
                       <h4 className="font-medium mb-1">Notes</h4>
                       <p className="text-sm text-muted-foreground">
-                        {entry.notes}
+                          {health?.notes}
                       </p>
                     </div>
                   )} */}

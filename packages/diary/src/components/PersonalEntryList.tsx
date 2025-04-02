@@ -23,22 +23,29 @@ import { Label } from "@/components/ui/label";
 import { PlusCircle, Edit, Trash } from "lucide-react";
 import { GetPersonalNotesResponseDto } from "@vipulwaghmare/apis";
 import useGetAllData from "@/hooks/useGetAllData";
+import {
+  useDeletePersonalNote,
+  useUpdatePersonalNote,
+  useCreatePersonalNote,
+} from "@/hooks/apis";
 
 export default function PersonalEntryList({
   selectedDate,
 }: {
   selectedDate: string;
 }) {
-  const { data } = useGetAllData(selectedDate);
+  const { data, isLoading } = useGetAllData(selectedDate);
   const entries = data?.personal ?? [];
   const [newEntry, setNewEntry] = useState<{
     title: string;
     content: string;
   }>({
-    // TODO: Fix with backend type
     title: "",
     content: "",
   });
+  const createPersonalNote = useCreatePersonalNote();
+  const updatePersonalNote = useUpdatePersonalNote();
+  const deletePersonalNote = useDeletePersonalNote();
   const [editingEntry, setEditingEntry] =
     useState<GetPersonalNotesResponseDto | null>(null);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -53,8 +60,7 @@ export default function PersonalEntryList({
       content: newEntry.content,
       date: new Date().toISOString().split("T")[0],
     };
-    // TODO: MAKE API CALL
-    console.log(entry);
+    createPersonalNote.mutate(entry);
     setNewEntry({ title: "", content: "" });
     setIsAddDialogOpen(false);
   };
@@ -66,16 +72,21 @@ export default function PersonalEntryList({
       editingEntry.content.trim() === ""
     )
       return;
-    // TODO: Update API CALL
-
+    updatePersonalNote.mutate({
+      id: editingEntry._id,
+      title: editingEntry.title,
+      content: editingEntry.content,
+      date: selectedDate,
+    });
     setEditingEntry(null);
     setIsEditDialogOpen(false);
   };
 
   const handleDeleteEntry = (id: string) => {
-    console.log("deleting", id);
-    // setEntries(entries.filter((entry) => entry.id !== id));
-    // TODO: Delete API CALL
+    deletePersonalNote.mutate({
+      id,
+      date: selectedDate,
+    });
   };
 
   const formatDate = (dateString: string) => {
@@ -86,7 +97,7 @@ export default function PersonalEntryList({
     });
   };
 
-  if (!data) return null;
+  if (isLoading) return <div>Loading...</div>;
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -231,7 +242,9 @@ export default function PersonalEntryList({
                     </Button>
                   </div>
                 </div>
-                <CardDescription>{formatDate(data.date)}</CardDescription>
+                <CardDescription>
+                  {data && formatDate(data.date)}
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <p className="line-clamp-4">{entry.content}</p>

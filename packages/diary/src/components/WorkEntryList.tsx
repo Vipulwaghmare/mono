@@ -23,13 +23,20 @@ import { Label } from "@/components/ui/label";
 import { PlusCircle, Edit, Trash } from "lucide-react";
 import useGetAllData from "@/hooks/useGetAllData";
 import { GetWorkNotesResponseDto } from "@vipulwaghmare/apis";
-
+import {
+  useCreateWorkNote,
+  useDeleteWorkNote,
+  useUpdateWorkNote,
+} from "@/hooks/apis";
 export default function WorkEntryList({
   selectedDate,
 }: {
   selectedDate: string;
 }) {
-  const { data } = useGetAllData(selectedDate);
+  const { data, isLoading } = useGetAllData(selectedDate);
+  const createWorkNote = useCreateWorkNote();
+  const updateWorkNote = useUpdateWorkNote();
+  const deleteWorkNote = useDeleteWorkNote();
   const entries = data?.work ?? [];
   const [newEntry, setNewEntry] = useState({ title: "", content: "" });
   const [editingEntry, setEditingEntry] =
@@ -47,8 +54,7 @@ export default function WorkEntryList({
       date: new Date().toISOString().split("T")[0],
     };
 
-    // TODO: MAKE API CALL
-    console.log(entry);
+    createWorkNote.mutate(entry);
     setNewEntry({ title: "", content: "" });
     setIsAddDialogOpen(false);
   };
@@ -61,15 +67,21 @@ export default function WorkEntryList({
     )
       return;
 
-    // TODO: MAKE API CALL
-
+    updateWorkNote.mutate({
+      id: editingEntry._id,
+      title: editingEntry.title,
+      content: editingEntry.content,
+      date: selectedDate,
+    });
     setEditingEntry(null);
     setIsEditDialogOpen(false);
   };
 
   const handleDeleteEntry = (id: string) => {
-    // setEntries(entries.filter((entry) => entry.id !== id));
-    console.log("deleing", id);
+    deleteWorkNote.mutate({
+      id,
+      date: selectedDate,
+    });
   };
 
   const formatDate = (dateString: string) => {
@@ -80,7 +92,7 @@ export default function WorkEntryList({
     });
   };
 
-  if (!data) return null;
+  if (isLoading) return <div>Loading...</div>;
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -225,7 +237,9 @@ export default function WorkEntryList({
                     </Button>
                   </div>
                 </div>
-                <CardDescription>{formatDate(data.date)}</CardDescription>
+                <CardDescription>
+                  {data && formatDate(data.date)}
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <p className="line-clamp-4">{entry.content}</p>

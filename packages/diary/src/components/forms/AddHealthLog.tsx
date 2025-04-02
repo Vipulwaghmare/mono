@@ -13,32 +13,64 @@ import { Textarea } from "@/components/ui/textarea";
 import { Edit, Plus, PlusCircle, Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
-import { GetHealthLogResponseDto } from "@vipulwaghmare/apis";
+import {
+  CreateHealthNotesResponseDto,
+  UpdateHealthNotesResponseDto,
+} from "@vipulwaghmare/apis";
 
-const defaultDietValue: GetHealthLogResponseDto["diet"][0] = {
+type THealthLog = {
+  weight: number;
+  height: number;
+} & Omit<CreateHealthNotesResponseDto, "date">;
+
+const defaultDietValue: THealthLog["diet"][0] = {
   name: "",
   calories: 0,
+};
+const defaultHealthValue: THealthLog = {
+  diet: [defaultDietValue],
+  notes: "",
+  weight: 0,
+  height: 0,
 };
 
 const AddHealthLog = ({
   open,
   onToggle,
   isAdding = true,
+  onCreate,
+  onUpdate,
 }: {
   isAdding?: boolean;
   open: boolean;
   onToggle: (val: boolean) => void;
+  onCreate: (data: Omit<CreateHealthNotesResponseDto, "date">) => void;
+  onUpdate: (data: Omit<UpdateHealthNotesResponseDto, "date">) => void;
 }) => {
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<GetHealthLogResponseDto>();
+  } = useForm<THealthLog>({
+    defaultValues: defaultHealthValue,
+  });
   const { fields, append, remove } = useFieldArray({
     control,
     name: "diet",
   });
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const onSubmit = handleSubmit((data) => {
+    if (isAdding) {
+      onCreate({
+        diet: data.diet,
+        notes: data.notes,
+      });
+    } else {
+      onUpdate({
+        diet: data.diet,
+        notes: data.notes,
+      });
+    }
+  });
   console.log({ errors });
   return (
     <Dialog open={open} onOpenChange={onToggle}>

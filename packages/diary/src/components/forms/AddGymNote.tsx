@@ -20,22 +20,31 @@ import { Textarea } from "@/components/ui/textarea";
 import { PlusCircle, Trash, Plus, Edit } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
-import { GetGymProgressResponseDto } from "@vipulwaghmare/apis";
+import {
+  CreateGymNotesResponseDto,
+  GetGymProgressResponseDto,
+  UpdateGymNotesResponseDto,
+} from "@vipulwaghmare/apis";
 
-const defaultExerciseValue = {
+const defaultExerciseValue: GetGymProgressResponseDto["exercises"][0] = {
   name: "",
   reps: 0,
   sets: 0,
+  _id: "",
 };
 
 const AddGymNote = ({
   isAddDialogOpen,
   setIsAddDialogOpen,
   isAdding = true,
+  onCreate,
+  onUpdate,
 }: {
   isAdding?: boolean;
   isAddDialogOpen: boolean;
   setIsAddDialogOpen: (open: boolean) => void;
+  onCreate: (data: Omit<CreateGymNotesResponseDto, "date">) => void;
+  onUpdate: (data: Omit<UpdateGymNotesResponseDto, "date">) => void;
 }) => {
   const {
     handleSubmit,
@@ -46,7 +55,19 @@ const AddGymNote = ({
     control,
     name: "exercises",
   });
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const onSubmit = handleSubmit((data) => {
+    if (isAdding) {
+      onCreate(data);
+    } else {
+      onUpdate({
+        id: data._id,
+        type: data.type,
+        duration: data.duration,
+        exercises: data.exercises,
+        notes: data.notes,
+      });
+    }
+  });
   console.log({ errors });
   return (
     <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
