@@ -17,6 +17,8 @@ import {
   EyeOff,
   Download,
   Copy,
+  Undo,
+  Redo,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -43,6 +45,39 @@ export default function MarkdownEditor() {
   const editorRef = useRef<HTMLTextAreaElement>(null);
   const [selectionStart, setSelectionStart] = useState(0);
   const [selectionEnd, setSelectionEnd] = useState(0);
+
+  // Add history management
+  const [history, setHistory] = useState<string[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(-1);
+
+  // Update content with history management
+  const updateContent = (newContent: string) => {
+    // Remove any future history entries if we're not at the end
+    if (currentIndex < history.length - 1) {
+      setHistory(history.slice(0, currentIndex + 1));
+    }
+
+    // Add new content to history
+    setHistory([...history, newContent]);
+    setCurrentIndex(currentIndex + 1);
+    setContent(newContent);
+  };
+
+  // Undo function
+  const handleUndo = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+      setContent(history[currentIndex - 1]);
+    }
+  };
+
+  // Redo function
+  const handleRedo = () => {
+    if (currentIndex < history.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+      setContent(history[currentIndex + 1]);
+    }
+  };
 
   // Track selection position in the editor
   const handleSelectionChange = () => {
@@ -87,7 +122,7 @@ export default function MarkdownEditor() {
       newText +
       textarea.value.substring(endPos);
 
-    setContent(newContent);
+    updateContent(newContent);
 
     // Set cursor position after the operation
     setTimeout(() => {
@@ -148,7 +183,7 @@ export default function MarkdownEditor() {
         markdown +
         textarea.value.substring(selectionEnd);
 
-      setContent(newContent);
+      updateContent(newContent);
     }
 
     setLinkDialogOpen(false);
@@ -177,7 +212,7 @@ export default function MarkdownEditor() {
         markdown +
         textarea.value.substring(selectionEnd);
 
-      setContent(newContent);
+      updateContent(newContent);
     }
 
     setImageDialogOpen(false);
@@ -206,10 +241,23 @@ export default function MarkdownEditor() {
     URL.revokeObjectURL(url);
   };
 
-  // Add keyboard shortcut handler
+  // Modify handleKeyDown to include undo/redo shortcuts
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // Undo: Ctrl+Z
+    if (e.ctrlKey && e.key === "z" && !e.shiftKey) {
+      e.preventDefault();
+      handleUndo();
+    }
+    // Redo: Ctrl+Y or Ctrl+Shift+Z
+    else if (
+      (e.ctrlKey && e.key === "y") ||
+      (e.ctrlKey && e.shiftKey && e.key === "z")
+    ) {
+      e.preventDefault();
+      handleRedo();
+    }
     // Bold: Ctrl+B
-    if (e.ctrlKey && e.key === "b") {
+    else if (e.ctrlKey && e.key === "b") {
       e.preventDefault();
       handleBold();
     }
@@ -228,6 +276,38 @@ export default function MarkdownEditor() {
         {/* Toolbar */}
         <div className="bg-card border rounded-lg p-2 flex flex-wrap gap-1 sticky top-0 z-10">
           <TooltipProvider>
+            <div className="flex items-center gap-1">
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={handleUndo}
+                    disabled={currentIndex <= 0}
+                  >
+                    <Undo className="h-4 w-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>Undo (Ctrl+Z)</TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={handleRedo}
+                    disabled={currentIndex >= history.length - 1}
+                  >
+                    <Redo className="h-4 w-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>Redo (Ctrl+Y)</TooltipContent>
+              </Tooltip>
+            </div>
+
+            <Separator orientation="vertical" className="h-6" />
+
             <div className="flex items-center gap-1">
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -422,7 +502,7 @@ export default function MarkdownEditor() {
             <textarea
               ref={editorRef}
               value={content}
-              onChange={(e) => setContent(e.target.value)}
+              onChange={(e) => updateContent(e.target.value)}
               onSelect={handleSelectionChange}
               onKeyDown={handleKeyDown}
               className="w-full h-full min-h-[500px] p-4 font-mono text-sm resize-none focus:outline-none bg-background"
