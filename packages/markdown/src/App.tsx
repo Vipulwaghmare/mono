@@ -96,27 +96,33 @@ export default function MarkdownEditor() {
     const endPos = textarea.selectionEnd;
     const selectedText = textarea.value.substring(startPos, endPos);
 
-    // Check if the selected text already has markdown formatting
-    let cleanText = selectedText;
+    let newText: string;
+    let newCursorStart: number;
+    let newCursorEnd: number;
 
-    // Remove bold formatting
-    if (cleanText.startsWith("**") && cleanText.endsWith("**")) {
-      cleanText = cleanText.substring(2, cleanText.length - 2);
-    }
-    // Remove italic formatting
-    else if (cleanText.startsWith("_") && cleanText.endsWith("_")) {
-      cleanText = cleanText.substring(1, cleanText.length - 1);
-    }
-    // Remove heading formatting
-    else if (cleanText.startsWith("# ")) {
-      cleanText = cleanText.substring(2);
-    } else if (cleanText.startsWith("## ")) {
-      cleanText = cleanText.substring(3);
-    } else if (cleanText.startsWith("### ")) {
-      cleanText = cleanText.substring(4);
+    if (selectedText.length === 0) {
+      // If no text is selected, just insert the markers and place cursor between them
+      newText = before + after;
+      newCursorStart = startPos + before.length;
+      newCursorEnd = newCursorStart;
+    } else {
+      // Check if the selected text already has the formatting
+      if (selectedText.startsWith(before) && selectedText.endsWith(after)) {
+        // Remove the formatting
+        newText = selectedText.substring(
+          before.length,
+          selectedText.length - after.length,
+        );
+        newCursorStart = startPos;
+        newCursorEnd = startPos + newText.length;
+      } else {
+        // Add the formatting
+        newText = before + selectedText + after;
+        newCursorStart = startPos;
+        newCursorEnd = startPos + newText.length;
+      }
     }
 
-    const newText = before + cleanText + after;
     const newContent =
       textarea.value.substring(0, startPos) +
       newText +
@@ -127,10 +133,7 @@ export default function MarkdownEditor() {
     // Set cursor position after the operation
     setTimeout(() => {
       textarea.focus();
-      textarea.setSelectionRange(
-        startPos + before.length,
-        startPos + before.length + cleanText.length,
-      );
+      textarea.setSelectionRange(newCursorStart, newCursorEnd);
     }, 0);
   };
 
