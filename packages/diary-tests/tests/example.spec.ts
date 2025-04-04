@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Dashboard Page', () => {
   test.beforeEach(async ({ page }) => {
     // Navigate to dashboard page
-    await page.goto('/dashboard');
+    await page.goto(process.env.BASE_URL + '/');
   });
 
   test('should display dashboard header and main content', async ({ page }) => {

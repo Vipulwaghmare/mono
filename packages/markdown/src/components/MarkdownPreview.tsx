@@ -51,6 +51,7 @@ function markdownToHtml(markdown: string): string {
 }
 
 function MarkdownPreview({ content }: { content: string }) {
+  console.log(markdownToHtml(content));
   return (
     <div
       dangerouslySetInnerHTML={{

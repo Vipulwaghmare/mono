@@ -2,7 +2,7 @@
   "routes": [
     { "src": "/styles.css", "dest": "/styles.css" },
     { "src": "/assets/(.*)", "dest": "/images/$1" },
-    { "src": "/projects", "dest": "/projects.html" },
+    { "src": "/projects/(.*)", "dest": "/projects/$1" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
