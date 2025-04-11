@@ -1,5 +1,6 @@
 version: "3.1"
 # docker-compose -f docker-compose.yaml up
+# docker-compose up -d
 services:
   mongo:
     image: mongo
@@ -11,28 +12,57 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password
     volumes:
       - mongodb_data:/data/db
-  mysql:
-    image: mysql
-    # restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: password
+  # mysql:
+  #   image: mysql
+  #   # restart: always
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: password
+  #   volumes:
+  #     - mysql_data:/var/lib/mysql
+  # postgres:
+  #   image: postgres
+  #   # restart: always
+  #   # set shared memory limit when using docker-compose
+  #   shm_size: 128mb
+  #   # or set shared memory limit when deploy via swarm stack
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   environment:
+  #     POSTGRES_PASSWORD: password
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
     volumes:
-      - mysql_data:/var/lib/mysql
-  postgres:
-    image: postgres
-    # restart: always
-    # set shared memory limit when using docker-compose
-    shm_size: 128mb
-    # or set shared memory limit when deploy via swarm stack
+      # Add your own yml file with your public ip
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana-oss:latest
+    ports:
+      - "3000:3000"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - grafana_data:/var/lib/grafana
     environment:
-      POSTGRES_PASSWORD: password
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=password
+      - GF_USERS_ALLOW_SIGN_UP=false
+    depends_on:
+      - prometheus
+    restart: unless-stopped
 
 volumes:
   mongodb_data:
     driver: local
-  mysql_data:
+  # mysql_data:
+  #   driver: local
+  # postgres_data:
+  #   driver: local
+  prometheus_data:
     driver: local
-  postgres_data:
+  grafana_data:
     driver: local

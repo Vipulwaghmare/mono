@@ -716,6 +716,20 @@
           "Diary"
         ]
       }
+    },
+    "/metrics": {
+      "get": {
+        "operationId": "PrometheusController_getMetrics",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Prometheus"
+        ]
+      }
     }
   },
   "info": {
