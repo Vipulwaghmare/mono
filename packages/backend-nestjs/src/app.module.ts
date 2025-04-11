@@ -12,6 +12,7 @@ import { EmailService } from './services/email.service';
 import { PortfolioController } from './portfolio/portfolio.controller';
 import { ScribbleController } from './scribble/scribble.controller';
 import { DiaryModule } from './diary/diary.module';
+import { PrometheusModule } from './prometheus/prometheus.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { DiaryModule } from './diary/diary.module';
     UsersModule,
     AuthModule,
     DiaryModule,
+    PrometheusModule,
   ],
   controllers: [AppController, AuthController, PortfolioController, ScribbleController],
   providers: [AppService, CryptoService, EmailService],
