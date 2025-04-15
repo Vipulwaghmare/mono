@@ -54,7 +54,11 @@ services:
     depends_on:
       - prometheus
     restart: unless-stopped
-
+  loki:
+    image: grafana/loki:latest
+    ports:
+      - "3100:3100"
+    restart: unless-stopped
 volumes:
   mongodb_data:
     driver: local
