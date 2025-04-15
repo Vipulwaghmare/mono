@@ -1,5 +1,43 @@
-import { IsString, IsEmail, MinLength, ValidateNested, IsUUID } from 'class-validator';
+import { IsString, IsEmail, MinLength, ValidateNested, IsUUID, IsOptional } from 'class-validator';
 import { ApiProperty, ApiResponseNoStatusOptions } from '@nestjs/swagger';
+
+export class GetDiaryEntryQueryDto {
+  @ApiProperty({
+    example: '2025-03-26',
+    description: 'date',
+    required: false,
+  })
+  @IsString()
+  @IsOptional()
+  readonly date?: string; // Made optional
+
+  @ApiProperty({
+    example: '2025-03-26',
+    description: 'date from',
+    required: false,
+  })
+  @IsString()
+  @IsOptional()
+  readonly dateFrom?: string; // Made optional
+
+  @ApiProperty({
+    example: '2025-03-26',
+    description: 'date to',
+    required: false,
+  })
+  @IsString()
+  @IsOptional()
+  readonly dateTo?: string; // Made optional
+
+  @ApiProperty({
+    enum: ['personal', 'gym', 'health', 'work'],
+    description: 'Entry type, should be one of: personal, gym, health, work',
+    required: false,
+  })
+  @IsString()
+  @IsOptional()
+  readonly type?: string; // Made optional
+}
 
 export class GetPersonalNotesResponseDto {
   @ApiProperty({

@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Put, Post, Delete, Query } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { getEventsApiResOptions } from './dtos/get-events.dto';
-import { getAllDiaryApiResOptions } from './dtos/get-all-data.dto';
+import { getAllDiaryApiResOptions, GetDiaryEntryQueryDto } from './dtos/get-all-data.dto';
 import { DiaryService } from './diary.service';
 import { CreateGymNotesResponseDto, CreateHealthNotesResponseDto, CreatePersonalNotesResponseDto, CreateWorkNotesResponseDto } from './dtos/create-entry.dto';
 import { UpdateGymNotesResponseDto, UpdateHealthNotesResponseDto, UpdatePersonalNotesResponseDto, UpdateWorkNotesResponseDto } from './dtos/update-entry.dto';
@@ -48,8 +48,18 @@ export class DiaryController {
 
   @Get('/')
   @ApiOkResponse(getAllDiaryApiResOptions)
-  getAllData(@Query('date') dateString: string, @Body() body: JWT_DTO) {
-    const date = dateString ? new Date(dateString) : new Date();
+  getAllData(@Query() query: GetDiaryEntryQueryDto, @Body() body: JWT_DTO) {
+    const now = new Date();
+    const utcMidnight = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+    const date = query?.date ? new Date(query.date) : utcMidnight;
+    if (query.dateFrom && query.dateTo) {
+      return this.diaryService.getEntriesInDateRange({
+        userId: body.jwtPayload.userId,
+        dateFrom: new Date(query.dateFrom),
+        dateTo: new Date(query.dateTo),
+        entryTypes: ['personal', 'work', 'gym', 'health'].filter(v => v === query.type) as ['personal', 'work', 'gym', 'health'],
+      })
+    }
     return this.diaryService.getEntry({
       userId: body.jwtPayload.userId,
       date,

@@ -411,9 +411,46 @@
         "parameters": [
           {
             "name": "date",
-            "required": true,
+            "required": false,
             "in": "query",
+            "description": "date",
             "schema": {
+              "example": "2025-03-26",
+              "type": "string"
+            }
+          },
+          {
+            "name": "dateFrom",
+            "required": false,
+            "in": "query",
+            "description": "date from",
+            "schema": {
+              "example": "2025-03-26",
+              "type": "string"
+            }
+          },
+          {
+            "name": "dateTo",
+            "required": false,
+            "in": "query",
+            "description": "date to",
+            "schema": {
+              "example": "2025-03-26",
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "required": false,
+            "in": "query",
+            "description": "Entry type, should be one of: personal, gym, health, work",
+            "schema": {
+              "enum": [
+                "personal",
+                "gym",
+                "health",
+                "work"
+              ],
               "type": "string"
             }
           }
