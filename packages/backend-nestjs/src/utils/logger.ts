@@ -33,9 +33,20 @@ const customLogger = WinstonModule.createLogger({
     }),
     new LokiTransport({
       host: process.env.LOKI_URL || 'http://localhost:3100',
-      format: winston.format.json() // Loki works best with structured JSON
+      format: winston.format.json(),// Loki works best with structured JSON
+      // Add error handling
+      timeout: 5000, // 5 second timeout
+      replaceTimestamp: true,
+      onConnectionError: (err) => {
+        // Log to console but don't crash the application
+        console.error('Loki connection error:', JSON.stringify(err));
+      },
+      // Retry strategy
+      batching: true, // Buffer logs
+      interval: 15, // Send logs every 5 seconds
     })
-  ]
+  ],
+  exitOnError: false,
 });
 
 export default customLogger;
