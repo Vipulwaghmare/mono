@@ -5,7 +5,13 @@ import router from "./router";
 import { ThemeProvider } from "./hooks/themes";
 import { UserProvider } from "@vipulwaghmare/auth-frontend";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity,
+    },
+  },
+});
 
 export default function App() {
   return (

@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from "react-router";
+import { createBrowserRouter } from "react-router";
 import DashboardPage from "./screens/Dashboard";
 import EntriesPage from "./screens/Entries";
 import CalendarPage from "./screens/Calendar";
@@ -8,17 +8,10 @@ import {
   LoginPage,
   ResetPasswordPage,
   SignupPage,
-  useUser,
 } from "@vipulwaghmare/auth-frontend";
 import ProfilePage from "./screens/Profile";
 import SettingsPage from "./screens/Setting";
-
-const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
-  const userContext = useUser();
-  console.log(userContext.user);
-  if (userContext.user) return children;
-  return <Navigate to="/login" replace />;
-};
+import PrivateRoute from "./components/PrivateRoute";
 
 const router = createBrowserRouter([
   {
