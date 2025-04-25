@@ -26,6 +26,76 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
+ * @interface AartiResponseDto
+ */
+export interface AartiResponseDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof AartiResponseDto
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AartiResponseDto
+     */
+    'name_marathi': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AartiResponseDto
+     */
+    'name_english': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AartiResponseDto
+     */
+    'deity': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AartiResponseDto
+     */
+    'lyrics_marathi': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AartiResponseDto
+     */
+    'lyrics_english': string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof AartiResponseDto
+     */
+    'tags': Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof AartiResponseDto
+     */
+    'occasion'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof AartiResponseDto
+     */
+    'timeOfDay'?: AartiResponseDtoTimeOfDayEnum;
+}
+
+export const AartiResponseDtoTimeOfDayEnum = {
+    Morning: 'Morning',
+    Evening: 'Evening',
+    Any: 'Any'
+} as const;
+
+export type AartiResponseDtoTimeOfDayEnum = typeof AartiResponseDtoTimeOfDayEnum[keyof typeof AartiResponseDtoTimeOfDayEnum];
+
+/**
+ * 
+ * @export
  * @interface ContactMeDto
  */
 export interface ContactMeDto {
@@ -54,6 +124,70 @@ export interface ContactMeDto {
      */
     'message': string;
 }
+/**
+ * 
+ * @export
+ * @interface CreateAartiDto
+ */
+export interface CreateAartiDto {
+    /**
+     * Name of the aarti in Marathi
+     * @type {string}
+     * @memberof CreateAartiDto
+     */
+    'name_marathi': string;
+    /**
+     * Name of the aarti in English
+     * @type {string}
+     * @memberof CreateAartiDto
+     */
+    'name_english': string;
+    /**
+     * Name of the deity
+     * @type {string}
+     * @memberof CreateAartiDto
+     */
+    'deity': string;
+    /**
+     * Lyrics of the aarti in Marathi
+     * @type {string}
+     * @memberof CreateAartiDto
+     */
+    'lyrics_marathi': string;
+    /**
+     * Lyrics of the aarti in English
+     * @type {string}
+     * @memberof CreateAartiDto
+     */
+    'lyrics_english': string;
+    /**
+     * Tags/categories for the aarti
+     * @type {Array<string>}
+     * @memberof CreateAartiDto
+     */
+    'tags': Array<string>;
+    /**
+     * Special occasion when this aarti is performed
+     * @type {string}
+     * @memberof CreateAartiDto
+     */
+    'occasion'?: string;
+    /**
+     * Time of day when this aarti is typically performed
+     * @type {string}
+     * @memberof CreateAartiDto
+     */
+    'timeOfDay'?: CreateAartiDtoTimeOfDayEnum;
+}
+
+export const CreateAartiDtoTimeOfDayEnum = {
+    Morning: 'Morning',
+    Evening: 'Evening',
+    Any: 'Any'
+} as const;
+
+export type CreateAartiDtoTimeOfDayEnum = typeof CreateAartiDtoTimeOfDayEnum[keyof typeof CreateAartiDtoTimeOfDayEnum];
+
 /**
  * 
  * @export
@@ -166,6 +300,73 @@ export interface CreateRoomResponseDto {
      * @memberof CreateRoomResponseDto
      */
     'roomId': string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateSongDto
+ */
+export interface CreateSongDto {
+    /**
+     * Name of the song in Marathi
+     * @type {string}
+     * @memberof CreateSongDto
+     */
+    'name_marathi': string;
+    /**
+     * Name of the song in English
+     * @type {string}
+     * @memberof CreateSongDto
+     */
+    'name_english': string;
+    /**
+     * Lyrics of the song in Marathi
+     * @type {string}
+     * @memberof CreateSongDto
+     */
+    'lyrics_marathi'?: string;
+    /**
+     * Lyrics of the song in English
+     * @type {string}
+     * @memberof CreateSongDto
+     */
+    'lyrics_english': string;
+    /**
+     * Meaning or description of the song
+     * @type {string}
+     * @memberof CreateSongDto
+     */
+    'meaning'?: string;
+    /**
+     * Name of the singer
+     * @type {string}
+     * @memberof CreateSongDto
+     */
+    'singer'?: string;
+    /**
+     * Name of the lyricist
+     * @type {string}
+     * @memberof CreateSongDto
+     */
+    'lyricist'?: string;
+    /**
+     * Tags/categories for the song
+     * @type {Array<string>}
+     * @memberof CreateSongDto
+     */
+    'tags'?: Array<string>;
+    /**
+     * 
+     * @type {MusicLinksDto}
+     * @memberof CreateSongDto
+     */
+    'musicLinks'?: MusicLinksDto;
+    /**
+     * Starting letter of the song in Marathi
+     * @type {string}
+     * @memberof CreateSongDto
+     */
+    'startLetter': string;
 }
 /**
  * 
@@ -750,6 +951,68 @@ export interface LoginUserDto {
 /**
  * 
  * @export
+ * @interface MusicLinksDto
+ */
+export interface MusicLinksDto {
+    /**
+     * Spotify link for the song
+     * @type {string}
+     * @memberof MusicLinksDto
+     */
+    'spotify'?: string;
+    /**
+     * YouTube link for the song
+     * @type {string}
+     * @memberof MusicLinksDto
+     */
+    'youtube'?: string;
+    /**
+     * JioSaavn link for the song
+     * @type {string}
+     * @memberof MusicLinksDto
+     */
+    'jiosaavn'?: string;
+    /**
+     * Gaana link for the song
+     * @type {string}
+     * @memberof MusicLinksDto
+     */
+    'gaana'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface MusicLinksResponseDto
+ */
+export interface MusicLinksResponseDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof MusicLinksResponseDto
+     */
+    'spotify'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MusicLinksResponseDto
+     */
+    'youtube'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MusicLinksResponseDto
+     */
+    'jiosaavn'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MusicLinksResponseDto
+     */
+    'gaana'?: string;
+}
+/**
+ * 
+ * @export
  * @interface ResetPasswordDto
  */
 export interface ResetPasswordDto {
@@ -765,6 +1028,79 @@ export interface ResetPasswordDto {
      * @memberof ResetPasswordDto
      */
     'password': string;
+}
+/**
+ * 
+ * @export
+ * @interface SongResponseDto
+ */
+export interface SongResponseDto {
+    /**
+     * 
+     * @type {string}
+     * @memberof SongResponseDto
+     */
+    'id': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SongResponseDto
+     */
+    'name_marathi': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SongResponseDto
+     */
+    'name_english': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SongResponseDto
+     */
+    'lyrics_marathi'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SongResponseDto
+     */
+    'lyrics_english': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SongResponseDto
+     */
+    'meaning'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SongResponseDto
+     */
+    'singer'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SongResponseDto
+     */
+    'lyricist'?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof SongResponseDto
+     */
+    'tags'?: Array<string>;
+    /**
+     * 
+     * @type {MusicLinksResponseDto}
+     * @memberof SongResponseDto
+     */
+    'musicLinks'?: MusicLinksResponseDto;
+    /**
+     * 
+     * @type {string}
+     * @memberof SongResponseDto
+     */
+    'startLetter': string;
 }
 /**
  * 
@@ -2465,6 +2801,147 @@ export const MarathiApiAxiosParamCreator = function (configuration?: Configurati
     return {
         /**
          * 
+         * @summary Create new aarti
+         * @param {CreateAartiDto} createAartiDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        marathiControllerAddAarti: async (createAartiDto: CreateAartiDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createAartiDto' is not null or undefined
+            assertParamExists('marathiControllerAddAarti', 'createAartiDto', createAartiDto)
+            const localVarPath = `/marathi/aarti`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createAartiDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Create new song
+         * @param {CreateSongDto} createSongDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        marathiControllerAddSong: async (createSongDto: CreateSongDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createSongDto' is not null or undefined
+            assertParamExists('marathiControllerAddSong', 'createSongDto', createSongDto)
+            const localVarPath = `/marathi/song`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createSongDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete aarti
+         * @param {string} id The ID of the aarti to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        marathiControllerDeleteAarti: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('marathiControllerDeleteAarti', 'id', id)
+            const localVarPath = `/marathi/aarti/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete song
+         * @param {string} id The ID of the song to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        marathiControllerDeleteSong: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('marathiControllerDeleteSong', 'id', id)
+            const localVarPath = `/marathi/song/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get all aartis
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2492,6 +2969,218 @@ export const MarathiApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary Get aarti by ID
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        marathiControllerGetAartiById: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('marathiControllerGetAartiById', 'id', id)
+            const localVarPath = `/marathi/aarti/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get all songs
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        marathiControllerGetSong: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/marathi/song`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get song by ID
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        marathiControllerGetSongById: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('marathiControllerGetSongById', 'id', id)
+            const localVarPath = `/marathi/song/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get songs by starting letter
+         * @param {string} startLetter 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        marathiControllerGetSongByStartLetter: async (startLetter: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'startLetter' is not null or undefined
+            assertParamExists('marathiControllerGetSongByStartLetter', 'startLetter', startLetter)
+            const localVarPath = `/marathi/song/{startLetter}`
+                .replace(`{${"startLetter"}}`, encodeURIComponent(String(startLetter)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update aarti
+         * @param {string} id 
+         * @param {CreateAartiDto} createAartiDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        marathiControllerUpdateAarti: async (id: string, createAartiDto: CreateAartiDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('marathiControllerUpdateAarti', 'id', id)
+            // verify required parameter 'createAartiDto' is not null or undefined
+            assertParamExists('marathiControllerUpdateAarti', 'createAartiDto', createAartiDto)
+            const localVarPath = `/marathi/aarti/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createAartiDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update song
+         * @param {string} id 
+         * @param {CreateSongDto} createSongDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        marathiControllerUpdateSong: async (id: string, createSongDto: CreateSongDto, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('marathiControllerUpdateSong', 'id', id)
+            // verify required parameter 'createSongDto' is not null or undefined
+            assertParamExists('marathiControllerUpdateSong', 'createSongDto', createSongDto)
+            const localVarPath = `/marathi/song/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createSongDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -2504,13 +3193,145 @@ export const MarathiApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Create new aarti
+         * @param {CreateAartiDto} createAartiDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async marathiControllerGetAarti(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async marathiControllerAddAarti(createAartiDto: CreateAartiDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AartiResponseDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.marathiControllerAddAarti(createAartiDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MarathiApi.marathiControllerAddAarti']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Create new song
+         * @param {CreateSongDto} createSongDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async marathiControllerAddSong(createSongDto: CreateSongDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SongResponseDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.marathiControllerAddSong(createSongDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MarathiApi.marathiControllerAddSong']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Delete aarti
+         * @param {string} id The ID of the aarti to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async marathiControllerDeleteAarti(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.marathiControllerDeleteAarti(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MarathiApi.marathiControllerDeleteAarti']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Delete song
+         * @param {string} id The ID of the song to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async marathiControllerDeleteSong(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.marathiControllerDeleteSong(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MarathiApi.marathiControllerDeleteSong']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Get all aartis
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async marathiControllerGetAarti(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<AartiResponseDto>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.marathiControllerGetAarti(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MarathiApi.marathiControllerGetAarti']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Get aarti by ID
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async marathiControllerGetAartiById(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AartiResponseDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.marathiControllerGetAartiById(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MarathiApi.marathiControllerGetAartiById']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Get all songs
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async marathiControllerGetSong(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SongResponseDto>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.marathiControllerGetSong(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MarathiApi.marathiControllerGetSong']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Get song by ID
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async marathiControllerGetSongById(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SongResponseDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.marathiControllerGetSongById(id, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MarathiApi.marathiControllerGetSongById']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Get songs by starting letter
+         * @param {string} startLetter 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async marathiControllerGetSongByStartLetter(startLetter: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SongResponseDto>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.marathiControllerGetSongByStartLetter(startLetter, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MarathiApi.marathiControllerGetSongByStartLetter']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Update aarti
+         * @param {string} id 
+         * @param {CreateAartiDto} createAartiDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async marathiControllerUpdateAarti(id: string, createAartiDto: CreateAartiDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AartiResponseDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.marathiControllerUpdateAarti(id, createAartiDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MarathiApi.marathiControllerUpdateAarti']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Update song
+         * @param {string} id 
+         * @param {CreateSongDto} createSongDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async marathiControllerUpdateSong(id: string, createSongDto: CreateSongDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SongResponseDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.marathiControllerUpdateSong(id, createSongDto, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MarathiApi.marathiControllerUpdateSong']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
@@ -2525,11 +3346,113 @@ export const MarathiApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * 
+         * @summary Create new aarti
+         * @param {CreateAartiDto} createAartiDto 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        marathiControllerGetAarti(options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        marathiControllerAddAarti(createAartiDto: CreateAartiDto, options?: RawAxiosRequestConfig): AxiosPromise<AartiResponseDto> {
+            return localVarFp.marathiControllerAddAarti(createAartiDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Create new song
+         * @param {CreateSongDto} createSongDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        marathiControllerAddSong(createSongDto: CreateSongDto, options?: RawAxiosRequestConfig): AxiosPromise<SongResponseDto> {
+            return localVarFp.marathiControllerAddSong(createSongDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete aarti
+         * @param {string} id The ID of the aarti to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        marathiControllerDeleteAarti(id: string, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.marathiControllerDeleteAarti(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete song
+         * @param {string} id The ID of the song to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        marathiControllerDeleteSong(id: string, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.marathiControllerDeleteSong(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all aartis
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        marathiControllerGetAarti(options?: RawAxiosRequestConfig): AxiosPromise<Array<AartiResponseDto>> {
             return localVarFp.marathiControllerGetAarti(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get aarti by ID
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        marathiControllerGetAartiById(id: string, options?: RawAxiosRequestConfig): AxiosPromise<AartiResponseDto> {
+            return localVarFp.marathiControllerGetAartiById(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get all songs
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        marathiControllerGetSong(options?: RawAxiosRequestConfig): AxiosPromise<Array<SongResponseDto>> {
+            return localVarFp.marathiControllerGetSong(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get song by ID
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        marathiControllerGetSongById(id: string, options?: RawAxiosRequestConfig): AxiosPromise<SongResponseDto> {
+            return localVarFp.marathiControllerGetSongById(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get songs by starting letter
+         * @param {string} startLetter 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        marathiControllerGetSongByStartLetter(startLetter: string, options?: RawAxiosRequestConfig): AxiosPromise<Array<SongResponseDto>> {
+            return localVarFp.marathiControllerGetSongByStartLetter(startLetter, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update aarti
+         * @param {string} id 
+         * @param {CreateAartiDto} createAartiDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        marathiControllerUpdateAarti(id: string, createAartiDto: CreateAartiDto, options?: RawAxiosRequestConfig): AxiosPromise<AartiResponseDto> {
+            return localVarFp.marathiControllerUpdateAarti(id, createAartiDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update song
+         * @param {string} id 
+         * @param {CreateSongDto} createSongDto 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        marathiControllerUpdateSong(id: string, createSongDto: CreateSongDto, options?: RawAxiosRequestConfig): AxiosPromise<SongResponseDto> {
+            return localVarFp.marathiControllerUpdateSong(id, createSongDto, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -2543,12 +3466,134 @@ export const MarathiApiFactory = function (configuration?: Configuration, basePa
 export class MarathiApi extends BaseAPI {
     /**
      * 
+     * @summary Create new aarti
+     * @param {CreateAartiDto} createAartiDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MarathiApi
+     */
+    public marathiControllerAddAarti(createAartiDto: CreateAartiDto, options?: RawAxiosRequestConfig) {
+        return MarathiApiFp(this.configuration).marathiControllerAddAarti(createAartiDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Create new song
+     * @param {CreateSongDto} createSongDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MarathiApi
+     */
+    public marathiControllerAddSong(createSongDto: CreateSongDto, options?: RawAxiosRequestConfig) {
+        return MarathiApiFp(this.configuration).marathiControllerAddSong(createSongDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete aarti
+     * @param {string} id The ID of the aarti to delete
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MarathiApi
+     */
+    public marathiControllerDeleteAarti(id: string, options?: RawAxiosRequestConfig) {
+        return MarathiApiFp(this.configuration).marathiControllerDeleteAarti(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete song
+     * @param {string} id The ID of the song to delete
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MarathiApi
+     */
+    public marathiControllerDeleteSong(id: string, options?: RawAxiosRequestConfig) {
+        return MarathiApiFp(this.configuration).marathiControllerDeleteSong(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all aartis
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MarathiApi
      */
     public marathiControllerGetAarti(options?: RawAxiosRequestConfig) {
         return MarathiApiFp(this.configuration).marathiControllerGetAarti(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get aarti by ID
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MarathiApi
+     */
+    public marathiControllerGetAartiById(id: string, options?: RawAxiosRequestConfig) {
+        return MarathiApiFp(this.configuration).marathiControllerGetAartiById(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get all songs
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MarathiApi
+     */
+    public marathiControllerGetSong(options?: RawAxiosRequestConfig) {
+        return MarathiApiFp(this.configuration).marathiControllerGetSong(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get song by ID
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MarathiApi
+     */
+    public marathiControllerGetSongById(id: string, options?: RawAxiosRequestConfig) {
+        return MarathiApiFp(this.configuration).marathiControllerGetSongById(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get songs by starting letter
+     * @param {string} startLetter 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MarathiApi
+     */
+    public marathiControllerGetSongByStartLetter(startLetter: string, options?: RawAxiosRequestConfig) {
+        return MarathiApiFp(this.configuration).marathiControllerGetSongByStartLetter(startLetter, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update aarti
+     * @param {string} id 
+     * @param {CreateAartiDto} createAartiDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MarathiApi
+     */
+    public marathiControllerUpdateAarti(id: string, createAartiDto: CreateAartiDto, options?: RawAxiosRequestConfig) {
+        return MarathiApiFp(this.configuration).marathiControllerUpdateAarti(id, createAartiDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update song
+     * @param {string} id 
+     * @param {CreateSongDto} createSongDto 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MarathiApi
+     */
+    public marathiControllerUpdateSong(id: string, createSongDto: CreateSongDto, options?: RawAxiosRequestConfig) {
+        return MarathiApiFp(this.configuration).marathiControllerUpdateSong(id, createSongDto, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

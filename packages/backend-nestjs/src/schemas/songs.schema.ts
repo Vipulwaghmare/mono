@@ -21,15 +21,12 @@ export const songSchema = new Schema({
   },
   singer: {
     type: String,
-    required: [true, 'Please provide singer name'],
   },
   lyricist: {
     type: String,
-    required: [true, 'Please provide lyricist name'],
   },
   tags: [{
     type: String,
-    required: true,
   }],
   musicLinks: {
     spotify: String,

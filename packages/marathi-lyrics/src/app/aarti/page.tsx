@@ -2,8 +2,7 @@ import Link from "next/link";
 import api from "@/lib/api";
 
 export default async function AartiPage() {
-  // const aartiList = (await api.marathiControllerGetAarti()).data();
-  const aartiList = [];
+  const aartiList = (await api.marathiControllerGetAarti()).data;
 
   return (
     <div className="container">
@@ -17,7 +16,9 @@ export default async function AartiPage() {
             className="song-card"
           >
             <div className="song-card-content">
-              <h3 className="song-title">{aarti.name}</h3>
+              <h3 className="song-title">
+                {aarti.name_marathi} {aarti.name_english}
+              </h3>
               <div className="song-meta">
                 <span>Deity: {aarti.deity}</span>
               </div>

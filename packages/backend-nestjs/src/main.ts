@@ -8,12 +8,14 @@ import cookieParser from 'cookie-parser';
 import * as fs from 'fs';
 import * as path from 'path';
 import customLogger from './utils/logger';
+import { NextFunction, Request } from 'express';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
 const corsOrigin: CorsOptions['origin'] = ["https://vipulwaghmare.com", "https://www.vipulwaghmare.com", /\.vipulwaghmare\.com$/]
 if (isDevelopment) {
   corsOrigin.push('http://localhost:5173')
+  corsOrigin.push('http://localhost:3001')
 }
 
 async function bootstrap() {
@@ -63,6 +65,10 @@ async function bootstrap() {
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   })
+  app.use((req: Request, _, next: NextFunction) => {
+    console.log(`Request URL: ${req.url}`);
+    next();
+  });
   await app.listen(process.env.PORT ?? 8080);
 }
 bootstrap();
