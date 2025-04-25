@@ -767,6 +767,161 @@
           "Prometheus"
         ]
       }
+    },
+    "/marathi/aarti": {
+      "get": {
+        "operationId": "MarathiController_getAarti",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Marathi"
+        ]
+      },
+      "post": {
+        "operationId": "MarathiController_addAarti",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Marathi"
+        ]
+      }
+    },
+    "/marathi/aarti/{id}": {
+      "get": {
+        "operationId": "MarathiController_getAartiById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Marathi"
+        ]
+      },
+      "put": {
+        "operationId": "MarathiController_updateAarti",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Marathi"
+        ]
+      },
+      "delete": {
+        "operationId": "MarathiController_deleteAarti",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Marathi"
+        ]
+      }
+    },
+    "/marathi/song": {
+      "get": {
+        "operationId": "MarathiController_getSong",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Marathi"
+        ]
+      },
+      "post": {
+        "operationId": "MarathiController_addSong",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Marathi"
+        ]
+      }
+    },
+    "/marathi/song/{id}": {
+      "get": {
+        "operationId": "MarathiController_getSongById",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Marathi"
+        ]
+      },
+      "put": {
+        "operationId": "MarathiController_updateSong",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Marathi"
+        ]
+      },
+      "delete": {
+        "operationId": "MarathiController_deleteSong",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Marathi"
+        ]
+      }
     }
   },
   "info": {

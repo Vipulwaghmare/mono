@@ -1653,14 +1653,15 @@ export const DiaryApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
-         * @param {string} date 
          * @param {object} body 
+         * @param {string} [date] date
+         * @param {string} [dateFrom] date from
+         * @param {string} [dateTo] date to
+         * @param {DiaryControllerGetAllDataTypeEnum} [type] Entry type, should be one of: personal, gym, health, work
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        diaryControllerGetAllData: async (date: string, body: object, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'date' is not null or undefined
-            assertParamExists('diaryControllerGetAllData', 'date', date)
+        diaryControllerGetAllData: async (body: object, date?: string, dateFrom?: string, dateTo?: string, type?: DiaryControllerGetAllDataTypeEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'body' is not null or undefined
             assertParamExists('diaryControllerGetAllData', 'body', body)
             const localVarPath = `/diary`;
@@ -1677,6 +1678,18 @@ export const DiaryApiAxiosParamCreator = function (configuration?: Configuration
 
             if (date !== undefined) {
                 localVarQueryParameter['date'] = date;
+            }
+
+            if (dateFrom !== undefined) {
+                localVarQueryParameter['dateFrom'] = dateFrom;
+            }
+
+            if (dateTo !== undefined) {
+                localVarQueryParameter['dateTo'] = dateTo;
+            }
+
+            if (type !== undefined) {
+                localVarQueryParameter['type'] = type;
             }
 
 
@@ -2033,13 +2046,16 @@ export const DiaryApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @param {string} date 
          * @param {object} body 
+         * @param {string} [date] date
+         * @param {string} [dateFrom] date from
+         * @param {string} [dateTo] date to
+         * @param {DiaryControllerGetAllDataTypeEnum} [type] Entry type, should be one of: personal, gym, health, work
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async diaryControllerGetAllData(date: string, body: object, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAllDiaryDataResponseDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.diaryControllerGetAllData(date, body, options);
+        async diaryControllerGetAllData(body: object, date?: string, dateFrom?: string, dateTo?: string, type?: DiaryControllerGetAllDataTypeEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAllDiaryDataResponseDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.diaryControllerGetAllData(body, date, dateFrom, dateTo, type, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['DiaryApi.diaryControllerGetAllData']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -2188,13 +2204,16 @@ export const DiaryApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
-         * @param {string} date 
          * @param {object} body 
+         * @param {string} [date] date
+         * @param {string} [dateFrom] date from
+         * @param {string} [dateTo] date to
+         * @param {DiaryControllerGetAllDataTypeEnum} [type] Entry type, should be one of: personal, gym, health, work
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        diaryControllerGetAllData(date: string, body: object, options?: RawAxiosRequestConfig): AxiosPromise<GetAllDiaryDataResponseDto> {
-            return localVarFp.diaryControllerGetAllData(date, body, options).then((request) => request(axios, basePath));
+        diaryControllerGetAllData(body: object, date?: string, dateFrom?: string, dateTo?: string, type?: DiaryControllerGetAllDataTypeEnum, options?: RawAxiosRequestConfig): AxiosPromise<GetAllDiaryDataResponseDto> {
+            return localVarFp.diaryControllerGetAllData(body, date, dateFrom, dateTo, type, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2324,14 +2343,17 @@ export class DiaryApi extends BaseAPI {
 
     /**
      * 
-     * @param {string} date 
      * @param {object} body 
+     * @param {string} [date] date
+     * @param {string} [dateFrom] date from
+     * @param {string} [dateTo] date to
+     * @param {DiaryControllerGetAllDataTypeEnum} [type] Entry type, should be one of: personal, gym, health, work
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DiaryApi
      */
-    public diaryControllerGetAllData(date: string, body: object, options?: RawAxiosRequestConfig) {
-        return DiaryApiFp(this.configuration).diaryControllerGetAllData(date, body, options).then((request) => request(this.axios, this.basePath));
+    public diaryControllerGetAllData(body: object, date?: string, dateFrom?: string, dateTo?: string, type?: DiaryControllerGetAllDataTypeEnum, options?: RawAxiosRequestConfig) {
+        return DiaryApiFp(this.configuration).diaryControllerGetAllData(body, date, dateFrom, dateTo, type, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2420,6 +2442,113 @@ export class DiaryApi extends BaseAPI {
      */
     public diaryControllerPutWorkEntry(updateWorkNotesResponseDto: UpdateWorkNotesResponseDto, options?: RawAxiosRequestConfig) {
         return DiaryApiFp(this.configuration).diaryControllerPutWorkEntry(updateWorkNotesResponseDto, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+/**
+ * @export
+ */
+export const DiaryControllerGetAllDataTypeEnum = {
+    Personal: 'personal',
+    Gym: 'gym',
+    Health: 'health',
+    Work: 'work'
+} as const;
+export type DiaryControllerGetAllDataTypeEnum = typeof DiaryControllerGetAllDataTypeEnum[keyof typeof DiaryControllerGetAllDataTypeEnum];
+
+
+/**
+ * MarathiApi - axios parameter creator
+ * @export
+ */
+export const MarathiApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        marathiControllerGetAarti: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/marathi/aarti`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * MarathiApi - functional programming interface
+ * @export
+ */
+export const MarathiApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = MarathiApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async marathiControllerGetAarti(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.marathiControllerGetAarti(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MarathiApi.marathiControllerGetAarti']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * MarathiApi - factory interface
+ * @export
+ */
+export const MarathiApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = MarathiApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        marathiControllerGetAarti(options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.marathiControllerGetAarti(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * MarathiApi - object-oriented interface
+ * @export
+ * @class MarathiApi
+ * @extends {BaseAPI}
+ */
+export class MarathiApi extends BaseAPI {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MarathiApi
+     */
+    public marathiControllerGetAarti(options?: RawAxiosRequestConfig) {
+        return MarathiApiFp(this.configuration).marathiControllerGetAarti(options).then((request) => request(this.axios, this.basePath));
     }
 }
 

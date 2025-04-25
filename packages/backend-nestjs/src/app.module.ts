@@ -13,6 +13,7 @@ import { PortfolioController } from './portfolio/portfolio.controller';
 import { ScribbleController } from './scribble/scribble.controller';
 import { DiaryModule } from './diary/diary.module';
 import { PrometheusModule } from './prometheus/prometheus.module';
+import { MarathiModule } from './marathi/marathi.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { PrometheusModule } from './prometheus/prometheus.module';
     AuthModule,
     DiaryModule,
     PrometheusModule,
+    MarathiModule,
   ],
   controllers: [AppController, AuthController, PortfolioController, ScribbleController],
   providers: [AppService, CryptoService, EmailService],
