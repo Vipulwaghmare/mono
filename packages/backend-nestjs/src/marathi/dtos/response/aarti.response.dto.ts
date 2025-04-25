@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class AartiResponseDto {
   @ApiProperty()
-  id: string;
+  _id: string;
 
   @ApiProperty()
   name_marathi: string;

@@ -1,11 +1,11 @@
-import { getAartiById } from "@/lib/data";
+import api from "@/lib/api";
 
 export default async function AartiPage({
   params,
 }: {
   params: { id: string };
 }) {
-  const aarti = await getAartiById(params.id);
+  const aarti = (await api.marathiControllerGetAartiById(params.id)).data;
 
   if (!aarti) {
     return (
@@ -20,7 +20,9 @@ export default async function AartiPage({
 
   return (
     <div className="container" style={{ padding: "2rem 0" }}>
-      <h1 className="section-title">{aarti.name}</h1>
+      <h1 className="section-title">
+        {aarti.name_english} {aarti.name_marathi}
+      </h1>
       <p style={{ textAlign: "center", marginBottom: "2rem" }}>
         <span style={{ fontWeight: "bold" }}>Deity:</span> {aarti.deity}
       </p>

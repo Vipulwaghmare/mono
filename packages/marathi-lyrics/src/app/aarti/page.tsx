@@ -11,8 +11,8 @@ export default async function AartiPage() {
       <div className="song-list">
         {aartiList.map((aarti) => (
           <Link
-            href={`/aarti/${aarti.id}`}
-            key={aarti.id}
+            href={`/aarti/${aarti._id}`}
+            key={aarti._id}
             className="song-card"
           >
             <div className="song-card-content">

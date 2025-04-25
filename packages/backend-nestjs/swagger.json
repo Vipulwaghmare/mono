@@ -905,9 +905,7 @@
             "name": "id",
             "required": true,
             "in": "path",
-            "description": "The ID of the aarti to delete",
             "schema": {
-              "example": "507f1f77bcf86cd799439011",
               "type": "string"
             }
           }
@@ -2036,7 +2034,7 @@
       "AartiResponseDto": {
         "type": "object",
         "properties": {
-          "id": {
+          "_id": {
             "type": "string"
           },
           "name_marathi": {
@@ -2062,7 +2060,7 @@
           }
         },
         "required": [
-          "id",
+          "_id",
           "name_marathi",
           "name_english",
           "deity",
@@ -2140,7 +2138,7 @@
       "SongResponseDto": {
         "type": "object",
         "properties": {
-          "id": {
+          "_id": {
             "type": "string"
           },
           "name_marathi": {
@@ -2178,7 +2176,7 @@
           }
         },
         "required": [
-          "id",
+          "_id",
           "name_marathi",
           "name_english",
           "lyrics_english",

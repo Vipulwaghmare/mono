@@ -5,7 +5,6 @@ import { Aarti } from './interfaces/aarti.interface';
 import { CreateSongDto } from './dtos/create-song.dto';
 import { DeleteSongDto } from './dtos/delete-song.dto';
 import { CreateAartiDto } from './dtos/create-aarti.dto';
-import { DeleteAartiDto } from './dtos/delete-aarti.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { SongResponseDto } from './dtos/response/song.response.dto';
 import { AartiResponseDto } from './dtos/response/aarti.response.dto';
@@ -54,8 +53,8 @@ export class MarathiController {
   @ApiOperation({ summary: 'Delete aarti' })
   @ApiResponse({ status: 200, description: 'Aarti deleted successfully' })
   @ApiResponse({ status: 404, description: 'Aarti not found' })
-  async deleteAarti(@Param() params: DeleteAartiDto): Promise<void> {
-    return this.marathiService.deleteAarti(params.id);
+  async deleteAarti(@Param('id') id: string): Promise<void> {
+    return this.marathiService.deleteAarti(id);
   }
 
   // Song endpoints

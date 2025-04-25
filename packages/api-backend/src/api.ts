@@ -34,7 +34,7 @@ export interface AartiResponseDto {
      * @type {string}
      * @memberof AartiResponseDto
      */
-    'id': string;
+    '_id': string;
     /**
      * 
      * @type {string}
@@ -998,7 +998,7 @@ export interface SongResponseDto {
      * @type {string}
      * @memberof SongResponseDto
      */
-    'id': string;
+    '_id': string;
     /**
      * 
      * @type {string}
@@ -2832,7 +2832,7 @@ export const MarathiApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @summary Delete aarti
-         * @param {string} id The ID of the aarti to delete
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2939,36 +2939,6 @@ export const MarathiApiAxiosParamCreator = function (configuration?: Configurati
             assertParamExists('marathiControllerGetAartiById', 'id', id)
             const localVarPath = `/marathi/aarti/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Get all songs
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        marathiControllerGetSong: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/marathi/song`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -3178,7 +3148,7 @@ export const MarathiApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Delete aarti
-         * @param {string} id The ID of the aarti to delete
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3224,18 +3194,6 @@ export const MarathiApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.marathiControllerGetAartiById(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MarathiApi.marathiControllerGetAartiById']?.[localVarOperationServerIndex]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
-        },
-        /**
-         * 
-         * @summary Get all songs
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async marathiControllerGetSong(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SongResponseDto>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.marathiControllerGetSong(options);
-            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['MarathiApi.marathiControllerGetSong']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -3325,7 +3283,7 @@ export const MarathiApiFactory = function (configuration?: Configuration, basePa
         /**
          * 
          * @summary Delete aarti
-         * @param {string} id The ID of the aarti to delete
+         * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3360,15 +3318,6 @@ export const MarathiApiFactory = function (configuration?: Configuration, basePa
          */
         marathiControllerGetAartiById(id: string, options?: RawAxiosRequestConfig): AxiosPromise<AartiResponseDto> {
             return localVarFp.marathiControllerGetAartiById(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Get all songs
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        marathiControllerGetSong(options?: RawAxiosRequestConfig): AxiosPromise<Array<SongResponseDto>> {
-            return localVarFp.marathiControllerGetSong(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3449,7 +3398,7 @@ export class MarathiApi extends BaseAPI {
     /**
      * 
      * @summary Delete aarti
-     * @param {string} id The ID of the aarti to delete
+     * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MarathiApi
@@ -3491,17 +3440,6 @@ export class MarathiApi extends BaseAPI {
      */
     public marathiControllerGetAartiById(id: string, options?: RawAxiosRequestConfig) {
         return MarathiApiFp(this.configuration).marathiControllerGetAartiById(id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Get all songs
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MarathiApi
-     */
-    public marathiControllerGetSong(options?: RawAxiosRequestConfig) {
-        return MarathiApiFp(this.configuration).marathiControllerGetSong(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

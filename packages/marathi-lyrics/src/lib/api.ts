@@ -1,6 +1,7 @@
-import { MarathiApi } from "@vipulwaghmare/apis";
-import { axiosConfig, axiosInstance, } from "./axios-instance";
+import { AuthApi, MarathiApi } from "@vipulwaghmare/apis";
+import { axiosConfig } from "./axios-instance";
 
-const api = new MarathiApi(axiosConfig, undefined, axiosInstance); // Create an API instance
+const api = new MarathiApi(axiosConfig, undefined); // Create an API instance
+export const authApi = new AuthApi(axiosConfig, undefined)
 
 export default api;

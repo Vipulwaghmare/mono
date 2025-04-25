@@ -10,14 +10,13 @@ const defaultValues = {
   deity: "",
   lyrics_marathi: "",
   lyrics_english: "",
-  tags: [],
-  id: "",
-  adminToken: "",
+  tags: "",
+  _id: "",
 };
 
 export default function AddAartiPage() {
   const [formData, setFormData] = useState<
-    AartiResponseDto & { adminToken: string }
+    Omit<AartiResponseDto, "tags"> & { tags: string }
   >(defaultValues);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -38,11 +37,13 @@ export default function AddAartiPage() {
 
     try {
       // In a real app, you would validate the admin token on the server
-      if (!formData.adminToken) {
-        throw new Error("Admin token is required");
-      }
-
-      const response = await api.marathiControllerAddAarti(formData);
+      // if (!formData.adminToken) {
+      //   throw new Error("Admin token is required");
+      // }
+      const response = await api.marathiControllerAddAarti({
+        ...formData,
+        tags: formData.tags.split(","),
+      });
 
       if (response.status !== 201) {
         throw new Error("Failed to add aarti");
@@ -50,10 +51,7 @@ export default function AddAartiPage() {
 
       setSuccess("Aarti added successfully!");
       // Reset form
-      setFormData({
-        ...defaultValues,
-        adminToken: formData.adminToken, // Keep the token
-      });
+      setFormData(defaultValues);
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "An unknown error occurred",
@@ -103,28 +101,49 @@ export default function AddAartiPage() {
           borderRadius: "var(--border-radius)",
         }}
       >
+        {" "}
         <div style={{ marginBottom: "1.5rem" }}>
           <label
-            htmlFor="name"
+            htmlFor="name_marathi"
             style={{
               display: "block",
               marginBottom: "0.5rem",
               fontWeight: "bold",
             }}
           >
-            Aarti Name*
+            Aarti Marathi Name*
           </label>
           <input
             type="text"
-            id="name"
-            name="name"
+            id="name_marathi"
+            name="name_marathi"
+            value={formData.name_marathi}
+            onChange={handleChange}
+            required
+            className="search-input"
+          />
+        </div>
+        <div style={{ marginBottom: "1.5rem" }}>
+          <label
+            htmlFor="name_english"
+            style={{
+              display: "block",
+              marginBottom: "0.5rem",
+              fontWeight: "bold",
+            }}
+          >
+            Aarti English Name*
+          </label>
+          <input
+            type="text"
+            id="name_english"
+            name="name_english"
             value={formData.name_english}
             onChange={handleChange}
             required
             className="search-input"
           />
         </div>
-
         <div style={{ marginBottom: "1.5rem" }}>
           <label
             htmlFor="deity"
@@ -146,7 +165,6 @@ export default function AddAartiPage() {
             className="search-input"
           />
         </div>
-
         <div style={{ marginBottom: "1.5rem" }}>
           <label
             htmlFor="lyrics_marathi"
@@ -168,7 +186,6 @@ export default function AddAartiPage() {
             style={{ minHeight: "200px" }}
           />
         </div>
-
         <div style={{ marginBottom: "1.5rem" }}>
           <label
             htmlFor="lyrics_english"
@@ -190,7 +207,6 @@ export default function AddAartiPage() {
             style={{ minHeight: "200px" }}
           />
         </div>
-
         <div style={{ marginBottom: "1.5rem" }}>
           <label
             htmlFor="tags"
@@ -213,29 +229,6 @@ export default function AddAartiPage() {
             placeholder="गणेश, आरती, देवी"
           />
         </div>
-
-        <div style={{ marginBottom: "1.5rem" }}>
-          <label
-            htmlFor="adminToken"
-            style={{
-              display: "block",
-              marginBottom: "0.5rem",
-              fontWeight: "bold",
-            }}
-          >
-            Admin Token*
-          </label>
-          <input
-            type="password"
-            id="adminToken"
-            name="adminToken"
-            value={formData.adminToken}
-            onChange={handleChange}
-            required
-            className="search-input"
-          />
-        </div>
-
         <button
           type="submit"
           className="btn btn-primary"
