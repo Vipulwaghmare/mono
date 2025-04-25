@@ -926,61 +926,6 @@
         ]
       }
     },
-    "/marathi/song": {
-      "get": {
-        "operationId": "MarathiController_getSong",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "Returns all songs",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SongResponseDto"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "summary": "Get all songs",
-        "tags": [
-          "Marathi"
-        ]
-      },
-      "post": {
-        "operationId": "MarathiController_addSong",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateSongDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Song created successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SongResponseDto"
-                }
-              }
-            }
-          }
-        },
-        "summary": "Create new song",
-        "tags": [
-          "Marathi"
-        ]
-      }
-    },
     "/marathi/song/{startLetter}": {
       "get": {
         "operationId": "MarathiController_getSongByStartLetter",
@@ -1013,6 +958,38 @@
           }
         },
         "summary": "Get songs by starting letter",
+        "tags": [
+          "Marathi"
+        ]
+      }
+    },
+    "/marathi/song": {
+      "post": {
+        "operationId": "MarathiController_addSong",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSongDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Song created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SongResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Create new song",
         "tags": [
           "Marathi"
         ]

@@ -1,26 +1,26 @@
 "use client";
-import { Song } from "@/lib/types";
+import { SongResponseDto } from "@vipulwaghmare/apis";
 import { useState } from "react";
 
-export function MusicLinks({ song }: { song: Song }) {
+export function MusicLinks({ song }: { song: SongResponseDto }) {
   const [showLinks, setShowLinks] = useState(false);
 
   const musicServices = [
     {
       name: "YouTube Music",
-      url: `https://music.youtube.com/search?q=${encodeURIComponent(song.name + " " + song.singer)}`,
+      url: `https://music.youtube.com/search?q=${encodeURIComponent(song.name_english + " " + song.singer)}`,
     },
     {
       name: "Spotify",
-      url: `https://open.spotify.com/search/${encodeURIComponent(song.name + " " + song.singer)}`,
+      url: `https://open.spotify.com/search/${encodeURIComponent(song.name_english + " " + song.singer)}`,
     },
     {
       name: "JioSaavn",
-      url: `https://www.jiosaavn.com/search/${encodeURIComponent(song.name)}`,
+      url: `https://www.jiosaavn.com/search/${encodeURIComponent(song.name_english)}`,
     },
     {
       name: "Gaana",
-      url: `https://gaana.com/search/${encodeURIComponent(song.name)}`,
+      url: `https://gaana.com/search/${encodeURIComponent(song.name_english)}`,
     },
   ];
 

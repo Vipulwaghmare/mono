@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { getSongById } from "@/lib/data";
 import { MusicLinks } from "@/components/music-link";
+import api from "@/lib/api";
 
 export default async function SongPage({ params }: { params: { id: string } }) {
-  const song = await getSongById(params.id);
+  const song = (await api.marathiControllerGetSongById(params.id)).data;
 
   if (!song) {
     return (
@@ -22,11 +22,12 @@ export default async function SongPage({ params }: { params: { id: string } }) {
       </div>
     );
   }
-
   return (
     <div className="container song-detail">
       <div className="song-header">
-        <h1 className="section-title">{song.name}</h1>
+        <h1 className="section-title">
+          {song.name_marathi} {song.name_english}
+        </h1>
         <div className="song-meta">
           <p>
             <strong>Singer:</strong> {song.singer}
@@ -34,9 +35,11 @@ export default async function SongPage({ params }: { params: { id: string } }) {
           <p>
             <strong>Lyricist:</strong> {song.lyricist}
           </p>
-          <p>
-            <strong>Genre:</strong> {song.tags.join(", ")}
-          </p>
+          {song.tags && (
+            <p>
+              <strong>Genre:</strong> {song.tags.join(", ")}
+            </p>
+          )}
         </div>
 
         <div className="song-actions">

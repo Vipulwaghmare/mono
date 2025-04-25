@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { MarathiController } from './marathi.controller';
 import { MarathiService } from './marathi.service';
-import { DatabaseModule } from 'src/database/database.module';
-import { CryptoService } from 'src/services/crypto.service';
+import { DatabaseModule } from '../database/database.module';
+import { CryptoService } from '../services/crypto.service';
 import { marathiProvider } from './marathi.provider';
 
 @Module({

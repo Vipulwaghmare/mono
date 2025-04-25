@@ -1,17 +1,24 @@
 "use client";
-
+import api from "@/lib/api";
+import { AartiResponseDto } from "@vipulwaghmare/apis";
 import type React from "react";
 import { useState } from "react";
 
+const defaultValues = {
+  name_english: "",
+  name_marathi: "",
+  deity: "",
+  lyrics_marathi: "",
+  lyrics_english: "",
+  tags: [],
+  id: "",
+  adminToken: "",
+};
+
 export default function AddAartiPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    deity: "",
-    lyrics_marathi: "",
-    lyrics_english: "",
-    tags: "",
-    adminToken: "",
-  });
+  const [formData, setFormData] = useState<
+    AartiResponseDto & { adminToken: string }
+  >(defaultValues);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -35,34 +42,16 @@ export default function AddAartiPage() {
         throw new Error("Admin token is required");
       }
 
-      const response = await fetch("/api/aarti", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${formData.adminToken}`,
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          deity: formData.deity,
-          lyrics_marathi: formData.lyrics_marathi,
-          lyrics_english: formData.lyrics_english,
-          tags: formData.tags.split(",").map((tag) => tag.trim()),
-        }),
-      });
+      const response = await api.marathiControllerAddAarti(formData);
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || "Failed to add aarti");
+      if (response.status !== 201) {
+        throw new Error("Failed to add aarti");
       }
 
       setSuccess("Aarti added successfully!");
       // Reset form
       setFormData({
-        name: "",
-        deity: "",
-        lyrics_marathi: "",
-        lyrics_english: "",
-        tags: "",
+        ...defaultValues,
         adminToken: formData.adminToken, // Keep the token
       });
     } catch (err) {
@@ -129,7 +118,7 @@ export default function AddAartiPage() {
             type="text"
             id="name"
             name="name"
-            value={formData.name}
+            value={formData.name_english}
             onChange={handleChange}
             required
             className="search-input"

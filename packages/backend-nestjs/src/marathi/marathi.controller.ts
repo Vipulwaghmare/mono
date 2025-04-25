@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { MarathiService } from './marathi.service';
 import { Song } from './interfaces/song.interface';
 import { Aarti } from './interfaces/aarti.interface';
@@ -9,6 +9,7 @@ import { DeleteAartiDto } from './dtos/delete-aarti.dto';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { SongResponseDto } from './dtos/response/song.response.dto';
 import { AartiResponseDto } from './dtos/response/aarti.response.dto';
+// import { GetSongsQueryDto } from './dtos/get-songs-query.dto';
 
 @ApiTags('Marathi')
 @Controller('marathi')
@@ -58,12 +59,12 @@ export class MarathiController {
   }
 
   // Song endpoints
-  @Get('/song')
-  @ApiOperation({ summary: 'Get all songs' })
-  @ApiResponse({ status: 200, description: 'Returns all songs', type: [SongResponseDto] })
-  async getSong(): Promise<Song[]> {
-    return this.marathiService.getAllSongs();
-  }
+  // @Get('/song')
+  // @ApiOperation({ summary: 'Get all songs' })
+  // @ApiResponse({ status: 200, description: 'Returns all songs', type: [SongResponseDto] })
+  // async getSong(@Query() query: GetSongsQueryDto): Promise<Song[]> {
+  //   return this.marathiService.getSongsByQuery(query);
+  // }
 
   @Get('/song/:startLetter')
   @ApiOperation({ summary: 'Get songs by starting letter' })

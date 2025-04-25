@@ -71,28 +71,7 @@ export interface AartiResponseDto {
      * @memberof AartiResponseDto
      */
     'tags': Array<string>;
-    /**
-     * 
-     * @type {string}
-     * @memberof AartiResponseDto
-     */
-    'occasion'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AartiResponseDto
-     */
-    'timeOfDay'?: AartiResponseDtoTimeOfDayEnum;
 }
-
-export const AartiResponseDtoTimeOfDayEnum = {
-    Morning: 'Morning',
-    Evening: 'Evening',
-    Any: 'Any'
-} as const;
-
-export type AartiResponseDtoTimeOfDayEnum = typeof AartiResponseDtoTimeOfDayEnum[keyof typeof AartiResponseDtoTimeOfDayEnum];
-
 /**
  * 
  * @export
@@ -166,28 +145,7 @@ export interface CreateAartiDto {
      * @memberof CreateAartiDto
      */
     'tags': Array<string>;
-    /**
-     * Special occasion when this aarti is performed
-     * @type {string}
-     * @memberof CreateAartiDto
-     */
-    'occasion'?: string;
-    /**
-     * Time of day when this aarti is typically performed
-     * @type {string}
-     * @memberof CreateAartiDto
-     */
-    'timeOfDay'?: CreateAartiDtoTimeOfDayEnum;
 }
-
-export const CreateAartiDtoTimeOfDayEnum = {
-    Morning: 'Morning',
-    Evening: 'Evening',
-    Any: 'Any'
-} as const;
-
-export type CreateAartiDtoTimeOfDayEnum = typeof CreateAartiDtoTimeOfDayEnum[keyof typeof CreateAartiDtoTimeOfDayEnum];
-
 /**
  * 
  * @export

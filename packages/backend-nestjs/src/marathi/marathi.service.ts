@@ -22,6 +22,27 @@ export class MarathiService {
     return songs;
   }
 
+  async getSongsByQuery(query: string): Promise<Song[]> {
+    this.logger.log(`Searching songs with query: ${query}`);
+    const songs = await this.songModel.find({
+      $or: [
+        { name_english: { $regex: query, $options: 'i' } },
+        { name_marathi: { $regex: query, $options: 'i' } },
+        { singer: { $regex: query, $options: 'i' } },
+        { lyricist: { $regex: query, $options: 'i' } },
+        { tags: { $regex: query, $options: 'i' } }
+      ]
+    }).exec();
+
+    if (!songs || songs.length === 0) {
+      this.logger.warn(`No songs found matching query: ${query}`);
+      throw new NotFoundException(`No songs found matching query '${query}'`);
+    }
+
+    this.logger.log(`Found ${songs.length} songs matching query: ${query}`);
+    return songs;
+  }
+
   async getSongById(id: string): Promise<Song> {
     this.logger.log(`Fetching song with ID: ${id}`);
     const song = await this.songModel.findById(id).exec();

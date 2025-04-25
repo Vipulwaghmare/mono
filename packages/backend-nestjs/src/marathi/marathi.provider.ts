@@ -1,7 +1,7 @@
 
 import { Connection } from 'mongoose';
-import { aartiSchema } from 'src/schemas/aarti.schema';
-import { songSchema } from 'src/schemas/songs.schema';
+import { aartiSchema } from '../schemas/aarti.schema';
+import { songSchema } from '../schemas/songs.schema';
 
 export const marathiProvider = [
   {
