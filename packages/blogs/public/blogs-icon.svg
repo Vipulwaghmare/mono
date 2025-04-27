@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Background with first color -->
+  <rect x="0" y="0" width="32" height="32" rx="6" ry="6" fill="#183446"/>
+  
+  <!-- Abstract blog symbol - open book/pages -->
+  <path d="M6 10 C6 8, 16 6, 16 10 L16 24 C16 20, 6 22, 6 20 Z" fill="#38AECC"/>
+  <path d="M26 10 C26 8, 16 6, 16 10 L16 24 C16 20, 26 22, 26 20 Z" fill="#0090C1"/>
+  
+  <!-- Content lines suggesting text -->
+  <rect x="9" y="14" width="4" height="1" rx="0.5" ry="0.5" fill="white" opacity="0.7"/>
+  <rect x="9" y="17" width="3" height="1" rx="0.5" ry="0.5" fill="white" opacity="0.7"/>
+  
+  <rect x="19" y="14" width="4" height="1" rx="0.5" ry="0.5" fill="white" opacity="0.7"/>
+  <rect x="19" y="17" width="3" height="1" rx="0.5" ry="0.5" fill="white" opacity="0.7"/>
+  
+  <!-- Bookmark -->
+  <path d="M16 6 L16 10 L14 8 L16 6 Z" fill="white" opacity="0.9"/>
+</svg>

@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   title: "DevBlog - Programming Tutorials and Articles",
   description:
     "A blog for web developers featuring tutorials and best practices",
+  icons: {
+    icon: "/blogs-icon.svg",
+  },
 };
 
 export default function RootLayout({
