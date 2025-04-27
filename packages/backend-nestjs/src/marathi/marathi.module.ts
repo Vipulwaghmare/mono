@@ -4,7 +4,7 @@ import { MarathiService } from './marathi.service';
 import { DatabaseModule } from '../database/database.module';
 import { CryptoService } from '../services/crypto.service';
 import { marathiProvider } from './marathi.provider';
-import { AuthMiddleware } from 'src/middlewares/auth.middleware';
+import { AuthMiddleware } from '../middlewares/auth.middleware';
 
 @Module({
   imports: [DatabaseModule],

@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MessagesModule } from './messages/messages.module';
 import { UsersModule } from './users/users.module';
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
@@ -10,10 +9,10 @@ import { AuthModule } from './auth/auth.module';
 import { CryptoService } from './services/crypto.service';
 import { EmailService } from './services/email.service';
 import { PortfolioController } from './portfolio/portfolio.controller';
-import { ScribbleController } from './scribble/scribble.controller';
+// import { ScribbleController } from './scribble/scribble.controller';
 import { DiaryModule } from './diary/diary.module';
 import { PrometheusModule } from './prometheus/prometheus.module';
-import { MarathiModule } from './marathi/marathi.module';
+// import { MarathiModule } from './marathi/marathi.module';
 
 @Module({
   imports: [
@@ -21,14 +20,18 @@ import { MarathiModule } from './marathi/marathi.module';
       isGlobal: true,
     }),
     DatabaseModule,
-    MessagesModule,
     UsersModule,
     AuthModule,
     DiaryModule,
     PrometheusModule,
-    MarathiModule,
+    // MarathiModule,
   ],
-  controllers: [AppController, AuthController, PortfolioController, ScribbleController],
+  controllers: [
+    AppController,
+    AuthController,
+    PortfolioController,
+    // ScribbleController,
+  ],
   providers: [AppService, CryptoService, EmailService],
 })
 export class AppModule { }
