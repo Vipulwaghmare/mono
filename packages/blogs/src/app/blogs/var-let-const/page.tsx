@@ -189,6 +189,20 @@ console.log(d); // Uncaught ReferenceError: d is not defined`}</CodeBlock>
             </tr> */}
           </tbody>
         </table>
+        {/* <h2>{`Let's`} look into some tricky stuff</h2>
+        <h3>1. Variable Shadowing</h3>
+        <p>
+          When a variable declared in a certain scope has the same name as a
+          variable declared in an outer scope, it shadows the outer variable.
+        </p>
+        <CodeBlock>
+          {`let x = 10;
+if (true) {
+  let x = 20; // This shadows the outer x
+  console.log(x); // 20
+}
+console.log(x); // 10`}
+        </CodeBlock> */}
       </div>
     </MainWrapper>
   );

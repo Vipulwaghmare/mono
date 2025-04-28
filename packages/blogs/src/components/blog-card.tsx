@@ -1,6 +1,12 @@
 import Link from "next/link";
 
-export const TAGS = ["Javascript", "React"] as const;
+export const TAGS = [
+  "Javascript",
+  // "React",
+  "Basic",
+  // "Intermediate",
+  // "Advanced",
+] as const;
 
 export type TTags = (typeof TAGS)[number];
 

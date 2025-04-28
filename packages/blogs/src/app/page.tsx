@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import BlogCard, { BlogCardProps, TTags } from "@/components/blog-card";
+import BlogCard, { BlogCardProps, TAGS, TTags } from "@/components/blog-card";
 
 // Blog data array with tags
 const blogs: BlogCardProps[] = [
@@ -9,8 +9,14 @@ const blogs: BlogCardProps[] = [
     id: "var-let-const",
     title: "Var, Let & Const",
     excerpt: "Everything you need to know about Var, Let & Const",
-    tags: ["Javascript"],
+    tags: ["Javascript", "Basic"],
   },
+  // {
+  //   id: "event-loop",
+  //   title: "Event loop",
+  //   excerpt: "Everything you need to know about event loop",
+  //   tags: ["Javascript", "Basic"],
+  // },
   // {
   //   id: "inheritance",
   //   title: "Inheritance",
@@ -23,26 +29,10 @@ const blogs: BlogCardProps[] = [
   //   excerpt: "Everything you need to know about this keyword",
   //   tags: ["Javascript"],
   // },
-  // {
-  //   id: "event-loop",
-  //   title: "Event loop",
-  //   excerpt: "Everything you need to know about event loop",
-  //   tags: ["Javascript"],
-  // },
 ];
-
-// Extract unique tags from all blogs
-const getAllTags = (): TTags[] => {
-  const uniqueTags = new Set<TTags>();
-  blogs.forEach((blog) => {
-    blog.tags.forEach((tag) => uniqueTags.add(tag));
-  });
-  return Array.from(uniqueTags);
-};
 
 export default function Home() {
   const [activeTag, setActiveTag] = useState<TTags | null>(null);
-  const allTags = getAllTags();
 
   // Filter blogs based on active tag
   const filteredBlogs = activeTag
@@ -64,7 +54,7 @@ export default function Home() {
             >
               All
             </button>
-            {allTags.map((tag) => (
+            {TAGS.map((tag) => (
               <button
                 key={tag}
                 className={`tag-filter ${activeTag === tag ? "active" : ""}`}
