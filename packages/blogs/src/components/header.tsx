@@ -6,10 +6,9 @@ export default function Header() {
     <header className="header">
       <div className="container header-content">
         <Link href="/" className="logo">
-          DevBlog
+          VW Blogs
         </Link>
         <nav className="nav-links">
-          <Link href="/">Home</Link>
           <ThemeToggle />
         </nav>
       </div>
