@@ -1,14 +1,13 @@
-"use client";
 import Link from "next/link";
-// import Image from "next/image";
 
-export type TTags = "Javascript" | "React";
+export const TAGS = ["Javascript", "React"] as const;
+
+export type TTags = (typeof TAGS)[number];
 
 export interface BlogCardProps {
   id: string;
   title: string;
   excerpt: string;
-  date: string;
   tags: TTags[];
 }
 
@@ -16,7 +15,6 @@ export default function BlogCard({
   id,
   title,
   excerpt,
-  date,
   tags = [],
 }: BlogCardProps) {
   return (
@@ -25,9 +23,6 @@ export default function BlogCard({
         <div className="blog-card-content">
           <h2 className="blog-card-title">{title}</h2>
           <p className="blog-card-excerpt">{excerpt}</p>
-          <time dateTime={date} className="blog-card-date">
-            {date}
-          </time>{" "}
           {tags.length > 0 && (
             <div className="blog-card-tags">
               {tags.map((tag) => (

@@ -6,13 +6,29 @@ import BlogCard, { BlogCardProps, TTags } from "@/components/blog-card";
 // Blog data array with tags
 const blogs: BlogCardProps[] = [
   {
-    id: "react-hooks-deep-dive",
-    title: "React Hooks: A Deep Dive",
-    excerpt:
-      "Everything you need to know about React Hooks and how to use them effectively",
-    date: "April 20, 2024",
-    tags: ["Javascript", "React"],
+    id: "var-let-const",
+    title: "Var, Let & Const",
+    excerpt: "Everything you need to know about Var, Let & Const",
+    tags: ["Javascript"],
   },
+  // {
+  //   id: "inheritance",
+  //   title: "Inheritance",
+  //   excerpt: "Everything you need to know about Inheritance",
+  //   tags: ["Javascript"],
+  // },
+  // {
+  //   id: "this-keyword",
+  //   title: "This Keyword",
+  //   excerpt: "Everything you need to know about this keyword",
+  //   tags: ["Javascript"],
+  // },
+  // {
+  //   id: "event-loop",
+  //   title: "Event loop",
+  //   excerpt: "Everything you need to know about event loop",
+  //   tags: ["Javascript"],
+  // },
 ];
 
 // Extract unique tags from all blogs
@@ -66,7 +82,6 @@ export default function Home() {
                 id={blog.id}
                 title={blog.title}
                 excerpt={blog.excerpt}
-                date={blog.date}
                 tags={blog.tags}
               />
             ))}

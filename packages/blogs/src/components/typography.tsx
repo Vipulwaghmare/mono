@@ -13,3 +13,33 @@ export const ImportantNote = ({ children }: { children: React.ReactNode }) => {
     </p>
   );
 };
+
+export const Header = ({ title, meta }: { title: string; meta?: string }) => {
+  return (
+    <header className="blog-header">
+      <BlogTitle>{title}</BlogTitle>
+      {meta && <div className="blog-meta">{meta}</div>}
+    </header>
+  );
+};
+
+export const MainWrapper = ({
+  children,
+  title,
+  meta,
+}: {
+  children: React.ReactNode;
+  title: string;
+  meta?: string;
+}) => {
+  return (
+    <div>
+      <main className="main">
+        <article className="blog-content">
+          <Header title={title} meta={meta} />
+          {children}
+        </article>
+      </main>
+    </div>
+  );
+};
