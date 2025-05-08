@@ -6,7 +6,7 @@ public_folder: "packages/blogs-11ty/src/blog"
 collections:
   - name: "blog"
     label: "Blog"
-    folder: "src/blog"
+    folder: "packages/blogs-11ty/src/blog"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
