@@ -5,7 +5,7 @@ author: Vipul Waghmare
 date: 2024-06-02T11:28:51.046Z
 tags:
   - post
-image: packages/blogs-11ty/src/blog/var-let-const.png
+image: /assets/blog/var-let-const.png
 imageAlt: var, let and const keywords
 ---
 
