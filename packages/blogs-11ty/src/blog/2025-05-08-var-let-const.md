@@ -8,6 +8,7 @@ tags:
 image: packages/blogs-11ty/src/blog/var-let-const.png
 imageAlt: var, let and const keywords
 ---
+
 You must have heard about var, let and const in Javascript. In this blog we are gonna learn everything about them.
 
 Let's first start with **var**. When Js was first introduced, it was the only way to declare variables.
@@ -24,7 +25,7 @@ There were lot's of issues with this which we will discuss further. But due to
 
 Let's start with very simple difference between these three. It's simple
 
-> *Variables declared with var and let can be redeclared or reassigned. Variables declared with const can't be declared again.*
+> _Variables declared with var and let can be redeclared or reassigned. Variables declared with const can't be declared again._
 
 ```
 var name = "Bruce";

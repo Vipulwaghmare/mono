@@ -1,12 +1,12 @@
 backend:
   name: git-gateway
   branch: master
-media_folder: "packages/blogs-11ty/src/assets/blog"
-public_folder: "packages/blogs-11ty/src/blog"
+media_folder: "packages/blogs-11ty/public/assets/blog" # File lookup location
+public_folder: "packages/blogs-11ty/src/assets/blog" # file store location
 collections:
   - name: "blog"
     label: "Blog"
-    folder: "packages/blogs-11ty/src/blog"
+    folder: "packages/blogs-11ty/src/blog/"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
