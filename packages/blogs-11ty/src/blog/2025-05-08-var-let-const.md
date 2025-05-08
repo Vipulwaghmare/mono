@@ -2,7 +2,7 @@
 title: Var, Let & Const
 description: Everything you need to know about how to declare variables in JS.
 author: Vipul Waghmare
-date: 2024-06-01T11:28:51.046Z
+date: 2024-06-02T11:28:51.046Z
 tags:
   - post
 image: packages/blogs-11ty/src/blog/var-let-const.png
