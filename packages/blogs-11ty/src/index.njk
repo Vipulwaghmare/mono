@@ -2,9 +2,42 @@
 title: Blog
 layout: 'base.njk'
 ---
-       
+      
+<div class="tag-filters">
+  <button class="tag-filter active" data-tag="all">All</button>
+  {%- for tag in ["Javascript", "Basic", "Advanced", "React", "Node.js"] -%}
+    <button class="tag-filter" data-tag="{{ tag }}">{{ tag }}</button>
+  {%- endfor -%}
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const tagFilters = document.querySelectorAll('.tag-filter');
+    const articles = document.querySelectorAll('.articles__list li');
+
+    tagFilters.forEach(filter => {
+      filter.addEventListener('click', function() {
+        // Remove active class from all filters
+        tagFilters.forEach(f => f.classList.remove('active'));
+        // Add active class to clicked filter
+        this.classList.add('active');
+
+        const selectedTag = this.getAttribute('data-tag');
+
+        articles.forEach(article => {
+          if (selectedTag === 'all') {
+            article.style.display = 'block';
+          } else {
+            const articleTags = article.getAttribute('data-tags')?.split(',') || [];
+            article.style.display = articleTags.includes(selectedTag) ? 'block' : 'none';
+          }
+        });
+      });
+    });
+  });
+</script>
+
 <div class="section container">
-  <h1 class="section-title">Recent articles</h1>
   <ul role="list" class="articles__list flow">
     {%- for post in collections.post | reverse -%}
       {% include 'article-snippet.njk' %}
