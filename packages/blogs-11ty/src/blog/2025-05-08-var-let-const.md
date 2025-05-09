@@ -4,7 +4,7 @@ description: Everything you need to know about how to declare variables in JS.
 author: Vipul Waghmare
 date: 2024-06-02T11:28:51.046Z
 tags:
-  - post
+  - Basic
 image: /assets/blog/var-let-const.png
 imageAlt: var, let and const keywords
 ---
