@@ -6,9 +6,15 @@ import BlogCard, { BlogCardProps, TAGS, TTags } from "@/components/blog-card";
 // Blog data array with tags
 const blogs: BlogCardProps[] = [
   {
+    id: "execution-context",
+    title: "Execution context in JS",
+    excerpt: "Global and Functional execution context of JS.",
+    tags: ["Javascript", "Basic"],
+  },
+  {
     id: "var-let-const",
     title: "Var, Let & Const",
-    excerpt: "Everything you need to know about Var, Let & Const",
+    excerpt: "Everything you need to know about Var, Let & Const.",
     tags: ["Javascript", "Basic"],
   },
   // {
