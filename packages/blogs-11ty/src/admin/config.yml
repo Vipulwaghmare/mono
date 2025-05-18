@@ -19,8 +19,9 @@ collections:
           name: "tags",
           widget: "select",
           multiple: true,
-          options: ["Javascript", "Basic", "Advanced", "React", "Node.js"],
-          default: ["post"],
+          options:
+            ["Post", "Javascript", "Basic", "Advanced", "React", "Node.js"],
+          default: ["Post"],
         }
       - { label: "Featured Image", name: "image", widget: "image" }
       - { label: "Image caption", name: "imageAlt", widget: "string" }

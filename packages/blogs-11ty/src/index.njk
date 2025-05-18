@@ -39,8 +39,31 @@ layout: 'base.njk'
 
 <div class="section container">
   <ul role="list" class="articles__list flow">
-    {%- for post in collections.post | reverse -%}
+    {%- set postsPerPage = 6 -%}
+    {%- set currentPage = page.url | replace("/", "") | default("1") | int -%}
+    {%- set startIndex = (currentPage - 1) * postsPerPage -%}
+    {%- set endIndex = startIndex + postsPerPage -%}
+    {%- set totalPosts = collections.Post | length -%}
+    {%- set totalPages = (totalPosts / postsPerPage) | round(0, 'ceil') -%}
+
+    {%- for post in collections.Post | reverse | slice(startIndex, endIndex) -%}
       {% include 'article-snippet.njk' %}
-    {%- endfor %} 
+    {%- endfor %}
+
+    {% if totalPages > 1 %}
+    <div class="pagination">
+      {% if currentPage > 1 %}2
+        <a href="?page={{ currentPage - 1 }}" class="pagination__prev">Previous</a>
+      {% endif %}
+      
+      {% for page in range(1, totalPages + 1) %}
+        <a href="?page={{ page }}" class="pagination__number {% if page == currentPage %}active{% endif %}">{{ page }}</a>
+      {% endfor %}
+
+      {% if currentPage < totalPages %}
+        <a href="?page={{ currentPage + 1 }}" class="pagination__next">Next</a>
+      {% endif %}
+    </div>
+    {% endif %}
   </ul>
 </div>
