@@ -13,6 +13,7 @@ import { PortfolioController } from './portfolio/portfolio.controller';
 import { DiaryModule } from './diary/diary.module';
 import { PrometheusModule } from './prometheus/prometheus.module';
 // import { MarathiModule } from './marathi/marathi.module';
+import { MessagesModule } from './messages/messages.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { PrometheusModule } from './prometheus/prometheus.module';
     DiaryModule,
     PrometheusModule,
     // MarathiModule,
+    MessagesModule,
   ],
   controllers: [
     AppController,

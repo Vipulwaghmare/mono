@@ -14,7 +14,7 @@ export class MessagesController {
     try {
       this.logger.log({ body }, 'Sending contac me message');
       await this.emailService.sendEmail({
-        to: 'vipulwaghmare222@gmail.com',
+        to: 'contact@vipulwaghmare.com',
         subject: `${body.email}  ${body.subject}`,
         text: body.message,
       })

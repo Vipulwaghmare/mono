@@ -659,6 +659,30 @@
           "Prometheus"
         ]
       }
+    },
+    "/api/v1/message/contact-me": {
+      "post": {
+        "operationId": "MessagesController_createMessage",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContactMeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Messages"
+        ]
+      }
     }
   },
   "info": {
@@ -1513,6 +1537,33 @@
         },
         "required": [
           "date"
+        ]
+      },
+      "ContactMeDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "example": "john.doe@email.com"
+          },
+          "subject": {
+            "type": "string",
+            "example": "Regarding a job opportunity"
+          },
+          "message": {
+            "type": "string",
+            "example": "Hi Vipul, ..."
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "subject",
+          "message"
         ]
       }
     }
