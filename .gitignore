@@ -1,3 +1,5 @@
 node_modules/
 .env
 prometheus.yml
+not-for-git
+test
