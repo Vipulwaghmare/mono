@@ -189,20 +189,97 @@ console.log(d); // Uncaught ReferenceError: d is not defined`}</CodeBlock>
             </tr> */}
           </tbody>
         </table>
-        {/* <h2>{`Let's`} look into some tricky stuff</h2>
-        <h3>1. Variable Shadowing</h3>
-        <p>
-          When a variable declared in a certain scope has the same name as a
-          variable declared in an outer scope, it shadows the outer variable.
-        </p>
-        <CodeBlock>
-          {`let x = 10;
+        <h2>{`Let's`} look into some tricky stuff</h2>
+        <div>
+          <h3>Variable Shadowing</h3>
+          <p>
+            When a variable declared in a certain scope has the same name as a
+            variable declared in an outer scope, it shadows the outer variable.
+          </p>
+          <CodeBlock>
+            {`let x = 10;
 if (true) {
   let x = 20; // This shadows the outer x
   console.log(x); // 20
 }
 console.log(x); // 10`}
-        </CodeBlock> */}
+          </CodeBlock>
+        </div>
+        <div>
+          <h3>A very Basic Question ;)</h3>
+          <CodeBlock>
+            {`function test() {
+  console.log(a); // undefined
+  console.log(b); // ReferenceError
+  console.log(c); // ReferenceError
+
+  var a = 1;
+  let b = 2;
+  const c = 3;
+}
+`}
+          </CodeBlock>
+        </div>
+        <div>
+          <h3>For loops with setTimeout</h3>
+          <CodeBlock>
+            {`for (var i = 0; i < 3; i++) {
+  setTimeout(() => console.log(i), 100); // 3 3 3
+}
+// Var is attached to global obj so it's value is a single instance
+// By the time setTimeout ends all it's variable has access to same instace of *i*
+
+for (let j = 0; j < 3; j++) {
+  setTimeout(() => console.log(j), 100); // 0 1 2
+}
+`}
+          </CodeBlock>
+        </div>
+        <div>
+          <h3>Mutation for const?</h3>
+          <CodeBlock>
+            {`const person = { name: 'Bruce' };
+person.name = 'Batman'; // ✅
+
+const arr = [1, 2];
+arr.push(3); // ✅
+
+console.log(person, arr);
+`}
+          </CodeBlock>
+        </div>
+        <div>
+          <h3>A variable without var, let and const?</h3>
+          <CodeBlock>
+            {`function test() {
+  x = 10;
+}
+test();
+console.log(x); // 10
+`}
+          </CodeBlock>
+        </div>
+        <div>
+          <h3>Does temporal zone works like this?</h3>
+          <CodeBlock>
+            {`let a = 100;
+
+function shadowTest() {
+  console.log(a); // ReferenceError // YES
+  let a = 200;
+}
+`}
+          </CodeBlock>
+        </div>
+        <div>
+          <h3>Have you ever declared variables like this?</h3>
+          <CodeBlock>
+            {`console.log(a);
+console.log(b); // error b is not defined
+var a = (b = 30);
+// a is hoisted but b is never known to creation phase of JS`}
+          </CodeBlock>
+        </div>
       </div>
     </MainWrapper>
   );
