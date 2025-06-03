@@ -29,12 +29,12 @@ const blogs: BlogCardProps[] = [
   //   excerpt: "Everything you need to know about Inheritance",
   //   tags: ["Javascript"],
   // },
-  {
-    id: "this-keyword",
-    title: "This Keyword",
-    excerpt: "Everything you need to know about this keyword",
-    tags: ["Javascript", "Basic"],
-  },
+  // {
+  //   id: "this-keyword",
+  //   title: "This Keyword",
+  //   excerpt: "Everything you need to know about this keyword",
+  //   tags: ["Javascript", "Basic"],
+  // },
 ];
 
 export default function Home() {

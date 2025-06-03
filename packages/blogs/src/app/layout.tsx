@@ -4,8 +4,10 @@ import "./globals.css";
 import Header from "@/components/header";
 
 const roboto = Roboto({
-  variable: "--font-roboto",
+  weight: ["300", "400", "500", "700"],
   subsets: ["latin"],
+  display: "swap",
+  variable: "--font-roboto",
 });
 
 export const metadata: Metadata = {
@@ -23,13 +25,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={roboto.variable}>
       <script
         async
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4417366559414884"
         crossOrigin="anonymous"
       ></script>
-      <body className={`${roboto.variable}`}>
+      <body>
         <Header />
         {children}
       </body>
