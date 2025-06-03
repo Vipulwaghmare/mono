@@ -3,3 +3,4 @@ node_modules/
 prometheus.yml
 not-for-git
 test
+.vscode
