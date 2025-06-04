@@ -2,9 +2,9 @@ import Link from "next/link";
 
 export const TAGS = [
   "Javascript",
-  // "React",
+  "React",
   "Basic",
-  // "Intermediate",
+  "Intermediate",
   // "Advanced",
 ] as const;
 

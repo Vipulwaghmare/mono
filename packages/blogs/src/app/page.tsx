@@ -35,6 +35,12 @@ const blogs: BlogCardProps[] = [
   //   excerpt: "Everything you need to know about this keyword",
   //   tags: ["Javascript", "Basic"],
   // },
+  {
+    id: "react-with-webpack",
+    title: "React with webpack",
+    excerpt: "Start a react app with webpack from scratch.",
+    tags: ["React", "Intermediate"],
+  },
 ];
 
 export default function Home() {
