@@ -41,6 +41,12 @@ const blogs: BlogCardProps[] = [
     excerpt: "Start a react app with webpack from scratch.",
     tags: ["React", "Intermediate"],
   },
+  {
+    id: "why-we-need-keys-in-react",
+    title: "Why we need keys in react",
+    excerpt: "Learn why we need keys in react",
+    tags: ["React", "Basic"],
+  },
 ];
 
 export default function Home() {

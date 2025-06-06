@@ -246,6 +246,40 @@ root.render(<FirstComponent />);
                 error we encountered earlier.
               </td>
             </tr>
+            <tr>
+              <td>css-loader</td>
+              <td>
+                You can import css in your js files. This will help webpack work
+                with css and webpack will understand css files.
+              </td>
+            </tr>
+            <tr>
+              <td>style-loader</td>
+              <td>This will help inject css into the styles tag in browser.</td>
+            </tr>
+            {/* <tr>
+              <td>mini-css-extract-plugin</td>
+              <td>Extracts css into seperate files</td>
+            </tr> */}
+            {/* <tr>
+              <td>css-minimizer-webpack-plugin</td>
+              <td>Minify your css</td>
+            </tr> */}
+            <tr>
+              <td>terser-webpack-plugin</td>
+              <td>To Minify our code. </td>
+            </tr>
+            <tr>
+              <td>webpack-bundle-analyzer</td>
+              <td>
+                Shows analysis of the bundle packages. Works for production
+                builds
+              </td>
+            </tr>
+            {/* <tr>
+              <td>xxxxxxxxxxddddxxxx</td>
+              <td>xxxxxxxxxxxxxx</td>
+            </tr> */}
             {/* <tr>
               <td>xxxxxxxxxxddddxxxx</td>
               <td>xxxxxxxxxxxxxx</td>
@@ -253,7 +287,7 @@ root.render(<FirstComponent />);
           </tbody>
         </table>
         <p>Install all of them with below command</p>
-        <CodeBlock>{`npm install -D html-webpack-plugin webpack-dev-server @babel/preset-env @babel/preset-react babel-loader`}</CodeBlock>
+        <CodeBlock>{`npm install -D html-webpack-plugin webpack-dev-server @babel/preset-env @babel/preset-react babel-loader css-loader style-loader mini-css-extract-plugin css-minimizer-webpack-plugin terser-webpack-plugin webpack-bundle-analyzer`}</CodeBlock>
         <p>Lets do changes to config file as following</p>
         <CodeBlock>{`const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
