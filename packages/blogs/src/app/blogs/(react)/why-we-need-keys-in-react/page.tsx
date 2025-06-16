@@ -38,23 +38,7 @@ export default function WhyWeNeedKeysInReact() {
         <p>
           {`But if your array is changing, you are removing elements then? Let's understand`}
         </p>
-        <p>
-          Think like this you are there are 3 elements in an array.{" "}
-          {`['Harry', 'Ron', 'Hermione']`} React knows them by their index cuz
-          you used index as keys. Now you remove item on 1st index, Ron. Now you
-          have 2 elements. React only know thing by their index, thus it thinks
-          Harry is same since index 0, which is same for both render. Now in
-          first render, react knew that the element was Ron but in 2nd render it
-          got changed to Hermione. React will update that element. Ideally,
-          Hermione should have been same cuz it never changed.{" "}
-        </p>
-        <p>
-          {`Now this thing doesn't usually show, when you check app you might not
-          see any error. But it givesu unexpected errors sometimes. If you have
-          tests, well they may fail sometimes. Sometimes you will check that it
-          should display Hermione but it will display Ron and it will rarely
-          happen and may fail your test occasionally.`}
-        </p>
+
         <RenderingWithKeys />
       </div>
     </MainWrapper>

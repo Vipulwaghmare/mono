@@ -56,15 +56,14 @@ export default function DashboardPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <DashboardHeader />
-      <main className="flex-1 p-4 md:p-6">
+      <main className="flex-1 p-4 md:p-4">
         <div className="mx-auto max-w-7xl">
-          <div className="flex items-center justify-between mb-6">
-            <h1 className="text-3xl font-bold">My Diary</h1>
-            {/* <Button onClick={() => navigate("/dashboard/calendar")}>
+          {/* <div className="flex items-center justify-between mb-4">
+            <Button onClick={() => navigate("/dashboard/calendar")}>
               <Calendar className="mr-2 h-4 w-4" />
               View Calendar
-            </Button> */}
-          </div>
+            </Button>
+          </div> */}
 
           {/* Today's Events Alert */}
           {/* {data && showEvents && data.events.length > 0 && (
@@ -93,7 +92,7 @@ export default function DashboardPage() {
           )} */}
 
           {/* Date Selection */}
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between mb-4">
             <Button variant="outline" size="icon" onClick={goToPreviousDay}>
               <ChevronLeft className="h-4 w-4" />
             </Button>

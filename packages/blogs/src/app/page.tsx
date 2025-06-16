@@ -46,6 +46,7 @@ const blogs: BlogCardProps[] = [
     title: "Why we need keys in react",
     excerpt: "Learn why we need keys in react",
     tags: ["React", "Basic"],
+    isDraft: true,
   },
 ];
 

@@ -15,6 +15,7 @@ export interface BlogCardProps {
   title: string;
   excerpt: string;
   tags: TTags[];
+  isDraft?: boolean;
 }
 
 export default function BlogCard({
