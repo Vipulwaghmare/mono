@@ -81,3 +81,5 @@ volumes:
     driver: local
   grafana_data:
     driver: local
+  jenkins_data:
+    driver: local

@@ -92,17 +92,10 @@ watch free -h`}</CodeBlock>
       sudo yum update && sudo yum install git <br />
       Go have some coffee or something
       <p>Install docker</p>
-      <CodeBlock>{`# To install the docker-engine and docker-cli packages.
-sudo yum install docker-engine docker-cli               
-
-# Start the docker service and configure it to start at boot time.
-sudo systemctl enable --now docker               
-
-# To check that the docker service is running, use the following command:
-sudo systemctl status docker               
-
-# You can also use the docker info command to display information about the configuration and version of the Docker Engine.
-sudo docker info
+      <CodeBlock>{`sudo yum install -y yum-utils zip unzip
+sudo yum-config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+sudo yum install -y docker-ce docker-ce-cli containerd.io
+sudo systemctl enable --now docker
 `}</CodeBlock>
       <div>Git clone</div>
     </MainWrapper>
