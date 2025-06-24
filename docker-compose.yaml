@@ -59,6 +59,17 @@ services:
     ports:
       - "3100:3100"
     restart: unless-stopped
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_data:/var/jenkins_home
+    environment:
+      - JENKINS_OPTS="--prefix=/jenkins"
+    restart: unless-stopped
 volumes:
   mongodb_data:
     driver: local

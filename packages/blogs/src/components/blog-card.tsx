@@ -5,6 +5,7 @@ export const TAGS = [
   "React",
   "Basic",
   "Intermediate",
+  "Deployment",
   // "Advanced",
 ] as const;
 

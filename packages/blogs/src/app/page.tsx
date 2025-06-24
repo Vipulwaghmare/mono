@@ -48,6 +48,13 @@ const blogs: BlogCardProps[] = [
     tags: ["React", "Basic"],
     isDraft: true,
   },
+  {
+    id: "oracle-free-deploy",
+    title: "Deploy node apps freely on oracle cloud",
+    excerpt: "Learn how to deploy node apps on oracle cloud",
+    tags: ["Deployment", "Basic"],
+    isDraft: true,
+  },
 ];
 
 export default function Home() {
