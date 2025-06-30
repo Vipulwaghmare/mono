@@ -6,5 +6,14 @@
       "permanent": true
     }
   ],
-  "errorPage": "index.html"
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/$1"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/"
+    }
+  ]
 }
