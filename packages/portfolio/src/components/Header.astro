@@ -1,0 +1,83 @@
+---
+const { sticky = false } = Astro.props;
+---
+
+<header class={sticky ? "sticky" : ""}>
+  <div class="container">
+    <div class="logo">
+      <a href="#">VW</a>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="/#home">Home</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#skills">Skills</a></li>
+        <li><a href="/#projects">Projects</a></li>
+        <li><a href="/#contact">Contact</a></li>
+        <li class="theme-toggle" id="themeToggle">
+          <i class="fas fa-sun"></i>
+        </li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const savedTheme = localStorage.getItem("theme") || "dark";
+      document.body.className = savedTheme;
+      updateThemeIcon(savedTheme);
+    });
+    const themeToggle = document.getElementById("themeToggle");
+    if (themeToggle) {
+      themeToggle.addEventListener("click", function () {
+        if (document.body.classList.contains("dark")) {
+          document.body.classList.remove("dark");
+          localStorage.setItem("theme", "");
+          updateThemeIcon("light");
+        } else {
+          document.body.classList.add("dark");
+          localStorage.setItem("theme", "dark");
+          updateThemeIcon("dark");
+        }
+      });
+    }
+    function updateThemeIcon(theme: string) {
+      const icon = themeToggle?.querySelector("i");
+      if (!icon) return;
+      if (theme === "dark") {
+        icon.className = "fas fa-sun";
+      } else {
+        icon.className = "fas fa-moon";
+      }
+    }
+    document
+      .querySelector(".hamburger")
+      ?.addEventListener("click", function () {
+        this.classList.toggle("active");
+        document.querySelector(".nav-links")?.classList.toggle("active");
+      });
+
+    // Smooth Scrolling
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute("href")).scrollIntoView({
+          behavior: "smooth",
+        });
+        // Close mobile menu if open
+        document.querySelector(".hamburger").classList.remove("active");
+        document.querySelector(".nav-links").classList.remove("active");
+      });
+    });
+
+    // Scroll Animation
+    window.addEventListener("scroll", function () {
+      const header = document.querySelector("header");
+      header.classList.toggle("sticky", window.scrollY > 0);
+    });
+  </script>
+</header>
