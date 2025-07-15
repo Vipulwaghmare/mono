@@ -21,12 +21,14 @@ function OrcleFreeDeploy() {
           {`In oracle, you get two instance for free. Low CPU & Low RAM obviously. Search <b>instances</b>. Go into service -> instances. Click on <b>Create Instance</b>.`}{" "}
         </p>
         <p>1. Basic Information </p>
-        I'll go over only important fields you need right now. Others you can
-        look into and fill accordingly. <br />
-        Name: Give a name, you can see this name in the list of your instances.{" "}
+        {`I'll go over only important fields you need right now. Others you can
+        look into and fill accordingly. `}
         <br />
-        Image: The OS you want, there are Oracle Linux, Ubuntu, Red Hat, CentOS,
-        Windows and AlmaLinux. I'll keep Oracle Linux. <br />
+        Name: Give a name, you can see this name in the list of your instances.
+        <br />
+        {`Image: The OS you want, there are Oracle Linux, Ubuntu, Red Hat, CentOS,
+        Windows and AlmaLinux. I'll keep Oracle Linux.`}{" "}
+        <br />
         Shape: The machine you need, keep it the Always free one.
         <p>2. Security </p>
         Keep same
