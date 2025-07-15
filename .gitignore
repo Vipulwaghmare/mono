@@ -4,3 +4,4 @@ prometheus.yml
 not-for-git
 test
 .vscode
+.nx

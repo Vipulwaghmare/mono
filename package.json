@@ -5,14 +5,12 @@
     "packages/*"
   ],
   "devDependencies": {
-    "lerna": "^7.4.2",
-    "nx": "16.10.0",
-    "nx-cloud": "latest"
+    "lerna": "^8.2.3"
   },
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean",
     "publish": "lerna publish",
-    "start:server": "npx lerna exec \"npm run start:dev\" --scope=backend-nestjs"
+    "start:server": "lerna exec \"npm run start:dev\" --scope=backend-nestjs"
   }
 }
