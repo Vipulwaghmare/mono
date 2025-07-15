@@ -68,7 +68,7 @@ services:
     volumes:
       - jenkins_data:/var/jenkins_home
     environment:
-      - JENKINS_OPTS="--prefix=/jenkins"
+      - JENKINS_OPTS="--prefix=/"
     restart: unless-stopped
 volumes:
   mongodb_data:
