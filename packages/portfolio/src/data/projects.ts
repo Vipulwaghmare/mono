@@ -1,0 +1,37 @@
+const projects = [
+  {
+    title: 'Sorting Algorithm visualization',
+    description: 'A react application to visualize the sorting algorithms.',
+    details: 'This project allows users to visualize and understand how different sorting algorithms work step by step. Built with React.',
+    image: '/assets/project/sorting-algo.PNG',
+    alt: 'E-commerce Platform',
+    tech: ['React'],
+    category: 'frontend',
+    demo: 'https://mono-sorting-algo.vercel.app/',
+    github: 'https://github.com/Vipulwaghmare/mono/tree/master/packages/sorting-algo',
+  },
+  {
+    title: 'RESTful API Service',
+    description: 'A scalable RESTful API service with authentication.',
+    details: 'A backend API built with Node.js, NestJS, and MongoDB, featuring JWT authentication and scalable architecture.',
+    image: '/assets/project/backend.png',
+    alt: 'API Service',
+    tech: ['Node.js', 'NestJS', 'MongoDB', 'JWT'],
+    category: 'backend',
+    demo: 'https://api.vipulwaghmare.com/api-docs',
+    github: 'https://github.com/Vipulwaghmare/mono/tree/master/packages/backend-nestjs',
+  },
+  {
+    title: 'Diary App',
+    description: 'A diary app with features like adding entries, editing entries, deleting entries, and viewing entries.',
+    details: 'Diary App lets users manage their daily notes with CRUD features, built using React, NestJS, and MongoDB.',
+    image: '/assets/project/diary.png',
+    alt: 'Diary App',
+    tech: ['React', 'MongoDB', 'NestJS', 'TypeScript'],
+    category: 'fullstack',
+    demo: 'https://diary.vipulwaghmare.com',
+    github: 'https://github.com/Vipulwaghmare/mono/tree/master/packages/diary',
+  },
+];
+
+export default projects; 

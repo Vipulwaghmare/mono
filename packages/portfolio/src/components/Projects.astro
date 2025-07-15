@@ -1,3 +1,7 @@
+---
+import projects from "../data/projects";
+---
+
 <section id="projects" class="projects">
   <div class="container">
     <div class="section-header">
@@ -11,108 +15,44 @@
       <button class="filter-btn" data-filter="backend">Backend</button>
     </div>
     <div class="projects-grid">
-      <div class="project-card" data-category="frontend">
-        <div class="project-img">
-          <img
-            src="/assets/project/sorting-algo.PNG"
-            height="300"
-            width="500"
-            alt="E-commerce Platform"
-          />
-        </div>
-        <div class="project-info">
-          <h3>Sorting Algorithm visualization</h3>
-          <p>A react application to visualize the sorting algorithms.</p>
-          <div class="project-tech">
-            <span>React</span>
+      {
+        projects.map((project, idx) => (
+          <div class="project-card" data-category={project.category} key={idx}>
+            <div class="project-img">
+              <img
+                src={project.image}
+                height="300"
+                width="500"
+                alt={project.alt}
+              />
+            </div>
+            <div class="project-info">
+              <h3>{project.title}</h3>
+              <p>{project.description}</p>
+              <div class="project-tech">
+                {project.tech.map((t) => (
+                  <span>{t}</span>
+                ))}
+              </div>
+              <div class="project-links">
+                <a href={project.demo} target="_blank" class="btn small-btn">
+                  View Demo
+                </a>
+                <a
+                  href={project.github}
+                  target="_blank"
+                  class="btn small-btn secondary-btn"
+                >
+                  GitHub
+                </a>
+              </div>
+            </div>
           </div>
-          <div class="project-links">
-            <a
-              href="https://mono-sorting-algo.vercel.app/"
-              target="_blank"
-              class="btn small-btn">View Demo</a
-            >
-            <a
-              href="https://github.com/Vipulwaghmare/mono/tree/master/packages/sorting-algo"
-              target="_blank"
-              class="btn small-btn secondary-btn">GitHub</a
-            >
-          </div>
-        </div>
-      </div>
-      <div class="project-card" data-category="backend">
-        <div class="project-img">
-          <img
-            src="/assets/project/backend.png"
-            height="300"
-            width="500"
-            alt="API Service"
-          />
-        </div>
-        <div class="project-info">
-          <h3>RESTful API Service</h3>
-          <p>A scalable RESTful API service with authentication.</p>
-          <div class="project-tech">
-            <span>Node.js</span>
-            <span>NestJS</span>
-            <span>MongoDB</span>
-            <span>JWT</span>
-          </div>
-          <div class="project-links">
-            <a
-              href="https://api.vipulwaghmare.com/api-docs"
-              class="btn small-btn"
-              target="_blank">View Demo</a
-            >
-            <a
-              href="https://github.com/Vipulwaghmare/mono/tree/master/packages/backend-nestjs"
-              class="btn small-btn secondary-btn"
-              target="_blank">GitHub</a
-            >
-          </div>
-        </div>
-      </div>
-      <div class="project-card" data-category="fullstack">
-        <div class="project-img">
-          <img
-            src="/assets/project/diary.png"
-            height="300"
-            width="500"
-            alt="Diary App"
-          />
-        </div>
-        <div class="project-info">
-          <h3>Diary App</h3>
-          <p>
-            A diary app with features like adding entries, editing entries,
-            deleting entries, and viewing entries.
-          </p>
-          <div class="project-tech">
-            <span>React</span>
-            <span>MongoDB</span>
-            <span>NestJS</span>
-            <span>TypeScript</span>
-          </div>
-          <div class="project-links">
-            <a
-              href="https://diary.vipulwaghmare.com"
-              class="btn small-btn"
-              target="_blank">View Demo</a
-            >
-            <a
-              href="https://github.com/Vipulwaghmare/mono/tree/master/packages/diary"
-              class="btn small-btn secondary-btn"
-              target="_blank">GitHub</a
-            >
-          </div>
-        </div>
-      </div>
+        ))
+      }
     </div>
-    <!-- <div class="view-more">
-      <a href="projects.html" class="btn primary-btn">View All Projects</a>
-    </div> -->
   </div>
-  <script>
+  <script type="module" client:visible>
     const filterBtns = document.querySelectorAll(".filter-btn");
     const projectCards = document.querySelectorAll(".project-card");
     filterBtns.forEach((btn) => {
