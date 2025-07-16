@@ -17,7 +17,12 @@ import projects from "../data/projects";
     <div class="projects-grid">
       {
         projects.map((project, idx) => (
-          <div class="project-card" data-category={project.category} key={idx}>
+          <div
+            class="project-card"
+            data-category={project.category}
+            key={idx}
+            id={project.id || undefined}
+          >
             <div class="project-img">
               <img
                 src={project.image}
