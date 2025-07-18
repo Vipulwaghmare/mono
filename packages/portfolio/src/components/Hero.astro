@@ -1,7 +1,7 @@
 ---
 import Social from "./Social.astro";
-import { Image } from "astro:assets";
-import mainImg from "../assets/profile_pic.jpg";
+// import { Image } from "astro:assets";
+// import mainImg from "../assets/profile_pic.jpg";
 ---
 
 <section id="home" class="hero">
@@ -23,12 +23,11 @@ import mainImg from "../assets/profile_pic.jpg";
     </div>
     <div class="hero-image">
       <div class="image-container">
-        <Image
-          src={mainImg}
+        <img
+          src="/assets/profile_pic.jpg"
           height="400"
           width="400"
           alt="Vipul Waghmare"
-          loading="eager"
         />
       </div>
     </div>

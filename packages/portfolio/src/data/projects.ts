@@ -2,6 +2,7 @@ import Experience from '../project-details/experience.astro';
 import Porfolio from '../project-details/portfolio.astro';
 import SortingAlgo from '../project-details/sorting-algo.astro';
 import Apis from '../project-details/apis.astro';
+import Monitoring from '../project-details/monitoring.astro';
 import Diary from '../project-details/diary.astro';
 
 const projects = [
@@ -32,6 +33,15 @@ const projects = [
     demo: 'https://api.vipulwaghmare.com/api-docs',
     github: 'https://github.com/Vipulwaghmare/mono/tree/master/packages/backend-nestjs',
     Accordion: Apis
+  },
+  {
+    title: 'Backend Monitoring',
+    description: 'Graphana credentials: username: vwaghmare, password: password',
+    details: '',
+    demo: 'http://graphana.vipulwaghmare.com/',
+    tech: ['Prometheus', 'Graphana', 'Loki'],
+    category: 'backend',
+    Accordion: Monitoring
   },
   {
     title: 'Diary App',

@@ -1,6 +1,6 @@
 ---
-import { Image } from "astro:assets";
-import mainImg from "../assets/profile_pic.jpg";
+// import { Image } from "astro:assets";
+// import mainImg from "../assets/profile_pic.jpg";
 ---
 
 <section id="about" class="about">
@@ -11,7 +11,12 @@ import mainImg from "../assets/profile_pic.jpg";
     </div>
     <div class="about-content">
       <div class="about-image">
-        <Image src={mainImg} height="400" width="400" alt="Vipul Waghmare" />
+        <img
+          src="/assets/profile_pic.jpg"
+          height="400"
+          width="400"
+          alt="Vipul Waghmare"
+        />
       </div>
       <div class="about-text">
         <h3>Who am I?</h3>
