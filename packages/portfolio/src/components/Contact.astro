@@ -1,3 +1,7 @@
+---
+import Social from "./Social.astro";
+---
+
 <section id="contact" class="contact">
   <div class="container">
     <div class="section-header">
@@ -32,9 +36,7 @@
           </div>
         </div>
         <div class="social-icons">
-          <a href="https://www.github.com/vipulwaghmare" target="_blank"><i class="fab fa-github"></i></a>
-          <a href="https://www.linkedin.com/in/vipulwaghmare/" target="_blank"><i class="fab fa-linkedin"></i></a>
-          <a href="https://x.com/waghmarevipul22" target="_blank"><i class="fab fa-twitter"></i></a>
+          <Social />
         </div>
       </div>
       <div class="contact-form">
@@ -75,8 +77,7 @@
               id="message"
               name="message"
               placeholder="Your Message"
-              required
-            ></textarea>
+              required></textarea>
           </div>
           <div class="form-message" id="formMessage"></div>
           <button type="submit" class="btn primary-btn" id="submitBtn">
@@ -90,52 +91,52 @@
     const contactForm = document.getElementById("contactForm");
     const formMessage = document.getElementById("formMessage");
     const submitBtn = document.getElementById("submitBtn");
-    if ( contactForm) {
-    contactForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-      if (!submitBtn || !formMessage) return;
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Sending...";
-      const formData = {
-        name: document.getElementById("name")?.value || '',
-        email: document.getElementById("email")?.value || '',
-        subject: document.getElementById("subject")?.value || '',
-        message: document.getElementById("message")?.value || '',
-      };
-      fetch("https://api.vipulwaghmare.com/api/v1/message/contact-me/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          return response.json();
+    if (contactForm) {
+      contactForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (!submitBtn || !formMessage) return;
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending...";
+        const formData = {
+          name: document.getElementById("name")?.value || "",
+          email: document.getElementById("email")?.value || "",
+          subject: document.getElementById("subject")?.value || "",
+          message: document.getElementById("message")?.value || "",
+        };
+        fetch("https://api.vipulwaghmare.com/api/v1/message/contact-me/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
         })
-        .then((data) => {
-          formMessage.textContent =
-            "Your message has been sent successfully!";
-          formMessage.className = "form-message success";
-          contactForm.reset();
-        })
-        .catch((error) => {
-          formMessage.textContent =
-            "There was an error sending your message. Please try again.";
-          formMessage.className = "form-message error";
-          console.error("Error:", error);
-        })
-        .finally(() => {
-          submitBtn.disabled = false;
-          submitBtn.textContent = "Send Message";
-          setTimeout(() => {
-            formMessage.textContent = "";
-            formMessage.className = "form-message";
-          }, 5000);
-        });
-    });
-  }
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            formMessage.textContent =
+              "Your message has been sent successfully!";
+            formMessage.className = "form-message success";
+            contactForm.reset();
+          })
+          .catch((error) => {
+            formMessage.textContent =
+              "There was an error sending your message. Please try again.";
+            formMessage.className = "form-message error";
+            console.error("Error:", error);
+          })
+          .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Send Message";
+            setTimeout(() => {
+              formMessage.textContent = "";
+              formMessage.className = "form-message";
+            }, 5000);
+          });
+      });
+    }
   </script>
-</section> 
+</section>

@@ -1,5 +1,6 @@
 ---
 import projects from "../data/projects";
+import ProjectCard from "./ProjectCard.astro";
 ---
 
 <section id="projects" class="projects">
@@ -17,47 +18,13 @@ import projects from "../data/projects";
     <div class="projects-grid">
       {
         projects.map((project, idx) => (
-          <div
-            class="project-card"
-            data-category={project.category}
-            key={idx}
-            id={project.id || undefined}
-          >
-            <div class="project-img">
-              <img
-                src={project.image}
-                height="300"
-                width="500"
-                alt={project.alt}
-              />
-            </div>
-            <div class="project-info">
-              <h3>{project.title}</h3>
-              <p>{project.description}</p>
-              <div class="project-tech">
-                {project.tech.map((t) => (
-                  <span>{t}</span>
-                ))}
-              </div>
-              <div class="project-links">
-                <a href={project.demo} target="_blank" class="btn small-btn">
-                  View Demo
-                </a>
-                <a
-                  href={project.github}
-                  target="_blank"
-                  class="btn small-btn secondary-btn"
-                >
-                  GitHub
-                </a>
-              </div>
-            </div>
-          </div>
+          <ProjectCard project={project} idx={idx} />
         ))
       }
     </div>
   </div>
-  <script type="module" client:visible>
+  <script type="module">
+    // Filter logic only
     const filterBtns = document.querySelectorAll(".filter-btn");
     const projectCards = document.querySelectorAll(".project-card");
     filterBtns.forEach((btn) => {
@@ -70,11 +37,59 @@ import projects from "../data/projects";
             filter === "all" ||
             card.getAttribute("data-category") === filter
           ) {
-            card.style.display = "block";
+            card.style.display = "flex";
           } else {
             card.style.display = "none";
           }
         });
+      });
+    });
+  </script>
+  <script type="module">
+    document.addEventListener("DOMContentLoaded", () => {
+      const grid = document.querySelector(".projects-grid");
+      if (!grid) return;
+
+      grid.addEventListener("click", (e) => {
+        const card = e.target.closest(".project-card");
+        if (!card || !grid.contains(card)) return;
+
+        // Prevent toggling if a link is clicked
+        if (e.target.tagName === "A" || e.target.closest("a")) return;
+
+        // Prevent toggling if clicking inside the accordion content
+        const accordion = card.querySelector(".project-accordion");
+        if (accordion && accordion.contains(e.target)) return;
+
+        const chevron = card.querySelector(".chevron");
+        const isOpen = card.getAttribute("data-open") === "true";
+
+        if (isOpen) {
+          card.setAttribute("data-open", "false");
+          card.classList.remove("open");
+          chevron.style.transform = "";
+          accordion.style.maxHeight = "0";
+          accordion.style.padding = "0 24px";
+        } else {
+          card.setAttribute("data-open", "true");
+          card.classList.add("open");
+          chevron.style.transform = "rotate(180deg)";
+          accordion.style.maxHeight = "fit-content";
+          accordion.style.padding = "20px 24px";
+        }
+      });
+
+      // Optionally, initialize all cards as closed
+      grid.querySelectorAll(".project-card").forEach((card) => {
+        card.setAttribute("data-open", "false");
+        card.classList.remove("open");
+        const chevron = card.querySelector(".chevron");
+        const accordion = card.querySelector(".project-accordion");
+        if (chevron) chevron.style.transform = "";
+        if (accordion) {
+          accordion.style.maxHeight = "0";
+          accordion.style.padding = "0 24px";
+        }
       });
     });
   </script>

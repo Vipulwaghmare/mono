@@ -1,3 +1,8 @@
+---
+import { Image } from "astro:assets";
+import mainImg from "../assets/profile_pic.jpg";
+---
+
 <section id="about" class="about">
   <div class="container">
     <div class="section-header">
@@ -6,12 +11,7 @@
     </div>
     <div class="about-content">
       <div class="about-image">
-        <img
-          src="./assets//profile_pic.jpg"
-          height="400"
-          width="400"
-          alt="Vipul Waghmare"
-        />
+        <Image src={mainImg} height="400" width="400" alt="Vipul Waghmare" />
       </div>
       <div class="about-text">
         <h3>Who am I?</h3>
@@ -51,8 +51,7 @@
         <a
           href="./assets/vipul_waghmare_resume.pdf"
           download="Vipul_Waghmare_Resume.pdf"
-          class="btn primary-btn"
-          >Download CV</a
+          class="btn primary-btn">Download CV</a
         >
       </div>
     </div>

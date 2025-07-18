@@ -2,13 +2,27 @@ const skillsData = [
   {
     title: 'Frontend',
     skills: [
-      { name: 'React.js', icon: 'fab fa-react', size: 'large' },
-      { name: 'JavaScript', icon: 'fab fa-js', size: 'large' },
-      { name: 'TypeScript', icon: '', size: 'large' },
       { name: 'HTML5', icon: 'fab fa-html5', size: 'large' },
       { name: 'CSS3', icon: 'fab fa-css3-alt', size: 'large' },
+      { name: 'JavaScript', icon: 'fab fa-js', size: 'large' },
+      { name: 'TypeScript', icon: '', size: 'large' },
+      { name: 'React.js', icon: 'fab fa-react', size: 'large' },
+      { name: 'NextJs', icon: 'fab fa-sass', size: 'large' },
       { name: 'Redux', icon: 'fas fa-code', size: 'large' },
       { name: 'Sass', icon: 'fab fa-sass', size: 'large' },
+    ],
+  },
+  {
+    title: 'Libraries',
+    skills: [
+      { name: 'React Hook Form', icon: '', size: 'medium' },
+      { name: 'React Query', icon: '', size: 'medium' },
+      { name: 'Redux toolkit', icon: '', size: 'medium' },
+      { name: 'Highcharts', icon: '', size: 'medium' },
+      { name: 'AgCharts', icon: '', size: 'medium' },
+      { name: 'Material UI', icon: '', size: 'medium' },
+      { name: 'Shadcn', icon: '', size: 'medium' },
+      { name: 'Lodash', icon: '', size: 'medium' },
     ],
   },
   {
@@ -18,6 +32,8 @@ const skillsData = [
       { name: 'Express.js', icon: 'fas fa-server', size: 'large' },
       { name: 'NestJs', icon: '', size: 'large' },
       { name: 'RESTful APIs', icon: 'fas fa-exchange-alt', size: 'medium' },
+      { name: 'Python', icon: 'fab fa-python', size: 'medium' },
+      { name: 'Flask', icon: 'fas fa-flask', size: 'medium' },
     ],
   },
   {

@@ -1,0 +1,62 @@
+---
+export interface Props {
+  items: string[];
+}
+const { items } = Astro.props;
+
+// Simple markdown-like parser for bold, italics, underline
+function parseFormatting(str: string) {
+  return str
+    .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
+    .replace(/\*(.*?)\*/g, "<i>$1</i>")
+    .replace(/__(.*?)__/g, "<u>$1</u>");
+}
+---
+
+<div class="project-details-card">
+  <h4 class="project-details-title">What I did in this project:</h4>
+  <ul class="project-details-list">
+    {
+      items.map((item) => (
+        <li class="project-details-list-item">
+          <span class="project-details-icon">✔️</span>
+          <span set:html={parseFormatting(item)} />
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  /* .project-details-card {
+    background: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 4px 16px var(--shadow-color);
+    padding: 24px 28px;
+    margin: 16px 0;
+  } */
+  .project-details-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--primary-color);
+  }
+  .project-details-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .project-details-list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: var(--text-color);
+  }
+  .project-details-icon {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    margin-top: 2px;
+  }
+</style>

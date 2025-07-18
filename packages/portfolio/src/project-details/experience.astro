@@ -1,0 +1,29 @@
+---
+import ProjectDetails from "../components/ProjectDetails.astro";
+const projectTasks = [
+  "Developed complex, deeply nested forms using React Hooks; later migrated to React Hook Form to minimize rerenders, eliminating input lag and significantly **improving performance** on heavily nested fields.",
+  "Optimized application performance by implementing lazy loading with React.lazy and code splitting, **reducing initial bundle size by 75%** and significantly improving load times.",
+  "Migrated legacy class-based components to modern functional components, improving code maintainability and scalability; refactored shared logic from HOCs into reusable custom hooks.",
+  "Migrated legacy codebase from Create React App (CRA - Webpack) to Vite, resulting in significantly faster build times, faster development time with HMR and integrated TypeScript support for improved developer experience.",
+  "Collaborated with backend developers to integrate frontend components with RESTful APIs, leveraging Axios and React Query for efficient data fetching, caching, and robust error and loading state management.",
+  "Migrated from Redux to Redux Toolkit, reducing boilerplate and streamlining the codebase; transitioned all API calls to RTK Query for efficient data fetching with built-in caching, error handling, and loading state management.",
+  "Set up ESLint, Prettier, Husky, and TypeScript to enforce consistent coding standards, improve code quality, and streamline the development workflow",
+  "Actively participated in regular code reviews to maintain code quality and promote team-wide knowledge sharing.",
+  "Implemented component and end-to-end testing for React applications using Cypress and Playwright to ensure functionality and prevent regressions; achieved 100% test coverage and integrated test suites with GitHub Actions for continuous testing in the CI/CD pipeline",
+  "Collaborated with the UX team to define and implement design system tokens, ensuring 100% design-to-development consistency across the application",
+  "Integrated monitoring and logging solutions like Sentry to proactively track, debug, and resolve production issues, enhancing application stability and user experience.",
+  "Implemented secure JWT-based authentication with refresh tokens, and built session-based login using Redis for scalable and efficient session management.",
+  "Developed a full-featured ticketing platform with a React frontend, Node.js backend, and MySQL database, enabling end-to-end ticket management functionality.",
+  "Worked with S3 to handle files with Express and Flask",
+  "Authored comprehensive Swagger (OpenAPI) documentation to clearly define API contracts and improve developer onboarding and collaboration.",
+  "Actively participated in Agile processes—including sprint planning, daily stand-ups, and retrospectives—to ensure timely and scoped delivery of features",
+  "Conducted tech talks on various engineering topics to share knowledge, promote best practices, and foster team learning.",
+  "I have addressed security vulnerabilities by auditing the dependencies using npm audit and ensured that all critical issues are resolved, keeping our project secure and up to date.",
+  "Build, deployed and maintained npm package, private to the organization.",
+  "Implemented dashboards using Highcharts, Agcharts. Making sure they are performant and responsive for different themes.",
+  "Used google analytics to keeping track of users and their behavior on the website and different events on the website.",
+  "Developed and maintained React applications integrated with Firebase for real-time data synchronization and authentication.",
+];
+---
+
+<ProjectDetails items={projectTasks} />

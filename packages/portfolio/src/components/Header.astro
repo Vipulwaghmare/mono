@@ -5,18 +5,18 @@ const { sticky = false } = Astro.props;
 <header class={sticky ? "sticky" : ""}>
   <div class="container">
     <div class="logo">
-      <a href="#">VW</a>
+      <a href="#home">VW</a>
     </div>
     <nav>
       <ul class="nav-links">
         <li><a href="/#home">Home</a></li>
-        <li><a href="/#about">About</a></li>
-        <li><a href="/#skills">Skills</a></li>
         <li><a href="/#projects">Projects</a></li>
+        <li><a href="/#skills">Skills</a></li>
+        <li><a href="/#about">About</a></li>
         <li><a href="/#contact">Contact</a></li>
-        <li class="theme-toggle" id="themeToggle">
+        <button class="theme-toggle" id="themeToggle">
           <i class="fas fa-sun"></i>
-        </li>
+        </button>
       </ul>
       <div class="hamburger">
         <span></span>

@@ -1,0 +1,68 @@
+---
+const { project, idx } = Astro.props;
+const { Accordion } = project;
+---
+
+<div
+  class="project-card"
+  data-category={project.category}
+  id={project.id || undefined}
+  data-open="false"
+>
+  <div class="project-card-row">
+    <div class="project-card-left">
+      <h3>{project.title}</h3>
+      <p>{project.description}</p>
+      <div class="project-tech">
+        {
+          Array.isArray(project.tech) && project.tech.length > 0 && (
+            <>
+              {(() => {
+                const items = [];
+                for (const t of project.tech) {
+                  items.push(<span>{t}</span>);
+                }
+                return items;
+              })()}
+            </>
+          )
+        }
+      </div>
+    </div>
+    <div class="project-card-right">
+      {
+        project.demo && (
+          <a href={project.demo} target="_blank" class="btn small-btn">
+            View Demo
+          </a>
+        )
+      }
+      {
+        project.github && (
+          <a
+            href={project.github}
+            target="_blank"
+            class="btn small-btn secondary-btn"
+          >
+            GitHub
+          </a>
+        )
+      }
+      <button class="accordion-toggle" aria-label="Toggle details">
+        <svg class="chevron" width="24" height="24" viewBox="0 0 24 24"
+          ><path
+            d="M8 10l4 4 4-4"
+            stroke="currentColor"
+            stroke-width="2"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path></svg
+        >
+      </button>
+    </div>
+  </div>
+  <div class="project-accordion">
+    <!-- <div>Accordion content for {project.title}</div> -->
+    <Accordion />
+  </div>
+</div>

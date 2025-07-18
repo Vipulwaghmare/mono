@@ -144,6 +144,8 @@ img {
   align-items: center;
   margin-left: 20px;
   cursor: pointer;
+  border: none;
+  background: none;
 }
 
 .theme-toggle i {
@@ -218,7 +220,7 @@ header .container {
 
 .hamburger {
   display: none;
-  cursor: pointer;
+  cursor: pointer;x
 }
 
 .hamburger span {
@@ -550,8 +552,8 @@ header .container {
 }
 
 .projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 30px;
   margin-bottom: 40px;
 }
@@ -562,27 +564,58 @@ header .container {
   overflow: hidden;
   box-shadow: 0 5px 15px var(--shadow-color);
   transition: var(--transition);
+  display: flex;
 }
 
-.project-card:hover {
+/* .project-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 15px 30px var(--shadow-color);
+} */
+
+/* ProjectCard new layout styles */
+.project-card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+  padding: 20px 24px 20px 24px;
 }
 
-.project-img {
-  height: 200px;
-  overflow: hidden;
+@media (max-width: 700px) {
+  .project-card-row {
+    flex-direction: column;
+    gap: 8px;
+  }
 }
-
-.project-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: var(--transition);
+.project-card-left {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-self: baseline;
 }
-
-.project-card:hover .project-img img {
-  transform: scale(1.1);
+.project-card-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+.accordion-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+.accordion-toggle .chevron {
+  transition: transform 0.3s;
+  color: var(--text-color);
+}
+.project-card.open .accordion-toggle .chevron {
+  transform: rotate(180deg);
 }
 
 .project-info {
@@ -898,6 +931,30 @@ footer {
 
 .footer-bottom p {
   color: var(--secondary-color);
+}
+
+/* Accordion styles for project cards */
+.project-card {
+  flex-direction: column;
+  cursor: pointer;
+  transition:
+    box-shadow 0.3s,
+    border-radius 0.3s;
+}
+.project-card .project-accordion {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--card-bg);
+  border-top: 1px solid var(--border-color);
+  padding: 0 20px;
+}
+.project-card.open .project-accordion {
+  /* max-height: 500px; */
+  padding: 20px;
+  transition:
+    max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    padding 0.3s;
 }
 
 /* Responsive Design */
