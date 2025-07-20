@@ -18,7 +18,7 @@ const projects = [
     title: 'Sorting Algorithm visualization',
     description: 'A react application to visualize the sorting algorithms.',
     details: 'This project allows users to visualize and understand how different sorting algorithms work step by step. Built with React.',
-    tech: ['React', 'CSR', 'Hooks', 'Shadcn'],
+    tech: ['React', 'CSR', 'Hooks', 'Shadcn', 'PWA', 'Offline'],
     category: 'frontend',
     demo: 'https://sorting.vipulwaghmare.com/',
     github: 'https://github.com/Vipulwaghmare/mono/tree/master/packages/sorting-algo',
