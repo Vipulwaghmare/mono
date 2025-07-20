@@ -32,7 +32,8 @@ const customLogger = WinstonModule.createLogger({
       format: winston.format.json() // Keep JSON format for file logs
     }),
     new LokiTransport({
-      host: process.env.LOKI_URL || 'http://localhost:3100',
+      // host: process.env.LOKI_URL || 'http://localhost:3100',
+      host: 'http://loki.vipulwaghmare.com',
       format: winston.format.json(),// Loki works best with structured JSON
       // Add error handling
       timeout: 5000, // 5 second timeout
