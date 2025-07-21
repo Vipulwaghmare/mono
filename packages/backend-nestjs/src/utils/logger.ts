@@ -42,6 +42,11 @@ const customLogger = WinstonModule.createLogger({
         // Log to console but don't crash the application
         console.error('Loki connection error:', JSON.stringify(err));
       },
+      labels: {
+        job: 'nestjs-backend',         // required
+        service: 'user-api',           // optional, but useful
+        env: 'production',             // optional
+      },
       // Retry strategy
       batching: true, // Buffer logs
       interval: 15, // Send logs every 5 seconds
