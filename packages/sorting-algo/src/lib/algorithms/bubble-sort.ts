@@ -5,8 +5,7 @@ export const bubbleSort = async ({
   sortingRef,
   setCurrentIndices,
   setComparisonCount,
-  timeoutRef,
-  getDelay,
+  delay,
   setArray,
   setSwapCount,
   setIsSorted,
@@ -27,9 +26,7 @@ export const bubbleSort = async ({
       setComparisonCount((prev) => prev + 1);
 
       // Wait for visualization
-      await new Promise((resolve) => {
-        timeoutRef.current = setTimeout(resolve, getDelay());
-      });
+      await delay();
 
       if (arrayCopy[j] > arrayCopy[j + 1]) {
         // Swap elements
@@ -39,9 +36,7 @@ export const bubbleSort = async ({
         swapped = true;
 
         // Wait for visualization after swap
-        await new Promise((resolve) => {
-          timeoutRef.current = setTimeout(resolve, getDelay());
-        });
+        await delay();
       }
     }
 
@@ -53,9 +48,7 @@ export const bubbleSort = async ({
     if (!sortingRef.current) return;
 
     setCurrentIndices([i, -1]);
-    await new Promise((resolve) => {
-      timeoutRef.current = setTimeout(resolve, 10);
-    });
+    await delay(10);
   }
 
   setCurrentIndices([-1, -1]);

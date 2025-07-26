@@ -5,8 +5,7 @@ export async function mergeSort({
   sortingRef,
   setCurrentIndices,
   setComparisonCount,
-  timeoutRef,
-  getDelay,
+  delay,
   setArray,
   setSwapCount,
   setIsSorted,
@@ -41,9 +40,7 @@ export async function mergeSort({
       setComparisonCount((prev) => prev + 1);
 
       // Wait for visualization
-      await new Promise((resolve) => {
-        timeoutRef.current = setTimeout(resolve, getDelay());
-      });
+      await delay();
 
       if (L[i] <= R[j]) {
         arr[k] = L[i];
@@ -58,9 +55,7 @@ export async function mergeSort({
       k++;
 
       // Wait for visualization after placement
-      await new Promise((resolve) => {
-        timeoutRef.current = setTimeout(resolve, getDelay() / 2);
-      });
+      await delay();
     }
 
     // Copy remaining elements
@@ -75,9 +70,7 @@ export async function mergeSort({
       k++;
 
       // Wait for visualization
-      await new Promise((resolve) => {
-        timeoutRef.current = setTimeout(resolve, getDelay() / 2);
-      });
+      await delay();
     }
 
     while (j < n2) {
@@ -91,9 +84,7 @@ export async function mergeSort({
       k++;
 
       // Wait for visualization
-      await new Promise((resolve) => {
-        timeoutRef.current = setTimeout(resolve, getDelay() / 2);
-      });
+      await delay();
     }
   };
 
@@ -123,9 +114,7 @@ export async function mergeSort({
     if (!sortingRef.current) return;
 
     setCurrentIndices([i, -1]);
-    await new Promise((resolve) => {
-      timeoutRef.current = setTimeout(resolve, 10);
-    });
+    await delay(10);
   }
 
   setCurrentIndices([-1, -1]);

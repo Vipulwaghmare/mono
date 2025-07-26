@@ -5,8 +5,7 @@ export const selectionSort = async ({
   sortingRef,
   setCurrentIndices,
   setComparisonCount,
-  timeoutRef,
-  getDelay,
+  delay,
   setArray,
   setSwapCount,
   setIsSorted,
@@ -28,9 +27,7 @@ export const selectionSort = async ({
       setComparisonCount((prev) => prev + 1);
 
       // Wait for visualization
-      await new Promise((resolve) => {
-        timeoutRef.current = setTimeout(resolve, getDelay());
-      });
+      await delay();
 
       if (arrayCopy[j] < arrayCopy[minIndex]) {
         minIndex = j;
@@ -47,9 +44,7 @@ export const selectionSort = async ({
       setSwapCount((prev) => prev + 1);
 
       // Wait for visualization after swap
-      await new Promise((resolve) => {
-        timeoutRef.current = setTimeout(resolve, getDelay());
-      });
+      await delay();
     }
   }
 
@@ -58,9 +53,7 @@ export const selectionSort = async ({
     if (!sortingRef.current) return;
 
     setCurrentIndices([i, -1]);
-    await new Promise((resolve) => {
-      timeoutRef.current = setTimeout(resolve, 10);
-    });
+    await delay(10);
   }
 
   setCurrentIndices([-1, -1]);

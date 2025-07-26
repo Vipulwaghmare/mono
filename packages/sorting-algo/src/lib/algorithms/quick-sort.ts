@@ -5,8 +5,7 @@ export const quickSort = async ({
   sortingRef,
   setCurrentIndices,
   setComparisonCount,
-  timeoutRef,
-  getDelay,
+  delay,
   setArray,
   setSwapCount,
   setIsSorted,
@@ -28,9 +27,8 @@ export const quickSort = async ({
       setComparisonCount((prev) => prev + 1);
 
       // Wait for visualization
-      await new Promise((resolve) => {
-        timeoutRef.current = setTimeout(resolve, getDelay());
-      });
+
+      await delay();
 
       if (arr[j] < pivot) {
         i++;
@@ -41,9 +39,7 @@ export const quickSort = async ({
         setSwapCount((prev) => prev + 1);
 
         // Wait for visualization after swap
-        await new Promise((resolve) => {
-          timeoutRef.current = setTimeout(resolve, getDelay());
-        });
+        await delay();
       }
     }
     // Swap pivot to its final position
@@ -52,9 +48,7 @@ export const quickSort = async ({
     setSwapCount((prev) => prev + 1);
 
     // Wait for visualization after final swap
-    await new Promise((resolve) => {
-      timeoutRef.current = setTimeout(resolve, getDelay());
-    });
+    await delay();
 
     return i + 1;
   };
@@ -84,9 +78,7 @@ export const quickSort = async ({
     if (!sortingRef.current) return;
 
     setCurrentIndices([i, -1]);
-    await new Promise((resolve) => {
-      timeoutRef.current = setTimeout(resolve, 10);
-    });
+    await delay(10);
   }
 
   setCurrentIndices([-1, -1]);

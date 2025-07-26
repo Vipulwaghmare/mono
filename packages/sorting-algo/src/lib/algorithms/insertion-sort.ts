@@ -5,8 +5,7 @@ export const insertionSort = async ({
   sortingRef,
   setCurrentIndices,
   setComparisonCount,
-  timeoutRef,
-  getDelay,
+  delay,
   setArray,
   setSwapCount,
   setIsSorted,
@@ -23,9 +22,7 @@ export const insertionSort = async ({
 
     // Highlight current element being inserted
     setCurrentIndices([i, -1]);
-    await new Promise((resolve) => {
-      timeoutRef.current = setTimeout(resolve, getDelay());
-    });
+    await delay();
 
     while (j >= 0 && arrayCopy[j] > key) {
       if (!sortingRef.current) return;
@@ -35,9 +32,7 @@ export const insertionSort = async ({
       setComparisonCount((prev) => prev + 1);
 
       // Wait for visualization
-      await new Promise((resolve) => {
-        timeoutRef.current = setTimeout(resolve, getDelay());
-      });
+      await delay();
 
       // Move elements
       arrayCopy[j + 1] = arrayCopy[j];
@@ -51,9 +46,7 @@ export const insertionSort = async ({
     setArray([...arrayCopy]);
 
     // Wait for visualization after insertion
-    await new Promise((resolve) => {
-      timeoutRef.current = setTimeout(resolve, getDelay());
-    });
+    await delay();
   }
 
   // Final pass to show sorted array
@@ -61,9 +54,7 @@ export const insertionSort = async ({
     if (!sortingRef.current) return;
 
     setCurrentIndices([i, -1]);
-    await new Promise((resolve) => {
-      timeoutRef.current = setTimeout(resolve, 10);
-    });
+    await delay(10);
   }
 
   setCurrentIndices([-1, -1]);

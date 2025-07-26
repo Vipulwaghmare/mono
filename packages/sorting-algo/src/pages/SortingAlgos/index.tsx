@@ -13,10 +13,11 @@ import {
   quickSort,
   mergeSort,
 } from "../../lib/algorithms";
+import useTimeout from "@/hooks/useTimeout";
 
 export default function SortingVisualizer() {
   const [array, setArray] = useState<number[]>([]);
-  const [arraySize, setArraySize] = useState<number>(50);
+  const [arraySize, setArraySize] = useState<number>(15);
   const [algorithm, setAlgorithm] = useState<string>("bubble");
   const [isSorted, setIsSorted] = useState<boolean>(false);
   const [currentIndices, setCurrentIndices] = useState<number[]>([-1, -1]);
@@ -24,10 +25,10 @@ export default function SortingVisualizer() {
   const [swapCount, setSwapCount] = useState<number>(0);
   const { isSorting, setIsSorting, sortingRef } = useIsSorting();
   const { sortingSpeedRef, sortingSpeed, setSortingSpeed } = useSortingSpeed();
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const { delay } = useTimeout(sortingSpeedRef);
 
   const generateArray = useCallback(() => {
-    if (isSorting) return;
+    if (sortingRef.current) return;
     const newArray = [];
     for (let i = 0; i < arraySize; i++) {
       newArray.push(Math.floor(Math.random() * 100) + 5);
@@ -37,27 +38,16 @@ export default function SortingVisualizer() {
     setComparisonCount(0);
     setSwapCount(0);
     setCurrentIndices([-1, -1]);
-  }, [arraySize, isSorting]);
+  }, [arraySize]);
 
   useEffect(() => {
+    console.log("array", array.join(","));
     generateArray();
   }, [arraySize, generateArray]);
 
   useEffect(() => {
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
     sortingRef.current = isSorting;
   }, [isSorting, sortingRef]);
-
-  const getDelay = () => {
-    return 500 - sortingSpeedRef.current * 4.9; // 500ms at speed 1, 10ms at speed 100
-  };
 
   const startSorting = () => {
     if (isSorting || isSorted) return;
@@ -71,8 +61,7 @@ export default function SortingVisualizer() {
       sortingRef,
       setCurrentIndices,
       setComparisonCount,
-      timeoutRef,
-      getDelay,
+      delay,
       setArray,
       setSwapCount,
       setIsSorted,
@@ -109,7 +98,6 @@ export default function SortingVisualizer() {
       return "bg-primary";
     }
   };
-
   return (
     <>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-4">

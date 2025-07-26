@@ -5,8 +5,7 @@ export type TSortFnPayload = {
   sortingRef: React.RefObject<boolean>;
   setCurrentIndices: React.Dispatch<React.SetStateAction<number[]>>;
   setComparisonCount: React.Dispatch<React.SetStateAction<number>>;
-  timeoutRef: React.RefObject<NodeJS.Timeout | null>;
-  getDelay: () => number;
+  delay: (delay?: number) => Promise<void>;
   setArray: React.Dispatch<React.SetStateAction<number[]>>;
   setSwapCount: React.Dispatch<React.SetStateAction<number>>;
   setIsSorted: React.Dispatch<React.SetStateAction<boolean>>
