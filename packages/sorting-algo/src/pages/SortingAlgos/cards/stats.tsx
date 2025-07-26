@@ -35,13 +35,6 @@ const Stats = ({ algorithm, comparisonCount, swapCount }: StatsProps) => {
           <h3 className="font-medium">Array Accesses:</h3>
           <p className="text-lg">{swapCount}</p>
         </div>
-
-        {/* <div>
-          <h3 className="font-medium">Status:</h3>
-          <p className="text-lg">
-            {isSorting ? "Sorting..." : isSorted ? "Sorted!" : "Ready"}
-          </p>
-        </div> */}
       </CardContent>
     </Card>
   );

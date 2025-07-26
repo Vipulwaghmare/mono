@@ -12,6 +12,7 @@ The application is built using the following technologies:
 - TypeScript: A typed superset of JavaScript that compiles to plain JavaScript.
 - Tailwind CSS: A utility-first CSS framework for rapidly building custom user interfaces.
 - Shadcn: A React UI library for components.
+- PWA: This uses vite plugin to add a service worker to make it offline and works as PWA.
 
 The application is built using the following sorting algorithms:
 

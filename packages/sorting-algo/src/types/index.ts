@@ -1,3 +1,5 @@
+import { MinHeap, MaxHeap } from 'basic-dsa';
+
 export type TSortFnPayload = {
   array: number[];
   sortingRef: React.RefObject<boolean>;
@@ -10,3 +12,7 @@ export type TSortFnPayload = {
   setIsSorted: React.Dispatch<React.SetStateAction<boolean>>
   setIsSorting: (value: boolean) => void;
 };
+
+export type THeapTypes = 'min' | 'max';
+
+export type THeap = MinHeap | MaxHeap;

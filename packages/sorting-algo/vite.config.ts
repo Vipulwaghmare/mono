@@ -7,17 +7,20 @@ import pwaManifest from './pwa-manifest';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react({
-    babel: {
-      plugins: [
-        ["babel-plugin-react-compiler"],
-      ],
-    },
-  }), tailwindcss(),
-  VitePWA(pwaManifest)], resolve: {
+  plugins: [
+    react({
+      babel: {
+        plugins: [
+          ["babel-plugin-react-compiler"],
+        ],
+      },
+    }),
+    tailwindcss(),
+    VitePWA(pwaManifest)
+  ],
+  resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
-
 })
