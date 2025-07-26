@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import useIsSorting from "../../hooks/useIsSorting";
 import useSortingSpeed from "../../hooks/useSortingSpeed";
 import AlgoDetails from "./cards/algo-details";
