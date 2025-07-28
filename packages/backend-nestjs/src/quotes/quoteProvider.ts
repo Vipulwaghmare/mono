@@ -1,6 +1,6 @@
 
 import { Connection } from 'mongoose';
-import { qutoeSchema } from 'src/schemas/quote.schema';
+import { qutoeSchema } from '../schemas/quote.schema';
 
 export const quotesProvider = [
   {
