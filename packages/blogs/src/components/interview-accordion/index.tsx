@@ -2,6 +2,11 @@
 import { useState } from "react";
 import styles from "./accordion.module.css";
 
+export type TQueAccProps = {
+  answer: string;
+  question: string;
+};
+
 const DemoIcon = ({ open }: { open: boolean }) => (
   <svg
     className={open ? styles.iconOpen : styles.icon}
@@ -20,13 +25,7 @@ const DemoIcon = ({ open }: { open: boolean }) => (
   </svg>
 );
 
-const InterviewAccordion = ({
-  question,
-  answer,
-}: {
-  answer: string;
-  question: string;
-}) => {
+const InterviewAccordion = ({ question, answer }: TQueAccProps) => {
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState(false);
   return (

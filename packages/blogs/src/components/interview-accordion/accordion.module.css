@@ -1,10 +1,16 @@
 .item {
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  background: #fff;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
-  transition: box-shadow 0.2s;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  margin-bottom: var(--spacing-md);
+  background: var(--card-bg);
+  box-shadow: 0 1px 4px var(--shadow-color);
+  transition: var(--transition);
+}
+
+body.dark-theme .item {
+  background: var(--dark-card-bg);
+  border-color: var(--dark-border);
+  box-shadow: 0 1px 4px var(--dark-shadow);
 }
 
 .question {
@@ -13,24 +19,43 @@
   width: 100%;
   background: none;
   border: none;
-  padding: 1rem;
-  font-size: 1rem;
-  font-weight: 500;
+  padding: var(--spacing-md);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
   cursor: pointer;
   outline: none;
-  gap: 0.75rem;
-  transition: background 0.2s;
+  gap: var(--spacing-sm);
+  color: var(--text-color);
+  transition: var(--transition);
+  border-radius: var(--border-radius);
+}
+
+body.dark-theme .question {
+  color: var(--dark-text);
 }
 
 .question:hover,
 .question:focus {
-  background: #f5f5f5;
+  background: var(--accent-1);
+}
+
+body.dark-theme .question:hover,
+body.dark-theme .question:focus {
+  background: var(--dark-accent-1);
 }
 
 .answer {
-  padding: 1rem;
-  border-top: 1px solid #e0e0e0;
+  padding: var(--spacing-md);
+  border-top: 1px solid var(--border-color);
   animation: fadeIn 0.2s;
+  color: var(--text-color);
+  background: var(--card-bg);
+}
+
+body.dark-theme .answer {
+  color: var(--dark-text);
+  background: var(--dark-card-bg);
+  border-top: 1px solid var(--dark-border);
 }
 
 @keyframes fadeIn {
@@ -46,19 +71,34 @@
 
 .icon {
   transition: transform 0.2s;
-  margin-right: 0.5rem;
+  margin-right: var(--spacing-xs);
+  color: var(--primary);
+}
+
+body.dark-theme .icon {
+  color: var(--dark-primary);
 }
 
 .iconOpen {
   transform: rotate(180deg);
   transition: transform 0.2s;
-  margin-right: 0.5rem;
+  margin-right: var(--spacing-xs);
+  color: var(--primary);
+}
+
+body.dark-theme .iconOpen {
+  color: var(--dark-primary);
 }
 
 .checkbox {
   margin-left: auto;
-  accent-color: #0070f3;
+  accent-color: var(--primary);
   width: 1.1rem;
   height: 1.1rem;
   cursor: pointer;
+  transition: var(--transition);
+}
+
+body.dark-theme .checkbox {
+  accent-color: var(--dark-primary);
 }

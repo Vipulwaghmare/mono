@@ -90,7 +90,11 @@ export default function Home() {
 
   // Filter blogs based on active tag
   const filteredBlogs = activeTag
-    ? blogs.filter((blog) => blog.tags.includes(activeTag))
+    ? blogs.filter((blog) => {
+        const env = process.env.NODE_ENV;
+        if (env == "production" && blog.isDraft) return false;
+        return blog.tags.includes(activeTag);
+      })
     : blogs;
 
   return (
