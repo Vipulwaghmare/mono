@@ -7,6 +7,7 @@ export const TAGS = [
   "Intermediate",
   "Deployment",
   // "Advanced",
+  "Interview",
 ] as const;
 
 export type TTags = (typeof TAGS)[number];

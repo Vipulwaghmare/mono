@@ -13,7 +13,13 @@ interface HeapNode {
   y: number;
 }
 
-const HeapNodes = ({ heapArray }: { heapArray: number[] }) => {
+const HeapNodes = ({
+  heapArray,
+  highlightedIndices,
+}: {
+  heapArray: number[];
+  highlightedIndices: number[];
+}) => {
   // Calculate node positions for tree visualization
   const calculateNodePositions = (array: number[]): HeapNode[] => {
     if (array.length === 0) return [];
@@ -60,6 +66,20 @@ const HeapNodes = ({ heapArray }: { heapArray: number[] }) => {
 
   const connections = getConnections();
 
+  // Get node color based on highlighting
+  const getNodeColor = (index: number) => {
+    if (highlightedIndices.includes(index)) {
+      return "var(--destructive)"; // Red for highlighted nodes
+    }
+    return "var(--primary)"; // Default color
+  };
+
+  const getNodeTextColor = (index: number) => {
+    if (highlightedIndices.includes(index)) {
+      return "var(--destructive-foreground)";
+    }
+    return "var(--primary-foreground)";
+  };
   return (
     <Card>
       <CardHeader>
@@ -100,18 +120,20 @@ const HeapNodes = ({ heapArray }: { heapArray: number[] }) => {
                     cx={node.x}
                     cy={node.y}
                     r="25"
-                    fill="var(--primary)"
-                    stroke="var(--primary-foreground)"
+                    fill={getNodeColor(node.index)}
+                    stroke={getNodeTextColor(node.index)}
                     strokeWidth="2"
+                    className="transition-all duration-200"
                   />
                   <text
                     x={node.x}
                     y={node.y}
                     textAnchor="middle"
                     dominantBaseline="middle"
-                    fill="var(--primary-foreground)"
+                    fill={getNodeTextColor(node.index)}
                     fontSize="14"
                     fontWeight="bold"
+                    className="transition-all duration-200"
                   >
                     {node.value}
                   </text>

@@ -6,7 +6,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-const HeapArrays = ({ heapArray }: { heapArray: number[] }) => {
+const HeapArrays = ({
+  heapArray,
+  highlightedIndices,
+}: {
+  heapArray: number[];
+  highlightedIndices: number[];
+}) => {
   return (
     <Card>
       <CardHeader>
@@ -24,7 +30,11 @@ const HeapArrays = ({ heapArray }: { heapArray: number[] }) => {
                 heapArray.map((value, index) => (
                   <div
                     key={index}
-                    className="flex flex-col items-center p-2 border rounded"
+                    className={`flex flex-col items-center p-2 border rounded transition-colors duration-200 ${
+                      highlightedIndices.includes(index)
+                        ? "bg-red-100 border-red-500 dark:bg-red-900/20 dark:border-red-500"
+                        : ""
+                    }`}
                   >
                     <span className="text-xs text-muted-foreground">
                       {index}

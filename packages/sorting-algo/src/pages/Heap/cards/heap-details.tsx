@@ -19,10 +19,12 @@ const HeapDetails = ({
   heapType,
   handleHeapTypeChange,
   heap,
+  isAnimating,
 }: {
   heapType: THeapTypes;
   handleHeapTypeChange: (val: THeapTypes) => void;
   heap: THeap;
+  isAnimating: boolean;
 }) => {
   return (
     <Card>
@@ -31,7 +33,11 @@ const HeapDetails = ({
         <CardDescription>Select heap type and view properties</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <Select value={heapType} onValueChange={handleHeapTypeChange}>
+        <Select
+          value={heapType}
+          onValueChange={handleHeapTypeChange}
+          disabled={isAnimating}
+        >
           <SelectTrigger>
             <SelectValue placeholder="Select heap type" />
           </SelectTrigger>

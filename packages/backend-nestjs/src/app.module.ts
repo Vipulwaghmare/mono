@@ -9,11 +9,10 @@ import { AuthModule } from './auth/auth.module';
 import { CryptoService } from './services/crypto.service';
 import { EmailService } from './services/email.service';
 import { PortfolioController } from './portfolio/portfolio.controller';
-// import { ScribbleController } from './scribble/scribble.controller';
 import { DiaryModule } from './diary/diary.module';
 import { PrometheusModule } from './prometheus/prometheus.module';
-// import { MarathiModule } from './marathi/marathi.module';
 import { MessagesModule } from './messages/messages.module';
+import { QuotesModule } from './quotes/quotes.module';
 
 @Module({
   imports: [
@@ -25,8 +24,8 @@ import { MessagesModule } from './messages/messages.module';
     AuthModule,
     DiaryModule,
     PrometheusModule,
-    // MarathiModule,
     MessagesModule,
+    QuotesModule,
   ],
   controllers: [
     AppController,

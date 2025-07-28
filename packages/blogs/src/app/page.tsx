@@ -55,6 +55,34 @@ const blogs: BlogCardProps[] = [
     tags: ["Deployment", "Basic"],
     isDraft: true,
   },
+  {
+    id: "javascript-interview",
+    title: "Javascript Interview",
+    excerpt: "Everything you need to know about javascript interview",
+    tags: ["Javascript", "Interview"],
+    isDraft: true,
+  },
+  {
+    id: "react-interview",
+    title: "React Interview",
+    excerpt: "Everything you need to know about react interview",
+    tags: ["React", "Interview"],
+    isDraft: true,
+  },
+  {
+    id: "css-interview",
+    title: "CSS Interview",
+    excerpt: "Everything you need to know about css interview",
+    tags: ["Interview"],
+    isDraft: true,
+  },
+  {
+    id: "html-interview",
+    title: "HTML Interview",
+    excerpt: "Everything you need to know about html interview",
+    tags: ["Interview"],
+    isDraft: true,
+  },
 ];
 
 export default function Home() {

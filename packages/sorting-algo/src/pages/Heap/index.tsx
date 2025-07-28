@@ -6,11 +6,26 @@ import HeapArrays from "./cards/heap-arrays";
 import HeapDetails from "./cards/heap-details";
 import Operations from "./cards/operations";
 import HeapNodes from "./cards/heap-nodes";
+import useSortingSpeed from "@/hooks/useSortingSpeed";
+import useIsSorting from "@/hooks/useIsSorting";
+import useTimeout from "@/hooks/useTimeout";
 
 const HeapPage = () => {
   const [heap, setHeap] = useState<THeap>(new MinHeap());
   const [heapType, setHeapType] = useState<THeapTypes>("min");
   const [heapArray, setHeapArray] = useState<number[]>([]);
+  const [highlightedIndices, setHighlightedIndices] = useState<number[]>([]);
+  const {
+    isSorting: isAnimating,
+    setIsSorting: setIsAnimating,
+    sortingRef,
+  } = useIsSorting();
+  const {
+    sortingSpeedRef,
+    sortingSpeed: animationSpeed,
+    setSortingSpeed: setAnimationSpeed,
+  } = useSortingSpeed();
+  const { delay } = useTimeout(sortingSpeedRef);
 
   const updateHeapArray = () => {
     setHeapArray(heap.toArray());
@@ -109,13 +124,12 @@ const HeapPage = () => {
   };
 
   return (
-    <>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-        <HeapDetails
-          handleHeapTypeChange={handleHeapTypeChange}
-          heap={heap}
-          heapType={heapType}
-        />
+    <div className="grid grid-cols-2  gap-6">
+      <HeapNodes
+        heapArray={heapArray}
+        highlightedIndices={highlightedIndices}
+      />
+      <div className="grid grid-cols-1 gap-6 mb-8">
         <Operations
           heapType={heapType}
           handleInsert={handleInsert}
@@ -123,11 +137,22 @@ const HeapPage = () => {
           handlePeek={handlePeek}
           handleBuildHeap={handleBuildHeap}
           handleClear={handleClear}
+          animationSpeed={animationSpeed}
+          setAnimationSpeed={setAnimationSpeed}
+          isAnimating={isAnimating}
         />
-        <HeapArrays heapArray={heapArray} />
+        <HeapDetails
+          handleHeapTypeChange={handleHeapTypeChange}
+          heap={heap}
+          heapType={heapType}
+          isAnimating={isAnimating}
+        />
+        <HeapArrays
+          heapArray={heapArray}
+          highlightedIndices={highlightedIndices}
+        />
       </div>
-      <HeapNodes heapArray={heapArray} />
-    </>
+    </div>
   );
 };
 

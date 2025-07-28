@@ -683,6 +683,56 @@
           "Messages"
         ]
       }
+    },
+    "/quotes": {
+      "get": {
+        "operationId": "QuotesController_getQuote",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Random quote successfully fetched",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Quotes"
+        ]
+      },
+      "post": {
+        "operationId": "QuotesController_createQuote",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateQuoteDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Quote successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuoteDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Quotes"
+        ]
+      }
     }
   },
   "info": {
@@ -1564,6 +1614,50 @@
           "email",
           "subject",
           "message"
+        ]
+      },
+      "QuoteDto": {
+        "type": "object",
+        "properties": {
+          "quote": {
+            "type": "string",
+            "description": "The quote text",
+            "example": "To be or not to be, that is the question."
+          },
+          "author": {
+            "type": "string",
+            "description": "The author of the quote",
+            "example": "William Shakespeare"
+          }
+        },
+        "required": [
+          "quote",
+          "author"
+        ]
+      },
+      "CreateQuoteDto": {
+        "type": "object",
+        "properties": {
+          "quote": {
+            "type": "string",
+            "description": "The quote text",
+            "example": "To be or not to be, that is the question."
+          },
+          "author": {
+            "type": "string",
+            "description": "The author of the quote",
+            "example": "William Shakespeare"
+          },
+          "token": {
+            "type": "string",
+            "description": "My Secret token! you are not allowed to add quotes",
+            "example": "I will not tell you XD"
+          }
+        },
+        "required": [
+          "quote",
+          "author",
+          "token"
         ]
       }
     }
