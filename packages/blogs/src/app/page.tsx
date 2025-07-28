@@ -89,13 +89,12 @@ export default function Home() {
   const [activeTag, setActiveTag] = useState<TTags | null>(null);
 
   // Filter blogs based on active tag
-  const filteredBlogs = activeTag
-    ? blogs.filter((blog) => {
-        const env = process.env.NODE_ENV;
-        if (env == "production" && blog.isDraft) return false;
-        return blog.tags.includes(activeTag);
-      })
-    : blogs;
+  const filteredBlogs = blogs.filter((blog) => {
+    const env = process.env.NODE_ENV;
+    if (env == "production" && blog.isDraft) return false;
+    if (!activeTag) return true;
+    return blog.tags.includes(activeTag);
+  });
 
   return (
     <div>
