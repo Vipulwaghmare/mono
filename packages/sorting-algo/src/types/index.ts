@@ -1,4 +1,4 @@
-import { MinHeap, MaxHeap } from 'basic-dsa';
+import { MinHeap, MaxHeap } from '../lib/heap';
 
 export type TSortFnPayload = {
   array: number[];

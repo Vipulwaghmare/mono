@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
-import { MinHeap, MaxHeap } from "basic-dsa";
+import { MinHeap, MaxHeap } from "@/lib/heap";
 import { THeap, THeapTypes } from "@/types";
 import HeapArrays from "./cards/heap-arrays";
 import HeapDetails from "./cards/heap-details";
@@ -11,40 +11,37 @@ import useIsSorting from "@/hooks/useIsSorting";
 import useTimeout from "@/hooks/useTimeout";
 
 const HeapPage = () => {
-  const [heap, setHeap] = useState<THeap>(new MinHeap());
+  const [currentIndices, setCurrentIndices] = useState<number[]>([-1]);
   const [heapType, setHeapType] = useState<THeapTypes>("min");
-  const [heapArray, setHeapArray] = useState<number[]>([]);
-  const [highlightedIndices, setHighlightedIndices] = useState<number[]>([]);
-  const {
-    isSorting: isAnimating,
-    setIsSorting: setIsAnimating,
-    sortingRef,
-  } = useIsSorting();
-  const {
-    sortingSpeedRef,
-    sortingSpeed: animationSpeed,
-    setSortingSpeed: setAnimationSpeed,
-  } = useSortingSpeed();
-  const { delay } = useTimeout(sortingSpeedRef);
+  const [_, setRandomValue] = useState<boolean>(false);
+  const { isSorting: isAnimating } = useIsSorting();
+  const { sortingSpeedRef } = useSortingSpeed(1);
+  const { delay: _delay } = useTimeout(sortingSpeedRef);
 
-  const updateHeapArray = () => {
-    setHeapArray(heap.toArray());
+  const delay = async () => {
+    await _delay();
   };
+
+  const render = () => {
+    setRandomValue((prev) => !prev);
+  };
+  const heapRef = useRef<THeap>(new MinHeap(setCurrentIndices, delay, render));
+  const heap = heapRef.current;
+
+  const heapArray = useMemo(() => {
+    return heap.toArray();
+  }, [render, heap]);
 
   useEffect(() => {
-    updateHeapArray();
+    render();
   }, [heap]);
 
-  const handleHeapTypeChange = (type: THeapTypes) => {
+  const handleHeapTypeChange = async (type: THeapTypes) => {
     setHeapType(type);
-    setHeap((prev) => {
-      const newHeap = type === "min" ? new MinHeap() : new MaxHeap();
-      newHeap.buildNewHeapFromArray(prev.toArray());
-      return newHeap;
-    });
+    await heap.buildNewHeapFromArray(heap.toArray(), heapRef);
   };
 
-  const handleInsert = (inputValue: string) => {
+  const handleInsert = async (inputValue: string) => {
     const value = Number.parseInt(inputValue);
     if (isNaN(value)) {
       toast.error("Invalid Input", {
@@ -52,15 +49,15 @@ const HeapPage = () => {
       });
       return;
     }
-    heap.push(value);
-    updateHeapArray();
+    await heap.push(value);
+    render();
     toast("Element Inserted", {
       description: `${value} has been inserted into the ${heapType} heap`,
     });
   };
 
-  const handleExtractRoot = () => {
-    const root = heap.pop();
+  const handleExtractRoot = async () => {
+    const root = await heap.pop();
     if (root === null) {
       toast.error("Heap Empty", {
         description: "Cannot extract from an empty heap",
@@ -68,13 +65,16 @@ const HeapPage = () => {
       return;
     }
 
-    updateHeapArray();
+    render();
     toast("Root Extracted", {
       description: `${root} has been extracted from the ${heapType} heap`,
     });
   };
 
-  const handlePeek = () => {
+  const handlePeek = async () => {
+    setCurrentIndices([0]);
+    await delay();
+    setCurrentIndices([]);
     const root = heap.peek();
     if (typeof root !== "number") {
       toast.error("Heap Empty", {
@@ -88,7 +88,7 @@ const HeapPage = () => {
     });
   };
 
-  const handleBuildHeap = (buildArrayInput: string) => {
+  const handleBuildHeap = async (buildArrayInput: string) => {
     const arrayStr = buildArrayInput.trim();
     if (!arrayStr) {
       toast.error("Invalid Input", {
@@ -104,8 +104,8 @@ const HeapPage = () => {
         return num;
       });
 
-      heap.buildNewHeapFromArray(array);
-      updateHeapArray();
+      await heap.buildNewHeapFromArray(array, heapRef);
+      render();
       toast("Heap Built", {
         description: `${heapType} heap built from array`,
       });
@@ -117,18 +117,18 @@ const HeapPage = () => {
   };
 
   const handleClear = () => {
-    setHeap(heapType === "min" ? new MinHeap() : new MaxHeap());
-    toast("Heap Cleared", {
-      description: "All elements have been removed from the heap",
-    });
+    (heapRef.current =
+      heapType === "min"
+        ? new MinHeap(setCurrentIndices, delay, render)
+        : new MaxHeap(setCurrentIndices, delay, render)),
+      toast("Heap Cleared", {
+        description: "All elements have been removed from the heap",
+      });
   };
 
   return (
     <div className="grid grid-cols-2  gap-6">
-      <HeapNodes
-        heapArray={heapArray}
-        highlightedIndices={highlightedIndices}
-      />
+      <HeapNodes heapArray={heapArray} highlightedIndices={currentIndices} />
       <div className="grid grid-cols-1 gap-6 mb-8">
         <Operations
           heapType={heapType}
@@ -137,8 +137,6 @@ const HeapPage = () => {
           handlePeek={handlePeek}
           handleBuildHeap={handleBuildHeap}
           handleClear={handleClear}
-          animationSpeed={animationSpeed}
-          setAnimationSpeed={setAnimationSpeed}
           isAnimating={isAnimating}
         />
         <HeapDetails
@@ -147,10 +145,7 @@ const HeapPage = () => {
           heapType={heapType}
           isAnimating={isAnimating}
         />
-        <HeapArrays
-          heapArray={heapArray}
-          highlightedIndices={highlightedIndices}
-        />
+        <HeapArrays heapArray={heapArray} highlightedIndices={currentIndices} />
       </div>
     </div>
   );

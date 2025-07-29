@@ -10,7 +10,6 @@ import { Eye, Minus, Plus, RotateCcw, TreePine } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { THeapTypes } from "@/types";
-import { Slider } from "@/components/ui/slider";
 
 const Operations = ({
   heapType,
@@ -19,8 +18,6 @@ const Operations = ({
   handlePeek,
   handleBuildHeap,
   handleClear,
-  animationSpeed,
-  setAnimationSpeed,
   isAnimating,
 }: {
   heapType: THeapTypes;
@@ -29,8 +26,6 @@ const Operations = ({
   handlePeek: () => void;
   handleBuildHeap: (val: string) => void;
   handleClear: () => void;
-  animationSpeed: number;
-  setAnimationSpeed: (speed: number) => void;
   isAnimating: boolean;
 }) => {
   const [inputValue, setInputValue] = useState<string>("");
@@ -53,19 +48,6 @@ const Operations = ({
         <CardDescription>Perform heap operations</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div>
-          <label className="text-sm font-medium mb-2 block">
-            Animation Speed: {animationSpeed}
-          </label>
-          <Slider
-            value={[animationSpeed]}
-            onValueChange={(value) => setAnimationSpeed(value[0])}
-            min={1}
-            max={100}
-            step={1}
-            disabled={isAnimating}
-          />
-        </div>
         <div className="space-y-2">
           <label className="text-sm font-medium">Insert Element</label>
           <div className="flex gap-2">
