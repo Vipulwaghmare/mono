@@ -40,7 +40,6 @@ const Operations = ({
     handleBuildHeap(buildArrayInput);
     setBuildArrayInput("");
   };
-
   return (
     <Card>
       <CardHeader>

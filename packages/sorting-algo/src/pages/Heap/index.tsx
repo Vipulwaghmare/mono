@@ -14,7 +14,8 @@ const HeapPage = () => {
   const [currentIndices, setCurrentIndices] = useState<number[]>([-1]);
   const [heapType, setHeapType] = useState<THeapTypes>("min");
   const [_, setRandomValue] = useState<boolean>(false);
-  const { isSorting: isAnimating } = useIsSorting();
+  const { isSorting: isAnimating, setIsSorting: setIsAnimating } =
+    useIsSorting();
   const { sortingSpeedRef } = useSortingSpeed(1);
   const { delay: _delay } = useTimeout(sortingSpeedRef);
 
@@ -42,6 +43,7 @@ const HeapPage = () => {
   };
 
   const handleInsert = async (inputValue: string) => {
+    setIsAnimating(true);
     const value = Number.parseInt(inputValue);
     if (isNaN(value)) {
       toast.error("Invalid Input", {
@@ -54,9 +56,11 @@ const HeapPage = () => {
     toast("Element Inserted", {
       description: `${value} has been inserted into the ${heapType} heap`,
     });
+    setIsAnimating(false);
   };
 
   const handleExtractRoot = async () => {
+    setIsAnimating(true);
     const root = await heap.pop();
     if (root === null) {
       toast.error("Heap Empty", {
@@ -69,9 +73,11 @@ const HeapPage = () => {
     toast("Root Extracted", {
       description: `${root} has been extracted from the ${heapType} heap`,
     });
+    setIsAnimating(false);
   };
 
   const handlePeek = async () => {
+    setIsAnimating(true);
     setCurrentIndices([0]);
     await delay();
     setCurrentIndices([]);
@@ -86,9 +92,11 @@ const HeapPage = () => {
     toast("Peek Result", {
       description: `The ${heapType === "min" ? "minimum" : "maximum"} element is ${root}`,
     });
+    setIsAnimating(false);
   };
 
   const handleBuildHeap = async (buildArrayInput: string) => {
+    setIsAnimating(true);
     const arrayStr = buildArrayInput.trim();
     if (!arrayStr) {
       toast.error("Invalid Input", {
@@ -114,6 +122,7 @@ const HeapPage = () => {
         description: "Please enter valid comma-separated numbers",
       });
     }
+    setIsAnimating(false);
   };
 
   const handleClear = () => {
