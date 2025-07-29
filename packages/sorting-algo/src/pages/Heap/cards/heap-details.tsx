@@ -70,7 +70,7 @@ const HeapDetails = ({
           </div>
         </div>
 
-        <div>
+        {/* <div>
           <h3 className="font-medium mb-2">Properties:</h3>
           <ul className="text-sm text-muted-foreground space-y-1">
             <li>• Complete binary tree</li>
@@ -80,7 +80,7 @@ const HeapDetails = ({
             <li>• Root is {heapType === "min" ? "minimum" : "maximum"}</li>
             <li>• Insert/Extract: O(log n)</li>
           </ul>
-        </div>
+        </div> */}
       </CardContent>
     </Card>
   );

@@ -136,25 +136,34 @@ const HeapPage = () => {
   };
 
   return (
-    <div className="grid grid-cols-2  gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       <HeapNodes heapArray={heapArray} highlightedIndices={currentIndices} />
-      <div className="grid grid-cols-1 gap-6 mb-8">
-        <Operations
-          heapType={heapType}
-          handleInsert={handleInsert}
-          handleExtractRoot={handleExtractRoot}
-          handlePeek={handlePeek}
-          handleBuildHeap={handleBuildHeap}
-          handleClear={handleClear}
-          isAnimating={isAnimating}
-        />
-        <HeapDetails
-          handleHeapTypeChange={handleHeapTypeChange}
-          heap={heap}
-          heapType={heapType}
-          isAnimating={isAnimating}
-        />
-        <HeapArrays heapArray={heapArray} highlightedIndices={currentIndices} />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div className="col-span-1">
+          <Operations
+            heapType={heapType}
+            handleInsert={handleInsert}
+            handleExtractRoot={handleExtractRoot}
+            handlePeek={handlePeek}
+            handleBuildHeap={handleBuildHeap}
+            handleClear={handleClear}
+            isAnimating={isAnimating}
+          />
+        </div>
+        <div className="col-span-1">
+          <HeapDetails
+            handleHeapTypeChange={handleHeapTypeChange}
+            heap={heap}
+            heapType={heapType}
+            isAnimating={isAnimating}
+          />
+        </div>
+        <div className="col-span-1 md:col-span-2">
+          <HeapArrays
+            heapArray={heapArray}
+            highlightedIndices={currentIndices}
+          />
+        </div>
       </div>
     </div>
   );

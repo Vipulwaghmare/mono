@@ -46,14 +46,14 @@ const HeapArrays = ({
             </div>
           </div>
 
-          <div>
+          {/* <div>
             <h3 className="font-medium mb-2">Navigation:</h3>
             <div className="text-sm text-muted-foreground space-y-1">
               <div>Parent of i: (i-1)/2</div>
               <div>Left child of i: 2i+1</div>
               <div>Right child of i: 2i+2</div>
             </div>
-          </div>
+          </div> */}
         </div>
       </CardContent>
     </Card>
